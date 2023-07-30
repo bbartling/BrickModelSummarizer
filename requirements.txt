@@ -1,0 +1,9 @@
+chromadb
+torch
+click
+logging
+langchain
+huggingface-hub
+transformers
+InstructorEmbedding
+llama-cpp-python
