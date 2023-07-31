@@ -10,11 +10,11 @@ Please note that this project is still in its conceptual stage and is actively b
 ## Data
 The project contains a `my_data` subdirectory that houses a .txt file containing application-specific data, which is used in the RAG-inspired approach to assist the Language Model (LLM) with a prompt engineering template. This template incorporates the following features:
 
-SentenceTransformer Embeddings: It utilizes the paraphrase-distilroberta-base-v2 model from the sentence_transformers library to generate semantic embeddings. This process enhances similarity comparisons between different pieces of content.
+**SentenceTransformer Embeddings**: It utilizes the paraphrase-distilroberta-base-v2 model from the sentence_transformers library to generate semantic embeddings. This process enhances similarity comparisons between different pieces of content.
 
-Cosine Similarity: The project employs cosine similarity metrics from sklearn to measure semantic closeness between the user's query and pre-defined content chunks.
+**Cosine Similarity**: The project employs cosine similarity metrics from sklearn to measure semantic closeness between the user's query and pre-defined content chunks.
 
-Text Splitter: To achieve more accurate retrievals, a custom-defined function is used to split large text into manageable chunks with an overlap.
+**Text Splitter**: To achieve more accurate retrievals, a custom-defined function is used to split large text into manageable chunks with an overlap.
 
 Additionally, within the `my_data` subdirectory, two Python scripts are provided to convert PDF or Word documents into text files. These scripts will loop over the directory to find files with these extensions and merge their contents into one text file. The text file needs to be cleaned before the LLM script can use it with the RAG-inspired data retrieval approach and the prompt engineering template.
 
@@ -51,19 +51,20 @@ $ llm_with_sims.py
 ```
 By executing this command, the LLM will be equipped with the RAG-inspired approach to support its functionalities, making data retrieval more efficient and accurate.
 
-Next Steps and TODOs:
+## Next Steps and TODOs
 
 The project is still under development, and there are several tasks to be completed:
 
-1. Additional Testing: More extensive testing is needed to ensure the robustness and reliability of the LLM and its various components.
+1. **Additional Testing**: More extensive testing is needed to ensure the robustness and reliability of the LLM and its various components.
 
-2. Enhance Prompt Engineering Template: The prompt engineering template will be further improved to optimize the LLM's performance and response quality.
+2. **Enhance Prompt Engineering Template**: The prompt engineering template will be further improved to optimize the LLM's performance and response quality.
 
-3. Modularization: The prompt engineering template will be moved to its own .py file, promoting better code organization and maintainability.
+3. **Modularization**: The prompt engineering template will be moved to its own .py file, promoting better code organization and maintainability.
 
-4. Research Data Retrieval Results: Further research is required to compare data retrieval results between the similarity-based approach and the RAG approach, particularly concerning small datasets. This will help identify any trade-offs and strengths of each method.
+4. **Research Data Retrieval Results**: Further research is required to compare data retrieval results between the similarity-based approach and the RAG approach, particularly concerning small datasets. This will help identify any trade-offs and strengths of each method.
 
 As development progresses, feedback, contributions, and suggestions from the community will be valuable in refining the project and achieving its goals.
+
 
 ## Author
 
