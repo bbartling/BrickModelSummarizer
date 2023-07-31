@@ -1,35 +1,69 @@
 # my-own-llm
-Concept Idea to run a local LLM locally on CPU trained with assistance with your own data on using something similar to RAG but more simple that can maybe run on resource constraint devices. The project incorporates the [llama-cpp-python](https://github.com/abetlen/llama-cpp-python) project with the the CPU optimized (GGML) models. 
+My Own Local LLM is a conceptual idea aimed at running a local Language Model (LLM) on a CPU while leveraging your own data, inspired by techniques like [RAG](https://huggingface.co/blog/ray-rag) but designed to be simpler and capable of running on resource-constrained devices.
+
+The project incorporates the [llama-cpp-python](https://github.com/abetlen/llama-cpp-python) project, which brings in compressed CPU-optimized (GGML) models to enhance performance.
+
+The primary goals of this project are to create an easily accessible and efficient solution for running LLMs locally on devices with limited resources, enabling users to utilize their own data for improved performance and flexibility.
+
+Please note that this project is still in its conceptual stage and is actively being developed. Contributions and feedback are welcome as we strive to make this idea a reality.
 
 ## Data
-There is a `my_data` sub directory with a .txt file of application specific data that used in the RAG inspired approch to assist the LLM with a prompt engineering template with these features:
-* SentenceTransformer Embeddings: Utilizes the paraphrase-distilroberta-base-v2 model from the sentence_transformers library to generate semantic embeddings for better similarity comparisons.
+The project contains a `my_data` subdirectory that houses a .txt file containing application-specific data, which is used in the RAG-inspired approach to assist the Language Model (LLM) with a prompt engineering template. This template incorporates the following features:
 
-* Cosine Similarity: Employs cosine similarity metrics from sklearn to measure semantic closeness between the user's query and pre-defined content chunks.
+SentenceTransformer Embeddings: It utilizes the paraphrase-distilroberta-base-v2 model from the sentence_transformers library to generate semantic embeddings. This process enhances similarity comparisons between different pieces of content.
 
-* Text Splitter: Uses a custom-defined function to split large text into manageable chunks with an overlap for more accurate retrievals.
+Cosine Similarity: The project employs cosine similarity metrics from sklearn to measure semantic closeness between the user's query and pre-defined content chunks.
 
-There are two python scripts inside the `my_data` sub directory used to convert PDF or Word docs to text files. Those files will loop over this directory for those file extensions and boil everything down to one text file. The text file needs to be cleaned where then the LLM script will look in this directory a text file to use with the RAG inspired data retreival appraoch and with  the prompt engineering template. Run file like this:
+Text Splitter: To achieve more accurate retrievals, a custom-defined function is used to split large text into manageable chunks with an overlap.
 
+Additionally, within the `my_data` subdirectory, two Python scripts are provided to convert PDF or Word documents into text files. These scripts will loop over the directory to find files with these extensions and merge their contents into one text file. The text file needs to be cleaned before the LLM script can use it with the RAG-inspired data retrieval approach and the prompt engineering template.
+
+To execute the script, run the following command in the terminal:
 ``` bash
-$ similarities_testing.py
+$ python similarities_testing.py
 ```
 
-And an Input function in the script will pop up console for you to type commands in to seeing the best data retrieved results from you dataset contained in the .txt file from the `my_data` directory.
+Upon running the script, an input function in the script will prompt the user in the console to type commands, leading to the retrieval of the best data results from the dataset contained in the .txt file located within the `my_data` directory. Please note that this project is still under development, and your feedback and contributions are valuable to improve its functionality.
 
 ## Model
-There is a `model` subdirectory with a `download_model.py` when ran will download the `ggml-vicuna-7b-1.1-q4_1.bin` from HuggingFace which is a 4 gig file.
+The `model` subdirectory contains a script named download_model.py. When executed, this script will download the `ggml-vicuna-7b-1.1-q4_1.bin` file from HuggingFace. Please be aware that this model file is relatively large, weighing approximately 4 gigabytes.
+
+The `ggml-vicuna-7b-1.1-q4_1.bin` model is a crucial component of the project, as it provides optimized capabilities for the Language Model (LLM) to operate efficiently.
+
+To obtain the model, run the following command:
+``` bash
+$ python download_model.py
+```
+Please ensure that you have sufficient storage space available to accommodate the 4 gigabyte file. Once the download is complete, the model will be ready to be utilized by the LLM for the project's functionalities.
 
 ## Testing
-And an Input function in the script will pop up console for you to type commands to the LLM. To run LLM locally without any RAG inspired assistance:
+To interact with the Language Model (LLM) and evaluate its capabilities, an input function within the script will prompt you to type commands directly into the console.
+
+To run the LLM without any RAG-inspired assistance, execute the following command:
 ``` bash
 $ llm_no_sims.py
 ```
-Run LLM locally with RAG inspired assistance:
+This command will initiate the LLM, allowing you to explore its functionalities in a standalone mode.
+
+For running the LLM with RAG-inspired assistance, use the following command:
 ``` bash
 $ llm_with_sims.py
 ```
-TODO: More testing, enhance prompt engineering template, and move prompt engineering template to its own .py file. Do more research about data retrieval results between similarities Vs RAG approach on small datasets.
+By executing this command, the LLM will be equipped with the RAG-inspired approach to support its functionalities, making data retrieval more efficient and accurate.
+
+Next Steps and TODOs:
+
+The project is still under development, and there are several tasks to be completed:
+
+1. Additional Testing: More extensive testing is needed to ensure the robustness and reliability of the LLM and its various components.
+
+2. Enhance Prompt Engineering Template: The prompt engineering template will be further improved to optimize the LLM's performance and response quality.
+
+3. Modularization: The prompt engineering template will be moved to its own .py file, promoting better code organization and maintainability.
+
+4. Research Data Retrieval Results: Further research is required to compare data retrieval results between the similarity-based approach and the RAG approach, particularly concerning small datasets. This will help identify any trade-offs and strengths of each method.
+
+As development progresses, feedback, contributions, and suggestions from the community will be valuable in refining the project and achieving its goals.
 
 ## Author
 
@@ -39,7 +73,7 @@ TODO: More testing, enhance prompt engineering template, and move prompt enginee
 
 【MIT License】
 
-Copyright 2022 Ben Bartling
+Copyright 2023 Ben Bartling
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
