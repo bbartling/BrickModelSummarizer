@@ -17,6 +17,7 @@ __pycache__/
 *.so
 
 *.bin
+/model/*.bin
 
 # Distribution / packaging
 .Python

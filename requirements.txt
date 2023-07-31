@@ -7,3 +7,4 @@ huggingface-hub
 transformers
 InstructorEmbedding
 llama-cpp-python
+python-docx
