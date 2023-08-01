@@ -60,7 +60,7 @@ $ python streamlit run app.py -- --show_prompt_template
 
 By executing this command, the LLM will be equipped with the RAG-inspired approach to support its functionalities, making data retrieval more efficient and accurate.
 
-Below is an example of what the Streamlit app look like with the `--show_prompt_template` argument. As shown in the screenshot the response are a bit on the slow side for CPU. Also note that the prompt engineer template could use some more testing. What is happening under the hood is the 3 most revelavent "chunks" are retrieved from the text file in the `my_data` directory. There could be some experimentation on optimization for how many "chunks" are needed to yield best results.
+Below is an example of what the Streamlit app look like with the `--show_prompt_template` argument. As shown in the screenshot the response are a bit on the slow side for CPU. Also note that the prompt engineer template could use some more testing. What is happening under the hood is the 3 most revelavent "chunks" are retrieved from the text file in the `my_data` directory. There could be some experimentation on optimization for how many "chunks" are needed to yield best results. The optional prompt engineer template populates in the browser in the orangish color and the LLM's response is the green box below where the model inference time is also printed to show the time it took to get the response.
 
 ![Alt text](/images/streamlit_example.jpg)
 
