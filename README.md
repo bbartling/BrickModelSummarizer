@@ -62,7 +62,7 @@ By executing this command, the LLM will be equipped with the RAG-inspired approa
 
 Below is an example of what the Streamlit app look like with the `--show_prompt_template` argument. As shown in the screenshot the response are a bit on the slow side for CPU. Also note that the prompt engineer template could use some more testing. What is happening under the hood is the 3 most revelavent "chunks" are retrieved from the text file in the `my_data` directory. There could be some experimentation on optimization for how many "chunks" are needed to yield best results.
 
-![Alt text](/images/images/streamlit_example.jpg)
+![Alt text](/images/streamlit_example.jpg)
 
 ## Next Steps and TODOs
 
