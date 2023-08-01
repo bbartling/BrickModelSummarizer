@@ -2,12 +2,8 @@ import time
 from llama_cpp import Llama
 
 
-# Dowloading GGML model from HuggingFace
-ggml_model_path = "https://huggingface.co/CRD716/ggml-vicuna-1.1-quantized/resolve/main/ggml-vicuna-7b-1.1-q4_1.bin"
-filename = "ggml-vicuna-7b-1.1-q4_1.bin"
 
-
-llm = Llama(model_path="ggml-vicuna-7b-1.1-q4_1.bin", n_ctx=512, n_batch=126)
+llm = Llama(model_path="./model/ggml-vicuna-7b-1.1-q4_1.bin", n_ctx=512, n_batch=126)
 
 
 def generate_text(

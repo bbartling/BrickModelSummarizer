@@ -1,10 +1,6 @@
-chromadb
-torch
-click
-logging
+streamlit
 langchain
-huggingface-hub
-transformers
-InstructorEmbedding
 llama-cpp-python
+python-dotenv
 python-docx
+pdfplumber
