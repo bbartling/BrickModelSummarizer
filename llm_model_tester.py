@@ -2,14 +2,18 @@ import time
 from llama_cpp import Llama
 
 
+# ran on windows 10
+# $ py -3.10 .\llm_model_tester.py
 
-llm = Llama(model_path="./model/ggml-vicuna-7b-1.1-q4_1.bin", n_ctx=512, n_batch=126)
+#llm = Llama(model_path="./model/ggml-vicuna-7b-1.1-q4_1.bin", n_ctx=512, n_batch=126)
+llm = Llama(model_path="./model/llama-2-7b-chat.ggmlv3.q6_K.bin", n_ctx=3000, n_batch=512)
+
 
 
 def generate_text(
-    prompt="Who is the CEO of Apple?",
-    max_tokens=300,
-    temperature=0.1,
+    prompt="",
+    max_tokens=3000,
+    temperature=0.5,
     top_p=0.5,
     echo=False,
     stop=[],

@@ -1,14 +1,24 @@
 # my-own-llm
-My Own Local LLM is a conceptual idea aimed at running a local Language Model (LLM) on a CPU while leveraging your own data, inspired by techniques like [RAG](https://huggingface.co/blog/ray-rag) but designed to be simpler and capable of running on resource-constrained devices.
+My Own Local LLM is a Large Language Model (LLM) app to run locally with models optimized for CPU with the intention of experimenting in "tailoring" the LLM to your own data with word embeddings and a prompt engineering template. A text file of your own data is converted into word embeddings with the LangChain FAISS library and a prompt template is then used to optimize the interaction with the LLM. 
 
-The project incorporates the [llama-cpp-python](https://github.com/abetlen/llama-cpp-python) project, which brings in compressed CPU-optimized (GGML) models to enhance performance.
-
-The primary goals of this project are to create an easily accessible and efficient solution for running LLMs locally on devices with limited resources, enabling users to utilize their own data for improved performance and flexibility.
+The project incorporates the [llama-cpp-python](https://github.com/abetlen/llama-cpp-python) project, which brings in compressed CPU-optimized (GGML) models to enhance performance. Current testing on Windows with 16 Gigs of RAM a question to the LLM can take anywhere from 2-10 minutes to get a response. Even though the responses are very the slow the content has been good.
 
 Please note that this project is still in its conceptual stage and is actively being developed. Contributions and feedback are welcome as we strive to make this idea a reality.
 
 ## The Large Language Model (LLM)
-The `model` subdirectory contains a script named `download_model.py`. When executed, this script will download the `ggml-vicuna-7b-1.1-q4_1.bin` file from HuggingFace. Please be aware that this model file is relatively large, weighing approximately 4 gigabytes.
+The `model` subdirectory contains a script named `download_model.py`. When executed, this script will download a model from HuggingFace. Be aware that the model file sizes are relatively large, weighing approximately 3-10 gigabytes. See script and comment out which model you want to experiment with. More testing needs to be done to find one that works best.
+
+**llama-2-7b-chat.ggmlv3.q2_K.bin**
+* Bits: 2
+* Size: 2.87 GB
+* Max RAM required: 5.37 GB
+* Use case: This variant uses GGML_TYPE_Q4_K for the attention.vw and feed_forward.w2 tensors, and GGML_TYPE_Q2_K for the other tensors.
+
+**llama-2-7b-chat.ggmlv3.q6_K.bin**
+* Bits: 6
+* Size: 5.53 GB
+* Max RAM required: 8.03 GB
+* Use case: This variant uses GGML_TYPE_Q8_K for all tensors, employing 6-bit quantization.
 
 To obtain the model, run the following command:
 ``` bash

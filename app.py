@@ -3,16 +3,23 @@ from dotenv import load_dotenv
 import time
 from llama_cpp import Llama
 import pickle
-import os
 from langchain.callbacks.manager import CallbackManager
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
-import glob
-import os
 import pickle
 import argparse
+from prompt_eng_template import prompt_template
 
 # ran on Windows 10
 # py -3.10 -m streamlit run app.py -- --show_prompt_template
+
+MODEL = "./model/llama-2-7b-chat.ggmlv3.q2_K.bin"
+#MODEL = "./model/llama-2-7b-chat.ggmlv3.q6_K.bin"
+
+EMBEDDINGS = "./my_data/hvac_llama-2-7b-chat.ggmlv3.q2_K.pkl"
+#EMBEDDINGS = "./my_data/hvac_llama-2-7b-chat.ggmlv3.q6_K.pkl"
+
+llm = Llama(model_path=MODEL, n_ctx=3000, n_batch=128)
+print(llm)
 
 parser = argparse.ArgumentParser()
 parser.add_argument(
@@ -22,26 +29,6 @@ parser.add_argument(
 )
 args = parser.parse_args()
 print("args.show_prompt_template: \n",args.show_prompt_template)
-
-# Directory path where the .pkl files are located
-pkl_directory = "my_data"
-
-# Get a list of all .pkl files in the directory
-pkl_files = glob.glob(os.path.join(pkl_directory, "*.pkl"))
-
-# Ensure that there is exactly one .pkl file in the directory
-if len(pkl_files) != 1:
-    raise ValueError("There should be exactly one .pkl file in the directory")
-
-# Load data from the .pkl file
-pkl_file_path = pkl_files[0]
-print(pkl_file_path)
-with open(pkl_file_path, "rb") as file:
-    VECTOR_STORES = pkl_file_path
-
-
-llm = Llama(model_path="./model/ggml-vicuna-7b-1.1-q4_1.bin", n_ctx=3000, n_batch=128)
-
 
 # Sidebar contents
 with st.sidebar:
@@ -58,21 +45,10 @@ with st.sidebar:
     """
     )
 
-
 load_dotenv()
-
-
-def prompt_template(question, insights_data):
-    # Create a template for prompting
-    template = f"""Question: {question}\n\nAnswer: Let's work this out in a step-by-step way to be sure we have the right answer.
-    \n\n The user may be trying to ask about this area of interest {insights_data}
-    """
-    return template
-
 
 # Set up the CallbackManager for token-wise streaming
 callback_manager = CallbackManager([StreamingStdOutCallbackHandler()])
-
 
 def generate_text(
     prompt, max_tokens=3000, temperature=0.1, top_p=0.5, echo=False, stop=[]
@@ -93,13 +69,11 @@ def generate_text(
 
 
 def main():
-    st.title("LlamaCpp Python LLM")
-    st.write("With a RAG inspired information retrieval preprocessing")
+    st.title("My Own Llm With Llama Cpp Python!")
 
-    if os.path.exists(VECTOR_STORES):
-        with open(VECTOR_STORES, "rb") as f:
-            VectorStore = pickle.load(f)
-        st.success(f"Using store name: {VECTOR_STORES}")
+    # Load data from the .pkl file
+    with open(EMBEDDINGS, "rb") as f:
+        VectorStore = pickle.load(f)
 
     prompt = st.text_input("Enter a question in prompt:")
 
@@ -107,23 +81,19 @@ def main():
             
         vector_data = VectorStore.similarity_search(query=prompt, k=3)
 
-        # Print the vector_data for debugging or observation
-        #print("vector_data: \n", vector_data)
-
         insights = ""
         # Loop through the vector_data list and extract the page content for each document
         for info in vector_data:
             info_content = info.page_content
-            print("---------------")
-            print(info_content)
-            print("---------------")
             insights += info_content + " " 
             
+        print("insights: \n",insights)
         prompt_finalized = prompt_template(prompt, insights)
+        
         if args.show_prompt_template:
-            st.warning(f"prompt_finalized \n {prompt_finalized}")
+            st.write(f"prompt template: \n {prompt_finalized}")
         st.info("Generating responce from the LLM...this may take a little bit")
-                
+        
         result, inference_time = generate_text(
             prompt_finalized, max_tokens=3000
         )
