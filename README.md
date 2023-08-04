@@ -63,7 +63,7 @@ $ python download_model.py
 ## My Data
 The project contains a `my_data` subdirectory that houses a text file which is to be customized and cleaned to your application specific use case. The text file is converted into [word embeddings](https://learn.microsoft.com/en-us/semantic-kernel/memories/embeddings), embeddings are then saved as a .pickle file, and ultimetely acts similar to a [vector database](https://learn.microsoft.com/en-us/semantic-kernel/memories/vector-db) which is used by the Streamlit app for data retrieval. The data retrieval is then in a sense injected into the prompt template to give the LLM more of a better sense on what the user could be asking for in an application specific use case. 
 
-The `my_data` directory also contains two Python scripts (pdf_to_text_converter.py and word_to_text_converter.py) to convert PDF or Word documents into text files and process them for use with the LLM. From my expereince I find it nice to clean the data from PDF or Word and provide the final product in a text file. For my application specific industry I work the example all HVAC industry related information in the text file. Name of the text file does not matter, only 1 text file can exist in this directory which is then conerted into a pickle file.
+The `my_data` directory also contains two Python scripts (`pdf_to_text_converter.py` and `word_to_text_converter.py`) to convert PDF or Word documents into text files and process them for use with the LLM. From my expereince I find it nice to clean the data from PDF or Word and provide the final product in a text file. For my application specific industry I work the example all HVAC industry related information in the text file. Name of the text file does not matter, only 1 text file can exist in this directory which is then conerted into a pickle file.
 
 To execute the script that converts the text into embeddings and a then saves pickle file to the `my_data` directory follow these steps:
 
@@ -104,7 +104,7 @@ To run the streamlit app with the prompt engineering template showing up in the 
 $ python streamlit run app.py -- --show_prompt_template
 ```
 
-Below is an example of what the Streamlit app look like with the `--show_prompt_template` argument. As shown in the screenshot the response are a bit on the slow side for CPU as defined in the model inference time. Another thing to note is this screenshot below was before using the official prompt template as defined by the [TheBloke](https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGML#prompt-template-llama-2-chat) for these compressed models available on HuggingFace. Please be aware when using this flag that the results may not look as pretty, for what ever reason the prompt template characters appear to interfer with Streamlit's front end rendering, just FYI.
+Below is an example of what the Streamlit app looks like with the `--show_prompt_template` argument. As shown in the screenshot, the responses are a bit slower for CPU, as defined by the model's inference time. It's important to note that this screenshot was taken before using the official prompt template, as defined by [TheBloke](https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGML#prompt-template-llama-2-chat), for these compressed models available on HuggingFace. Please be aware that when using this flag, the results may not appear as visually appealing, as the prompt template characters may interfere with Streamlit's front-end rendering. Just a heads-up for your information.
 
 ![Alt text](/images/streamlit_example.jpg)
 
