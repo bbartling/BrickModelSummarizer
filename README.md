@@ -7,7 +7,7 @@ Please note that this project is still in its conceptual stage and is actively b
 
 ```mermaid
 graph TD
-  subgraph UserInput
+  subgraph Setup
     start[Clone repo]
     downloadModel[Download Model]
     convertText[Convert Your Data in Text File into N-chunks of Word Embeddings]
@@ -15,7 +15,7 @@ graph TD
     prompt[Prompted User for Interaction]
   end
 
-  subgraph InteractionLoop
+  subgraph RunApp
     loop((User entering prompts<br>into Streamlit app<br>chat interface))
     retrieve[Retrieve 3 Most Relevant Chunks from Vector Store]
     inject[Inject Data into Prompt Template]
