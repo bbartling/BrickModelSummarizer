@@ -5,6 +5,41 @@ The project incorporates the [llama-cpp-python](https://github.com/abetlen/llama
 
 Please note that this project is still in its conceptual stage and is actively being developed. Contributions and feedback are welcome as we strive to make this idea a reality. Feel free to comment on any of the processes mentioned here as the learning curve has been steep and the industry is evolving at fast pace.
 
+```mermaid
+graph TD
+  subgraph UserInput
+    start[Clone repo]
+    downloadModel[Download Model]
+    convertText[Convert Your Data in Text File into Word Embeddings]
+    createVector["Create Vector Store (.pkl)"]
+    prompt[Prompt User for Interaction]
+  end
+
+  subgraph InteractionLoop
+    loop((User entering prompts<br>into Streamlit app<br>chat interface))
+    retrieve[Retrieve Relevant Data from Vector Store]
+    inject[Inject Data into Prompt Template]
+    feed[Feed Prompt to Language Model]
+    response[Get Language Model Response]
+  end
+
+  subgraph AppStopped
+    stop[Stop]
+  end
+
+  start --> downloadModel
+  downloadModel --> convertText
+  convertText --> createVector
+  createVector --> prompt
+  prompt --> loop
+  loop --> retrieve
+  retrieve --> inject
+  inject --> feed
+  feed --> response
+  response --> loop
+  loop --> stop
+```
+
 ## The Large Language Model (LLM)
 The `model` subdirectory contains a script named `download_model.py`. When executed, this script will download a model from HuggingFace. Be aware that the model file sizes are relatively large, weighing approximately 3-10 gigabytes. See script and comment out which model you want to experiment with. More testing needs to be done to find one that works best.
 
