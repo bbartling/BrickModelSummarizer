@@ -10,14 +10,14 @@ graph TD
   subgraph UserInput
     start[Clone repo]
     downloadModel[Download Model]
-    convertText[Convert Your Data in Text File into Word Embeddings]
+    convertText[Convert Your Data in Text File into N-chunks of Word Embeddings]
     createVector["Create Vector Store (.pkl)"]
-    prompt[Prompt User for Interaction]
+    prompt[Prompted User for Interaction]
   end
 
   subgraph InteractionLoop
     loop((User entering prompts<br>into Streamlit app<br>chat interface))
-    retrieve[Retrieve Relevant Data from Vector Store]
+    retrieve[Retrieve 3 Most Relevant Chunks from Vector Store]
     inject[Inject Data into Prompt Template]
     feed[Feed Prompt to Language Model]
     response[Get Language Model Response]
