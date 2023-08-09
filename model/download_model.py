@@ -22,8 +22,17 @@ def download_file(file_link, filename):
 # ggml_model_path = "https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGML/resolve/main/llama-2-7b-chat.ggmlv3.q6_K.bin"
 # filename = "llama-2-7b-chat.ggmlv3.q6_K.bin"
 
-ggml_model_path = "https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGML/resolve/main/llama-2-7b-chat.ggmlv3.q2_K.bin"
-filename = "llama-2-7b-chat.ggmlv3.q2_K.bin"
+# ggml_model_path = "https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGML/resolve/main/llama-2-7b-chat.ggmlv3.q2_K.bin"
+# filename = "llama-2-7b-chat.ggmlv3.q2_K.bin"
+
+# ggml_model_path = "https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGML/resolve/main/llama-2-7b-chat.ggmlv3.q2_K.bin"
+# filename = "llama-2-7b-chat.ggmlv3.q2_K.bin"
+
+# ggml_model_path = "https://huggingface.co/TheBloke/Llama-2-70B-Chat-fp16"
+# filename = "TheBloke/Llama-2-70B-Chat-fp16"
+
+ggml_model_path = "https://huggingface.co/TheBloke/llama-2-70b-Guanaco-QLoRA-fp16"
+filename = "TheBloke/llama-2-70b-Guanaco-QLoRA-fp16"
 
 download_file(ggml_model_path, filename)
 

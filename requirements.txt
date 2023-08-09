@@ -1,6 +1,5 @@
-streamlit
+ctransformers
 langchain
-llama-cpp-python
-python-dotenv
-python-docx
+streamlit
 pdfplumber
+docx

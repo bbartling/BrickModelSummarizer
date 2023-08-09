@@ -1,7 +1,7 @@
 # my-own-llm
 My Own Local LLM is a Large Language Model (LLM) app to run locally with models optimized for CPU with the intention of experimenting in "tailoring" the LLM to your own data with word embeddings and a prompt engineering template. A text file of your own data is converted into word embeddings with the LangChain FAISS library and a prompt template is then used to optimize the interaction (typical) between the user and the LLM. 
 
-The project incorporates the [llama-cpp-python](https://github.com/abetlen/llama-cpp-python) with compressed CPU-optimized GGML models. Currently I am testing on Windows 10 with 16 Gigs of RAM and a question to the LLM can take anywhere from 2-10 minutes to get a response, but the content has been good.
+The project incorporates the [ctransformers](https://github.com/marella/ctransformers) project which can run GPU as well as compressed CPU-optimized GGML models. Currently I am testing on CPU with Windows 10 with 16 Gigs of RAM and a question to the Llama 2 7 billion LLM can take a few minutes, but the content has been good.
 
 Please note that this project is still in its conceptual stage and is actively being developed. Contributions and feedback are welcome as we strive to make this idea a reality. Feel free to comment on any of the processes mentioned here as the learning curve has been steep and the industry is evolving at fast pace.
 
@@ -9,18 +9,17 @@ Please note that this project is still in its conceptual stage and is actively b
 graph TD
   subgraph Setup
     start[Clone repo]
-    downloadModel[Download Model]
-    convertText[Convert Your Data in Text File into N-chunks of Word Embeddings]
-    createVector["Create Vector Store (.pkl)"]
-    prompt[Prompted User for Interaction]
+    downloadModel[Download Model with <br/> download_model.py]
+    makeEmbeddings[Convert Your Data in Text File into 1000 Character Chunks and <br/> Create Vector Stores of Word Embeddings with the downloaded LLM model. <br/> Vector Store is Serialized and Saved as .pkl file <br/> make_embeddings.py]
+    vectorStores[Vector Database or .pkl file]
   end
 
   subgraph RunApp
-    loop((User entering prompts<br>into Streamlit app<br>chat interface))
-    retrieve[Retrieve 3 Most Relevant Chunks from Vector Store]
-    inject[Inject Data into Prompt Template]
-    feed[Feed Prompt to Language Model]
-    response[Get Language Model Response]
+    loop((User asking question<br>into Streamlit app<br>chat interface <br> app.py))
+    myData[Retrieve 'N' Most Relevant 'Chunks' <br/> from Vector Store]
+    inject[Inject Text Data Retrieval into Prompt Template]
+    feed[Feed Prompt Template into the LLM]
+    response[Get LLM Model Response as Text]
   end
 
   subgraph AppStopped
@@ -28,12 +27,11 @@ graph TD
   end
 
   start --> downloadModel
-  downloadModel --> convertText
-  convertText --> createVector
-  createVector --> prompt
-  prompt --> loop
-  loop --> retrieve
-  retrieve --> inject
+  downloadModel --> makeEmbeddings
+  makeEmbeddings --> vectorStores
+  loop --> myData
+  myData --> vectorStores
+  vectorStores --> inject
   inject --> feed
   feed --> response
   response --> loop
@@ -41,7 +39,7 @@ graph TD
 ```
 
 ## The Large Language Model (LLM)
-The `model` subdirectory contains a script named `download_model.py`. When executed, this script will download a model from HuggingFace. Be aware that the model file sizes are relatively large, weighing approximately 3-10 gigabytes. See script and comment out which model you want to experiment with. More testing needs to be done to find one that works best.
+The `model` subdirectory contains a script named `download_model.py`. When executed, this script will download a model from [TheBloke](https://huggingface.co/TheBloke) on HuggingFace. Be aware that the model file sizes are relatively large, weighing approximately 3-10 gigabytes. See script and comment out which model you want to experiment with. More testing needs to be done to find one that works best.
 
 **llama-2-7b-chat.ggmlv3.q2_K.bin**
 * Bits: 2
@@ -99,12 +97,12 @@ For running the LLM Streamlit app:
 $ python streamlit run app.py
 ```
 
-To run the streamlit app with the prompt engineering template showing up in the browser use this addition arg:
+To run the streamlit app with using `word embeddings` of your data that has been serialized and saved into the `my_data` directory as a pickle file use the following argument to inject the text data from the vector stores into the prompt template:
 ``` bash
-$ python streamlit run app.py -- --show_prompt_template
+$ python streamlit run app.py -- --use_word_embeddings
 ```
 
-Below is an example of what the Streamlit app looks like with the `--show_prompt_template` argument. As shown in the screenshot, the responses are a bit slower for CPU, as defined by the model's inference time. It's important to note that this screenshot was taken before using the official prompt template, as defined by [TheBloke](https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGML#prompt-template-llama-2-chat), for these compressed models available on HuggingFace. Please be aware that when using this flag, the results may not appear as visually appealing, as the prompt template characters may interfere with Streamlit's front-end rendering. Just a heads-up for your information.
+Below is an example of what the Streamlit app looks.
 
 ![Alt text](/images/streamlit_example.jpg)
 
