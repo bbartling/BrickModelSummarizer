@@ -14,7 +14,6 @@ transformer_project/
 
 ## Requirements
 
-- Python 3.6+
 - PyTorch
 - Hugging Face Transformers
 
@@ -55,30 +54,7 @@ This script will:
 - **Download** the pre-trained `bert-base-uncased` model if it’s not already cached locally.
 - **Fine-tune** the BERT model on a sample sentiment analysis task.
 - **Test** the model on new sentences to evaluate its performance.
-
-## Understanding the Test Sentences
-
-After the model is downloaded, fine-tuned, and trained, the script tests it with two sample sentences to determine their sentiment. Here’s what happens:
-
-1. **Test Sentences**:
-   ```python
-   test_sentences = ["I am not sure about this product.", "Absolutely fantastic!"]
-   ```
-   
-2. **Model Prediction**:
-   - The model predicts the sentiment for each sentence. A score above 0.5 is interpreted as "Positive," and a score below 0.5 as "Negative."
-   
-3. **Expected Output**:
-   - The sentence **"I am not sure about this product."** will likely be labeled as "Negative."
-   - The sentence **"Absolutely fantastic!"** should be labeled as "Positive."
-
-4. **Example Output**:
-   ```plaintext
-   Sentence: 'I am not sure about this product.' - Sentiment: Negative
-   Sentence: 'Absolutely fantastic!' - Sentiment: Positive
-   ```
-
-This test demonstrates that the fine-tuned BERT model can successfully distinguish between positive and negative sentiments based on the context of the sentences.
+- **TODO** create some training data and something interesting to try in the HVAC/Smart building IoT industry.
 
 
 ## Notes
