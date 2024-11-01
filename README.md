@@ -1,138 +1,98 @@
 # my-own-llm
-My Own Local LLM is a Large Language Model (LLM) app to run locally with models optimized for CPU with the intention of experimenting in "tailoring" the LLM to your own data with word embeddings and a prompt engineering template. A text file of your own data is converted into word embeddings with the LangChain FAISS library and a prompt template is then used to optimize the interaction (typical) between the user and the LLM. 
 
-The project incorporates the [ctransformers](https://github.com/marella/ctransformers) project which can run GPU as well as compressed CPU-optimized GGML models. Currently I am testing on CPU with Windows 10 with 16 Gigs of RAM and a question to the Llama 2 7 billion LLM can take a few minutes, but the content has been good.
+This is a Hobby project just for fun to learn how to build a Transformer model with PyTorch and fine-tune a pre-trained language model using Hugging Face Transformers. It includes code for defining Transformer encoder and decoder layers, assembling a full Transformer model, and fine-tuning a BERT model for sentiment analysis.
 
-Please note that this project is still in its conceptual stage and is actively being developed. Contributions and feedback are welcome as we strive to make this idea a reality. Feel free to comment on any of the processes mentioned here as the learning curve has been steep and the industry is evolving at fast pace.
+## File Structure
 
-```mermaid
-graph TD
-  subgraph Setup
-    start[Clone repo]
-    downloadModel[Download Model with <br/> download_model.py]
-    makeEmbeddings[Convert Your Data in Text File into 1000 Character Chunks and <br/> Create Vector Stores of Word Embeddings with the downloaded LLM model. <br/> Vector Store is Serialized and Saved as .pkl file <br/> make_embeddings.py]
-    vectorStores[Vector Database or .pkl file]
-  end
-
-  subgraph RunApp
-    loop((User asking question<br>into Streamlit app<br>chat interface <br> app.py))
-    myData[Retrieve 'N' Most Relevant 'Chunks' <br/> from Vector Store]
-    inject[Inject Text Data Retrieval into Prompt Template]
-    feed[Feed Prompt Template into the LLM]
-    response[Get LLM Model Response as Text]
-  end
-
-  subgraph AppStopped
-    stop[Stop]
-  end
-
-  start --> downloadModel
-  downloadModel --> makeEmbeddings
-  makeEmbeddings --> vectorStores
-  loop --> myData
-  myData --> vectorStores
-  vectorStores --> inject
-  inject --> feed
-  feed --> response
-  response --> loop
-  loop --> stop
+```plaintext
+transformer_project/
+├── encoder.py         # Transformer encoder layer
+├── decoder.py         # Transformer decoder layer
+├── transformer.py     # Full Transformer model
+└── fine_tune.py       # Hugging Face fine-tuning script
 ```
 
-## The Large Language Model (LLM)
-The `model` subdirectory contains a script named `download_model.py`. When executed, this script will download a model from [TheBloke](https://huggingface.co/TheBloke) on HuggingFace. Be aware that the model file sizes are relatively large, weighing approximately 3-10 gigabytes. See script and comment out which model you want to experiment with. More testing needs to be done to find one that works best.
+## Requirements
 
-**llama-2-7b-chat.ggmlv3.q2_K.bin**
-* Bits: 2
-* Size: 2.87 GB
-* Max RAM required: 5.37 GB
-* Use case: This variant uses GGML_TYPE_Q4_K for the attention.vw and feed_forward.w2 tensors, and GGML_TYPE_Q2_K for the other tensors.
+- Python 3.6+
+- PyTorch
+- Hugging Face Transformers
 
-**llama-2-7b-chat.ggmlv3.q6_K.bin**
-* Bits: 6
-* Size: 5.53 GB
-* Max RAM required: 8.03 GB
-* Use case: This variant uses GGML_TYPE_Q8_K for all tensors, employing 6-bit quantization.
+Install the required libraries:
 
-To obtain the model, run the following command:
-``` bash
-$ python download_model.py
+```bash
+pip install torch transformers
 ```
 
-## My Data
-The project contains a `my_data` subdirectory that houses a text file which is to be customized and cleaned to your application specific use case. The text file is converted into [word embeddings](https://learn.microsoft.com/en-us/semantic-kernel/memories/embeddings), embeddings are then saved as a .pickle file, and ultimetely acts similar to a [vector database](https://learn.microsoft.com/en-us/semantic-kernel/memories/vector-db) which is used by the Streamlit app for data retrieval. The data retrieval is then in a sense injected into the prompt template to give the LLM more of a better sense on what the user could be asking for in an application specific use case. 
+## Code Overview
 
-The `my_data` directory also contains two Python scripts (`pdf_to_text_converter.py` and `word_to_text_converter.py`) to convert PDF or Word documents into text files and process them for use with the LLM. From my expereince I find it nice to clean the data from PDF or Word and provide the final product in a text file. For my application specific industry I work the example all HVAC industry related information in the text file. Name of the text file does not matter, only 1 text file can exist in this directory which is then conerted into a pickle file.
+1. **`encoder.py`**: Defines the Transformer encoder layer using multi-head attention, feed-forward network, and normalization.
+2. **`decoder.py`**: Defines the Transformer decoder layer with self-attention and encoder-decoder attention.
+3. **`transformer.py`**: Assembles the Transformer model by combining the encoder and decoder layers.
+4. **`fine_tune.py`**: Fine-tunes a pre-trained BERT model from Hugging Face for sentiment analysis.
 
-To execute the script that converts the text into embeddings and a then saves pickle file to the `my_data` directory follow these steps:
+## Usage
 
-``` bash
-$ python make_embeddings.py
-```
-Under the hood of what `make_embeddings.py` handles is outlined below. 
+### 1. Define Transformer Components
 
-**Data Preprocessing**:
-Before utilizing the data with the Language Model, it undergoes a preprocessing step. The script reads the content of the application-specific data in a text file and processes it to ensure that it is in a suitable format for further analysis. Preprocessing might involve removing any unwanted characters, special symbols, or irrelevant information from the text, thereby improving the quality and relevance of the Language Model's outputs.
+The files `encoder.py` and `decoder.py` contain classes for the encoder and decoder layers of a Transformer. These files are imported by `transformer.py` and do not need to be run individually.
 
-**Chunking**:
-To manage and process large text files efficiently, the script employs a chunking technique. The data is divided into smaller chunks, each containing a defined number of characters. Chunking serves multiple purposes. It helps in efficiently processing large files, reduces memory requirements, and allows for parallel processing when embedding and analyzing the data. Additionally, chunking allows the Language Model to focus on context more effectively, as it can process one chunk at a time, making predictions based on local information.
+### 2. Assemble the Transformer Model
 
-**Embeddings**:
-The core of embeddings lies in representing text data as dense numerical vectors. These embeddings capture the semantic meaning and contextual information of the text in a continuous vector space. In this script, the Language Model uses the specified LLM model in the `model` directory (.bin), to create these embeddings for each chunk of text. These embeddings enable efficient similarity matching and information retrieval in subsequent steps.
+The `transformer.py` file creates a full Transformer model by stacking encoder and decoder layers. This file defines the complete model architecture but is not intended to be run directly here.
 
-**Vector Store Creation**:
-The generated embeddings for each text chunk are then used to create a vector store using the Fast Approximate Nearest Neighbors Index (FAISS) library. The vector store is a data structure that allows for fast and efficient similarity searches in high-dimensional spaces. By utilizing FAISS, the script optimizes the stoembeddingse and retrieval of embeddings, making it computationally efficient even for large datasets.
+### 3. Fine-Tune with Hugging Face (`fine_tune.py`)
 
-**Pickle File Creation**:
-To avoid recomputing the embeddings and the vector store each time the script is run, the generated vector store is serialized and saved as a pickle file (.pkl). This allows for easy and fast loading of the vector store in future executions of the script, saving valuable time and computational resources.
+The main code for loading, fine-tuning, and testing a pre-trained language model is in `fine_tune.py`. This script uses the Hugging Face Transformers library to download and fine-tune a BERT model.
 
-**Data Retrieval**:
-The generated vector store, stored in the pickle file, acts as a repository of embeddings for the entire dataset. It serves as the foundation for data retrieval. When the Language Model is prompted with a specific query or context, it can now efficiently search for the most relevant information within the dataset by comparing the similarity of the query's embedding with the embeddings in the vector store. This data retrieval process enables the Language Model to provide more accurate and contextually appropriate responses to user queries. By default the **3 most revelavent "chunks" are retrieved from the data store** in a 1000 character format and inserted into the prompt template.
+Run the script with:
 
-
-## Streamlit App
-To interact with the Language Model (LLM) with your data and evaluate its capabilities, an input function within the script will prompt you to type commands directly into the console.
-
-For running the LLM Streamlit app:
-``` bash
-$ python streamlit run app.py
+```bash
+python fine_tune.py
 ```
 
-To run the streamlit app with using `word embeddings` of your data that has been serialized and saved into the `my_data` directory as a pickle file use the following argument to inject the text data from the vector stores into the prompt template:
-``` bash
-$ python streamlit run app.py -- --use_word_embeddings
-```
+This script will:
+- **Download** the pre-trained `bert-base-uncased` model if it’s not already cached locally.
+- **Fine-tune** the BERT model on a sample sentiment analysis task.
+- **Test** the model on new sentences to evaluate its performance.
 
-Below is an example of what the Streamlit app looks.
+## Understanding the Test Sentences
 
-![Alt text](/images/streamlit_example.jpg)
+After the model is downloaded, fine-tuned, and trained, the script tests it with two sample sentences to determine their sentiment. Here’s what happens:
 
-## Next Steps and TODOs
+1. **Test Sentences**:
+   ```python
+   test_sentences = ["I am not sure about this product.", "Absolutely fantastic!"]
+   ```
+   
+2. **Model Prediction**:
+   - The model predicts the sentiment for each sentence. A score above 0.5 is interpreted as "Positive," and a score below 0.5 as "Negative."
+   
+3. **Expected Output**:
+   - The sentence **"I am not sure about this product."** will likely be labeled as "Negative."
+   - The sentence **"Absolutely fantastic!"** should be labeled as "Positive."
 
-The project is still under development, and there are several tasks to be completed:
+4. **Example Output**:
+   ```plaintext
+   Sentence: 'I am not sure about this product.' - Sentiment: Negative
+   Sentence: 'Absolutely fantastic!' - Sentiment: Positive
+   ```
 
-1. **Additional Testing**: More extensive testing is needed to ensure the robustness and reliability of the LLM and its various components.
+This test demonstrates that the fine-tuned BERT model can successfully distinguish between positive and negative sentiments based on the context of the sentences.
 
-2. **Try on GPU**: Experiment with the Petals project on a Google Collab notebook.
 
-3. **Try other non CPU-optimized models**: When hardware is available try on GPU
+## Notes
 
-4. **Add memory**: Use Langchain memory features.
+- GPU is disabled in the `fine_tune.py` with the `os.environ["CUDA_VISIBLE_DEVICES"] = "-1"`.
+- You can change the model in `fine_tune.py` by replacing `'bert-base-uncased'` with another model from Hugging Face's Model Hub.
+- The downloaded model files will be cached in `~/.cache/huggingface/transformers` by default.
 
-As development progresses, feedback, contributions, and suggestions from the community will be valuable in refining the project and achieving its goals.
-
-## Inspiration
-
-A many thanks to the [Prompt Engineer YouTube channel](https://www.youtube.com/@engineerprompt) for paving the way and creating great educational content for others like myself to learn from.
-
-## Author
-
-[linkedin](https://www.linkedin.com/in/ben-bartling-510a0961/)
 
 ## Licence
 
 【MIT License】
 
-Copyright 2023 Ben Bartling
+Copyright 2024 Ben Bartling
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 

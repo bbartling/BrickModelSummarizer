@@ -1,5 +1,0 @@
-ctransformers
-langchain
-streamlit
-pdfplumber
-docx
