@@ -2,67 +2,29 @@
 
 This is a Hobby project just for fun to learn how to build a Transformer model with PyTorch and fine-tune a pre-trained language model using Hugging Face Transformers. It includes code for defining Transformer encoder and decoder layers, assembling a full Transformer model, and fine-tuning a BERT model for sentiment analysis.
 
-## File Structure
+## BERT
 
-```plaintext
-transformer_project/
-├── encoder.py         # Transformer encoder layer
-├── decoder.py         # Transformer decoder layer
-├── transformer.py     # Full Transformer model
-└── fine_tune.py       # Hugging Face fine-tuning script
-```
+BERT is used as a pre-trained model from Hugging Face’s library, specifically leveraging the `bert-base-uncased` model for various NLP tasks. Let's break down how this is implemented across the files and where the pre-trained BERT model is utilized:
 
-## Requirements
+1. **Pre-trained Model Import**: In `decoder.py`, `encoder.py`, and `fine_tune.py`, the BERT model is loaded from Hugging Face's library using:
+   ```python
+   from transformers import BertModel
+   model = BertModel.from_pretrained('bert-base-uncased')
+   ```
+   This command downloads the pre-trained BERT model (if not already cached) and prepares it for use in your PyTorch models【8†source】【9†source】【11†source】.
 
-- PyTorch
-- Hugging Face Transformers
+2. **Model Usage in Encoder and Decoder**:
+   - In `encoder.py`, the `TransformerEncoderLayer` class uses BERT's `last_hidden_state` as part of the transformer’s encoder. This encoded representation is further processed with normalization and a feed-forward layer【10†source】.
+   - In `decoder.py`, the `TransformerDecoderLayer` class also uses BERT’s `last_hidden_state` as a base input to decode information. Similar to the encoder, it applies additional transformations and normalization【9†source】.
 
-Install the required libraries:
+3. **Fine-Tuning with Transfer Learning**:
+   - In `fine_tune.py`, BERT is used as the core of an HVAC chatbot model (`HVACChatbot`). Here, BERT is connected to a custom layer for classifying system statuses as "Good" or "Bad." The fine-tuning process modifies only the additional layers on top of BERT, allowing the model to apply BERT’s language understanding to specific HVAC-related questions and answers【11†source】.
 
-```bash
-pip install torch transformers
-```
+The file `fine_tune.py` provides an example of transfer learning where BERT's pre-trained embeddings are adapted for your specific task (classification of HVAC system statuses). This setup is the “fine-tuning” step, allowing BERT’s general language understanding to be applied to your specific domain.
 
-## Code Overview
-
-1. **`encoder.py`**: Defines the Transformer encoder layer using multi-head attention, feed-forward network, and normalization.
-2. **`decoder.py`**: Defines the Transformer decoder layer with self-attention and encoder-decoder attention.
-3. **`transformer.py`**: Assembles the Transformer model by combining the encoder and decoder layers.
-4. **`fine_tune.py`**: Fine-tunes a pre-trained BERT model from Hugging Face for sentiment analysis.
-
-## Usage
-
-### 1. Define Transformer Components
-
-The files `encoder.py` and `decoder.py` contain classes for the encoder and decoder layers of a Transformer. These files are imported by `transformer.py` and do not need to be run individually.
-
-### 2. Assemble the Transformer Model
-
-The `transformer.py` file creates a full Transformer model by stacking encoder and decoder layers. This file defines the complete model architecture but is not intended to be run directly here.
-
-### 3. Fine-Tune with Hugging Face (`fine_tune.py`)
-
-The main code for loading, fine-tuning, and testing a pre-trained language model is in `fine_tune.py`. This script uses the Hugging Face Transformers library to download and fine-tune a BERT model.
-
-Run the script with:
-
-```bash
-python fine_tune.py
-```
-
-This script will:
-- **Download** the pre-trained `bert-base-uncased` model if it’s not already cached locally.
-- **Fine-tune** the BERT model on a sample sentiment analysis task.
-- **Test** the model on new sentences to evaluate its performance.
-- **TODO** create some training data and something interesting to try in the HVAC/Smart building IoT industry.
-
-
-## Notes
-
-- GPU is disabled in the `fine_tune.py` with the `os.environ["CUDA_VISIBLE_DEVICES"] = "-1"`.
-- You can change the model in `fine_tune.py` by replacing `'bert-base-uncased'` with another model from Hugging Face's Model Hub.
-- The downloaded model files will be cached in `~/.cache/huggingface/transformers` by default.
-
+## More info on BERT
+TODO read up on all the links and notebook tutorials on Hugging Face for BERT.
+* https://huggingface.co/docs/transformers/en/model_doc/bert
 
 ## Licence
 
