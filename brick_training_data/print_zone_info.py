@@ -59,10 +59,11 @@ def count_vav_boxes_per_ahu(graph):
     return vav_per_ahu
 
 def count_vav_features(graph):
-    """Count VAV boxes with specific features like reheat valve, air flow, and supply air temp sensors."""
+    """Count VAV boxes with specific features like reheat valve, air flow sensors, and supply air temp sensors."""
     reheat_count = 0
     airflow_count = 0
     supply_air_temp_count = 0
+    airflow_setpoint_count = 0
 
     query = """
     PREFIX brick: <https://brickschema.org/schema/Brick#>
@@ -72,7 +73,9 @@ def count_vav_features(graph):
         FILTER(
             CONTAINS(LCASE(STR(?point)), "zone_reheat_valve_command") ||
             CONTAINS(LCASE(STR(?point)), "zone_supply_air_flow") ||
-            CONTAINS(LCASE(STR(?point)), "zone_supply_air_temp")
+            CONTAINS(LCASE(STR(?point)), "zone_supply_air_temp") ||
+            CONTAINS(LCASE(STR(?point)), "zone_leaving_air_temp") ||
+            CONTAINS(LCASE(STR(?point)), "zone_supply_air_flow_setpoint")
         )
     }
     """
@@ -80,17 +83,21 @@ def count_vav_features(graph):
     results = graph.query(query)
     for row in results:
         point = str(row.point).lower()
+        
         if "zone_reheat_valve_command" in point:
             reheat_count += 1
         if "zone_supply_air_flow" in point:
             airflow_count += 1
         if "zone_supply_air_temp" in point:
             supply_air_temp_count += 1
+        if "zone_supply_air_flow_setpoint" in point:
+            airflow_setpoint_count += 1
 
     return {
         "reheat_count": reheat_count,
         "airflow_count": airflow_count,
-        "supply_air_temp_count": supply_air_temp_count
+        "supply_air_temp_count": supply_air_temp_count,
+        "airflow_setpoint_count": airflow_setpoint_count
     }
 
 def identify_zone_equipment(graph):
@@ -138,6 +145,11 @@ def main():
     print(f"  VAV Boxes with Reheat Valve Command: {vav_features.get('reheat_count', 0)}")
     print(f"  VAV Boxes with Air Flow Sensors: {vav_features.get('airflow_count', 0)}")
     print(f"  VAV Boxes with Supply Air Temp Sensors: {vav_features.get('supply_air_temp_count', 0)}")
+    print(f"  VAV Boxes with Air Flow Setpoints: {vav_features.get('airflow_setpoint_count', 0)}")
+    
+    # Calculate and print cooling-only VAV boxes
+    cooling_only_vav_count = vav_count - vav_features.get('reheat_count', 0)
+    print(f"  Cooling Only VAV Boxes: {cooling_only_vav_count}")
 
 if __name__ == "__main__":
     main()
