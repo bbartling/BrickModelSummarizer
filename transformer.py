@@ -3,15 +3,22 @@ import torch.nn as nn
 from encoder import TransformerEncoderLayer
 from decoder import TransformerDecoderLayer
 
+
 class Transformer(nn.Module):
     def __init__(self, num_layers, d_model, num_heads, dff, dropout_rate=0.1):
         super(Transformer, self).__init__()
-        self.encoder_layers = nn.ModuleList([
-            TransformerEncoderLayer(d_model, num_heads, dff, dropout_rate) for _ in range(num_layers)
-        ])
-        self.decoder_layers = nn.ModuleList([
-            TransformerDecoderLayer(d_model, num_heads, dff, dropout_rate) for _ in range(num_layers)
-        ])
+        self.encoder_layers = nn.ModuleList(
+            [
+                TransformerEncoderLayer(d_model, num_heads, dff, dropout_rate)
+                for _ in range(num_layers)
+            ]
+        )
+        self.decoder_layers = nn.ModuleList(
+            [
+                TransformerDecoderLayer(d_model, num_heads, dff, dropout_rate)
+                for _ in range(num_layers)
+            ]
+        )
         self.final_layer = nn.Linear(d_model, 1)
 
     def forward(self, input_ids, target_ids, attention_mask=None):

@@ -1,5 +1,6 @@
 # central_plant_info.py
-from brick_utils import BRICK
+from utils import write_to_csv, BRICK
+
 
 def identify_hvac_system_equipment(graph):
     """Combine results from separate queries into a single dictionary for HVAC equipment."""
@@ -8,16 +9,10 @@ def identify_hvac_system_equipment(graph):
     hvac_equipment["hvac_features"] = count_hvac_features(graph)
     return hvac_equipment
 
-# central_plant_info.py
-from brick_utils import BRICK
 
 def count_hvac_systems(graph):
     """Count the total number of chillers, boilers, and cooling towers in the building model."""
-    counts = {
-        "chiller_count": 0,
-        "boiler_count": 0,
-        "cooling_tower_count": 0
-    }
+    counts = {"chiller_count": 0, "boiler_count": 0, "cooling_tower_count": 0}
     query = """
     PREFIX brick: <https://brickschema.org/schema/Brick#>
     SELECT ?type (COUNT(?equip) AS ?count) WHERE {
@@ -51,12 +46,44 @@ def count_hvac_features(graph):
 
     return features
 
-def print_central_plant_info(hvac_info):
-    """Print central plant equipment information."""
-    hvac_counts = hvac_info.get("hvac_system_counts", {})
-    print(f"Total Chillers: {hvac_counts.get('chiller_count', 0)}")
-    print(f"Total Boilers: {hvac_counts.get('boiler_count', 0)}")
-    print(f"Total Cooling Towers: {hvac_counts.get('cooling_tower_count', 0)}")
 
+def print_central_plant_info(hvac_info, csv_file_path=None):
+    """Print central plant equipment information and optionally save to CSV."""
+    # Initialize list of rows for CSV
+    csv_rows = []
+
+    # Print and save central plant counts
+    hvac_counts = hvac_info.get("hvac_system_counts", {})
+    chiller_message = f"\nTotal Chillers: {hvac_counts.get('chiller_count', 0)}"
+    boiler_message = f"Total Boilers: {hvac_counts.get('boiler_count', 0)}"
+    cooling_tower_message = (
+        f"Total Cooling Towers: {hvac_counts.get('cooling_tower_count', 0)}"
+    )
+    print(chiller_message)
+    print(boiler_message)
+    print(cooling_tower_message)
+    if csv_file_path:
+        csv_rows.append([chiller_message])
+        csv_rows.append([boiler_message])
+        csv_rows.append([cooling_tower_message])
+
+    # Print and save central plant features if implemented
     hvac_features = hvac_info.get("hvac_features", {})
-    # Print features if implemented
+    feature_messages = [
+        f"  Chillers with Water Flow: {hvac_features.get('chiller_water_flow_count', 0)}",
+        f"  Boilers with Water Flow: {hvac_features.get('boiler_water_flow_count', 0)}",
+        f"  Cooling Towers with Fan: {hvac_features.get('cooling_tower_fan_count', 0)}",
+        f"  Cooling Towers with Temp Sensors: {hvac_features.get('cooling_tower_temp_count', 0)}",
+    ]
+    print("\nCentral Plant Features:")
+    if csv_file_path:
+        csv_rows.append(["Central Plant Features:"])
+    for feature_message in feature_messages:
+        print(feature_message)
+        if csv_file_path:
+            csv_rows.append([feature_message])
+
+    # Write rows to CSV
+    if csv_file_path:
+        for row in csv_rows:
+            write_to_csv(csv_file_path, row)

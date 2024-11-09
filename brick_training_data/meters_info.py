@@ -1,25 +1,6 @@
 # meter_info.py
-from brick_utils import BRICK, UNIT
+from utils import write_to_csv, BRICK, UNIT
 
-def query_building_area(graph):
-    """Query the building area in square feet."""
-    area_query = """
-    PREFIX brick: <https://brickschema.org/schema/Brick#>
-    PREFIX unit: <https://qudt.org/vocab/unit#>
-    SELECT ?value WHERE {
-        ?building a brick:Building ;
-                  brick:area ?area .
-        ?area brick:hasUnits unit:FT_2 ;
-              brick:value ?value .
-    }
-    """
-    area_results = graph.query(area_query)
-    for row in area_results:
-        try:
-            return int(row.value)
-        except ValueError:
-            return str(row.value)
-    return None
 
 def query_meters(graph):
     """Identify and count all meter types and their associations."""
@@ -31,7 +12,7 @@ def query_meters(graph):
         "pv_meter": False,
         "virtual_meters": 0,
         "submeter_count": 0,
-        "metered_entities": {}
+        "metered_entities": {},
     }
 
     # Query for basic meter types
@@ -67,17 +48,30 @@ def query_meters(graph):
 
     return meters
 
-def print_meter_info(meter_info, building_area):
-    """Print meter and building area information."""
-    if building_area:
-        print(f"Building Area (sq ft): {building_area}")
-    else:
-        print("Building Area information not available.")
 
+def print_meter_info(meter_info, csv_file_path=None):
+    """Print meter information and optionally save to CSV."""
+    # Initialize list of rows for CSV
+    csv_rows = []
+
+    # Print and save meter information
     print("\nMeter Information:")
-    print(f"  BTU Meter Present: {meter_info['btu_meter']}")
-    print(f"  Electrical Meter Present: {meter_info['electrical_meter']}")
-    print(f"  Water Meter Present: {meter_info['water_meter']}")
-    print(f"  Gas Meter Present: {meter_info['gas_meter']}")
-    print(f"  PV Meter Present: {meter_info['pv_meter']}")
-    # Add prints for virtual meters and submeters if implemented
+    if csv_file_path:
+        csv_rows.append(["\nMeter Information:"])
+
+    meter_messages = [
+        f"  BTU Meter Present: {meter_info['btu_meter']}",
+        f"  Electrical Meter Present: {meter_info['electrical_meter']}",
+        f"  Water Meter Present: {meter_info['water_meter']}",
+        f"  Gas Meter Present: {meter_info['gas_meter']}",
+        f"  PV Meter Present: {meter_info['pv_meter']}",
+    ]
+    for meter_message in meter_messages:
+        print(meter_message)
+        if csv_file_path:
+            csv_rows.append([meter_message])
+
+    # Write rows to CSV
+    if csv_file_path:
+        for row in csv_rows:
+            write_to_csv(csv_file_path, row)

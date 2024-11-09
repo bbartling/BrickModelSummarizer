@@ -1,5 +1,6 @@
 # zone_info.py
-from brick_utils import BRICK
+from utils import write_to_csv, BRICK
+
 
 def identify_zone_equipment(graph):
     """Combine results from separate queries into a single zone equipment dictionary."""
@@ -9,6 +10,7 @@ def identify_zone_equipment(graph):
     zone_equipment["vav_per_ahu"] = count_vav_boxes_per_ahu(graph)
     zone_equipment["vav_features"] = count_vav_features(graph)
     return zone_equipment
+
 
 def query_zone_setpoints(graph):
     """Identify zone setpoints relevant to ASO strategies."""
@@ -26,6 +28,7 @@ def query_zone_setpoints(graph):
         zone_setpoints.append(str(row.point))
     return zone_setpoints
 
+
 def count_vav_boxes(graph):
     """Count the total number of VAV boxes in the building model."""
     query = """
@@ -38,6 +41,7 @@ def count_vav_boxes(graph):
     for row in results:
         return int(row.vav_count)
     return 0
+
 
 def count_vav_boxes_per_ahu(graph):
     """Count the number of VAV boxes associated with each AHU."""
@@ -93,35 +97,65 @@ def count_vav_features(graph):
     return features
 
 
-def print_zone_info(zone_info):
-    """Print zone information in a formatted way."""
+def print_zone_info(zone_info, csv_file_path=None):
+    """Print zone information and optionally save it to CSV in the same format as the console output."""
+    # Initialize list of rows for CSV
+    csv_rows = []
+
+    # Prepare zone setpoints message
     zone_setpoints = zone_info.get("zone_setpoints", [])
-    if zone_setpoints:
-        print("Zone Air Temperature Setpoints Found.")
-    else:
-        print("No zone air temperature setpoints found.")
+    setpoint_message = (
+        "\nZone Air Temperature Setpoints Found."
+        if zone_setpoints
+        else "\nNo zone air temperature setpoints found."
+    )
+    print(setpoint_message)
+    if csv_file_path:
+        csv_rows.append([setpoint_message])
 
-    # Print the total count of VAV boxes
+    # Total VAV Boxes
     vav_count = zone_info.get("vav_count", 0)
-    print(f"Total VAV Boxes: {vav_count}")
+    vav_count_message = f"Total VAV Boxes: {vav_count}"
+    print(vav_count_message)
+    if csv_file_path:
+        csv_rows.append([vav_count_message])
 
-    # Print the VAV boxes per AHU
+    # Number of VAV Boxes per AHU
     vav_per_ahu = zone_info.get("vav_per_ahu", {})
-    if vav_per_ahu:
-        print("Number of VAV Boxes per AHU:")
-        for ahu_name, count in vav_per_ahu.items():
-            print(f"  AHU: {ahu_name} - VAV Count: {count}")
-    else:
-        print("No VAV boxes per AHU found.")
+    print("Number of VAV Boxes per AHU:")
+    if csv_file_path:
+        csv_rows.append(["Number of VAV Boxes per AHU:"])
+    for ahu_name, count in vav_per_ahu.items():
+        ahu_message = f"  AHU: {ahu_name} - VAV Count: {count}"
+        print(ahu_message)
+        if csv_file_path:
+            csv_rows.append([ahu_message])
 
-    # Print feature-specific counts
+    # VAV Box Features
+    print("VAV Box Features:")
+    if csv_file_path:
+        csv_rows.append(["VAV Box Features:"])
+
     vav_features = zone_info.get("vav_features", {})
-    print("\nVAV Box Features:")
-    print(f"  VAV Boxes with Reheat Valve Command: {vav_features.get('reheat_count', 0)}")
-    print(f"  VAV Boxes with Air Flow Sensors: {vav_features.get('airflow_count', 0)}")
-    print(f"  VAV Boxes with Supply Air Temp Sensors: {vav_features.get('supply_air_temp_count', 0)}")
-    print(f"  VAV Boxes with Air Flow Setpoints: {vav_features.get('airflow_setpoint_count', 0)}")
+    feature_messages = [
+        f"  VAV Boxes with Reheat Valve Command: {vav_features.get('reheat_count', 0)}",
+        f"  VAV Boxes with Air Flow Sensors: {vav_features.get('airflow_count', 0)}",
+        f"  VAV Boxes with Supply Air Temp Sensors: {vav_features.get('supply_air_temp_count', 0)}",
+        f"  VAV Boxes with Air Flow Setpoints: {vav_features.get('airflow_setpoint_count', 0)}",
+    ]
+    for feature_message in feature_messages:
+        print(feature_message)
+        if csv_file_path:
+            csv_rows.append([feature_message])
 
-    # Calculate and print cooling-only VAV boxes
-    cooling_only_vav_count = vav_count - vav_features.get('reheat_count', 0)
-    print(f"  Cooling Only VAV Boxes: {cooling_only_vav_count}")
+    # Cooling Only VAV Boxes
+    cooling_only_vav_count = vav_count - vav_features.get("reheat_count", 0)
+    cooling_only_message = f"  Cooling Only VAV Boxes: {cooling_only_vav_count}"
+    print(cooling_only_message)
+    if csv_file_path:
+        csv_rows.append([cooling_only_message])
+
+    # Save all rows to CSV if the path is provided
+    if csv_file_path:
+        for row in csv_rows:
+            write_to_csv(csv_file_path, row)

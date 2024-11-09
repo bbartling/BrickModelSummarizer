@@ -2,14 +2,13 @@ import torch
 import torch.nn as nn
 from transformers import BertModel
 
+
 class TransformerEncoderLayer(nn.Module):
     def __init__(self, d_model, num_heads, dff, dropout_rate=0.1):
         super(TransformerEncoderLayer, self).__init__()
-        self.bert = BertModel.from_pretrained('bert-base-uncased')
+        self.bert = BertModel.from_pretrained("bert-base-uncased")
         self.fc = nn.Sequential(
-            nn.Linear(d_model, dff),
-            nn.ReLU(),
-            nn.Linear(dff, d_model)
+            nn.Linear(d_model, dff), nn.ReLU(), nn.Linear(dff, d_model)
         )
         self.layernorm1 = nn.LayerNorm(d_model)
         self.layernorm2 = nn.LayerNorm(d_model)
