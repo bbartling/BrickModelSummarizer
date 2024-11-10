@@ -1,93 +1,85 @@
-from transformers import BertTokenizer, BertModel
+from transformers import GPT2Tokenizer, GPT2LMHeadModel, Trainer, TrainingArguments
 import torch
-import torch.nn as nn
-import torch.optim as optim
 import os
 import glob
+from datasets import Dataset
+import matplotlib.pyplot as plt
+from transformers import TrainerCallback
+
+
+
+# Custom callback to log losses
+class LossLoggerCallback(TrainerCallback):
+    def on_log(self, args, state, control, logs=None, **kwargs):
+        if 'loss' in logs:
+            loss_values.append(logs['loss'])
+
 
 # Disable GPU if not desired
 os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 
-# Load BERT model and tokenizer
-tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
-model = BertModel.from_pretrained("bert-base-uncased")
 
+# Load GPT-2 model and tokenizer
+model_name = 'gpt2'  # Choose model size as needed ('gpt2', 'gpt2-medium', etc.)
+tokenizer = GPT2Tokenizer.from_pretrained(model_name)
+tokenizer.pad_token = tokenizer.eos_token  # Set padding token for GPT-2
+model = GPT2LMHeadModel.from_pretrained(model_name)
 
-# Define an HVAC Chatbot model using BERT and a decision layer
-class HVACChatbot(nn.Module):
-    def __init__(self, bert_model):
-        super(HVACChatbot, self).__init__()
-        self.bert = bert_model
-        self.fc = nn.Linear(
-            bert_model.config.hidden_size, 2
-        )  # 2 outputs for "Good" or "Bad" status
-
-    def forward(self, input_ids, attention_mask):
-        outputs = self.bert(input_ids=input_ids, attention_mask=attention_mask)
-        cls_output = outputs.last_hidden_state[
-            :, 0, :
-        ]  # Use the [CLS] token representation
-        logits = self.fc(cls_output)
-        return torch.softmax(
-            logits, dim=1
-        )  # Softmax for probabilities of "Good" or "Bad"
-
-
-# Instantiate the model
-hvac_model = HVACChatbot(model)
-criterion = nn.CrossEntropyLoss()
-optimizer = optim.Adam(hvac_model.parameters(), lr=1e-5)
-
-# Load training data from "data" directory
-train_sentences = []
-train_labels = []
-data_dir = "./data/"
+# Load conversational training data
+train_texts = []
+data_dir = "./data/"  # Directory containing training text files
 
 for filepath in glob.glob(data_dir + "*.txt"):
     with open(filepath, "r") as file:
-        content = file.read().strip()
-        train_sentences.append(content)
+        train_texts.append(file.read().strip())
 
-        # Assign label based on keywords in the filename
-        if "good" in filepath.lower():
-            train_labels.append(0)  # 0 for "Good"
-        elif "bad" in filepath.lower():
-            train_labels.append(1)  # 1 for "Bad"
+# Create a dataset from the loaded text
+dataset = Dataset.from_dict({"text": train_texts})
 
-# Convert labels to tensor
-train_labels = torch.tensor(train_labels, dtype=torch.long)
+# Tokenize the dataset and include labels for text generation
+def tokenize_function(examples):
+    tokenized_inputs = tokenizer(examples['text'], truncation=True, padding='max_length', max_length=512)
+    tokenized_inputs["labels"] = tokenized_inputs["input_ids"].copy()  # Set labels as input_ids for language modeling
+    return tokenized_inputs
 
-# Tokenize input data
-inputs = tokenizer(train_sentences, padding=True, truncation=True, return_tensors="pt")
+tokenized_dataset = dataset.map(tokenize_function, batched=True)
 
-# Training loop
-hvac_model.train()
-for epoch in range(5):  # More epochs to refine responses
-    optimizer.zero_grad()
-    outputs = hvac_model(inputs["input_ids"], inputs["attention_mask"])
-    loss = criterion(outputs, train_labels)
-    loss.backward()
-    optimizer.step()
-    print(f"Epoch {epoch+1}, Loss: {loss.item()}")
-
-# Testing the chatbot with new building operation queries
-hvac_model.eval()
-test_queries = [
-    "The cooling system is not reaching setpoints.",
-    "All zones are comfortable and stable.",
-    "There's excessive humidity in the lobby.",
-    "Heating seems to be working fine in all areas.",
-    "Ventilation pressure is too low in zone 4.",
-]
-test_inputs = tokenizer(
-    test_queries, padding=True, truncation=True, return_tensors="pt"
+# Define training arguments with frequent logging
+training_args = TrainingArguments(
+    output_dir="C:/Users/bbartling/Desktop/my-own-llm/gpt2-fine-tuned",
+    overwrite_output_dir=True,
+    num_train_epochs=3,
+    per_device_train_batch_size=2,
+    save_steps=50,
+    save_total_limit=2,
+    logging_steps=1,  # Log every step for detailed tracking
 )
 
-# Predict
-with torch.no_grad():
-    predictions = hvac_model(test_inputs["input_ids"], test_inputs["attention_mask"])
+# Trainer setup with callback
+loss_values = []  # Initialize list for storing losses
 
-# Display predictions
-for query, prediction in zip(test_queries, predictions):
-    status = "Good" if prediction.argmax().item() == 0 else "Bad"
-    print(f"Query: '{query}' - System Status: {status}")
+trainer = Trainer(
+    model=model,
+    args=training_args,
+    train_dataset=tokenized_dataset,
+    callbacks=[LossLoggerCallback()],  # Attach the custom callback
+)
+
+# Fine-tune the model
+trainer.train()
+
+# Save the fine-tuned model
+trainer.save_model('./gpt2-fine-tuned')
+tokenizer.save_pretrained('./gpt2-fine-tuned')
+
+# Plotting training loss after training
+if loss_values:
+    steps = list(range(1, len(loss_values) + 1))
+    plt.plot(steps, loss_values, label="Training Loss")
+    plt.xlabel("Steps")
+    plt.ylabel("Loss")
+    plt.title("Training Loss Over Steps")
+    plt.legend()
+    plt.show()
+else:
+    print("No loss values were recorded during training.")
