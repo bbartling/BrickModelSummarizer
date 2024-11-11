@@ -11,17 +11,13 @@ class LossLoggerCallback(TrainerCallback):
         if 'loss' in logs:
             loss_values.append(logs['loss'])
 
-# Custom function to format instruction-based entries
+# Updated function to format instruction-based entries in Phi-3 style
 def format_input(entry):
-    instruction_text = (
-        f"Below is an instruction that describes a task. "
-        f"Write a response that appropriately completes the request."
-        f"\n\n### Instruction:\n{entry['instruction']}"
-    )
-    input_text = f"\n\n### Input:\n{entry['input']}" if entry["input"] else ""
+    instruction_text = f"<|user|>\n{entry['instruction']}"
+    input_text = f"\n{entry['input']}" if entry["input"] else ""
     return instruction_text + input_text
 
-# Custom Dataset for instruction data
+# Custom Dataset for instruction data with Phi-3 response style
 class InstructionDataset(Dataset):
     def __init__(self, data, tokenizer):
         self.data = data
@@ -31,7 +27,7 @@ class InstructionDataset(Dataset):
         # Pre-tokenize data
         for entry in data:
             instruction_plus_input = format_input(entry)
-            response_text = f"\n\n### Response:\n{entry['output']}"
+            response_text = f"\n<|assistant|>\n{entry['output']}"
             full_text = instruction_plus_input + response_text
             encoded = tokenizer(full_text, truncation=True, padding='max_length', max_length=512, return_tensors="pt")
             self.encoded_texts.append(encoded)
@@ -87,7 +83,6 @@ training_args = TrainingArguments(
     logging_steps=10,
 )
 
-
 # Trainer setup with callback
 loss_values = []  # Initialize list for storing losses
 trainer = Trainer(
@@ -115,6 +110,5 @@ if loss_values:
     plt.show()
 else:
     print("No loss values were recorded during training.")
-
 
 print("ALL DONE.")
