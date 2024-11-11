@@ -1,68 +1,113 @@
-from transformers import GPT2Tokenizer, GPT2LMHeadModel, Trainer, TrainingArguments
+import json
 import torch
-import os
-import glob
-from datasets import Dataset
+from torch.utils.data import Dataset, DataLoader
+from transformers import GPT2Tokenizer, GPT2LMHeadModel, Trainer, TrainingArguments, TrainerCallback
 import matplotlib.pyplot as plt
-from transformers import TrainerCallback
+from functools import partial
 
-
-
-# Custom callback to log losses
+# Custom callback to log training losses
 class LossLoggerCallback(TrainerCallback):
     def on_log(self, args, state, control, logs=None, **kwargs):
         if 'loss' in logs:
             loss_values.append(logs['loss'])
 
+# Custom function to format instruction-based entries
+def format_input(entry):
+    instruction_text = (
+        f"Below is an instruction that describes a task. "
+        f"Write a response that appropriately completes the request."
+        f"\n\n### Instruction:\n{entry['instruction']}"
+    )
+    input_text = f"\n\n### Input:\n{entry['input']}" if entry["input"] else ""
+    return instruction_text + input_text
 
-# Disable GPU if not desired
-os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
+# Custom Dataset for instruction data
+class InstructionDataset(Dataset):
+    def __init__(self, data, tokenizer):
+        self.data = data
+        self.tokenizer = tokenizer
+        self.encoded_texts = []
+        
+        # Pre-tokenize data
+        for entry in data:
+            instruction_plus_input = format_input(entry)
+            response_text = f"\n\n### Response:\n{entry['output']}"
+            full_text = instruction_plus_input + response_text
+            encoded = tokenizer(full_text, truncation=True, padding='max_length', max_length=512, return_tensors="pt")
+            self.encoded_texts.append(encoded)
 
+    def __getitem__(self, index):
+        return {
+            "input_ids": self.encoded_texts[index]["input_ids"].squeeze(),
+            "labels": self.encoded_texts[index]["input_ids"].squeeze(),
+        }
 
-# Load GPT-2 model and tokenizer
-model_name = 'gpt2'  # Choose model size as needed ('gpt2', 'gpt2-medium', etc.)
+    def __len__(self):
+        return len(self.data)
+
+# Custom collate function to handle padding
+def custom_collate_fn(batch, pad_token_id=50256):
+    input_ids = [item["input_ids"] for item in batch]
+    labels = [item["labels"] for item in batch]
+    
+    input_ids = torch.nn.utils.rnn.pad_sequence(input_ids, batch_first=True, padding_value=pad_token_id)
+    labels = torch.nn.utils.rnn.pad_sequence(labels, batch_first=True, padding_value=pad_token_id)
+    
+    return {"input_ids": input_ids, "labels": labels}
+
+# Load JSON data
+with open('./data/instruction-examples.json', 'r', encoding='utf-8') as f:
+    train_data = json.load(f)
+
+# Initialize tokenizer and model
+model_name = 'gpt2'
 tokenizer = GPT2Tokenizer.from_pretrained(model_name)
-tokenizer.pad_token = tokenizer.eos_token  # Set padding token for GPT-2
+tokenizer.pad_token = tokenizer.eos_token
 model = GPT2LMHeadModel.from_pretrained(model_name)
 
-# Load conversational training data
-train_texts = []
-data_dir = "./data/"  # Directory containing training text files
+# Prepare dataset and dataloader
+train_dataset = InstructionDataset(train_data, tokenizer)
+train_loader = DataLoader(
+    train_dataset,
+    batch_size=8,
+    collate_fn=partial(custom_collate_fn, pad_token_id=tokenizer.pad_token_id),
+    shuffle=True
+)
 
-for filepath in glob.glob(data_dir + "*.txt"):
-    with open(filepath, "r") as file:
-        train_texts.append(file.read().strip())
-
-# Create a dataset from the loaded text
-dataset = Dataset.from_dict({"text": train_texts})
-
-# Tokenize the dataset and include labels for text generation
-def tokenize_function(examples):
-    tokenized_inputs = tokenizer(examples['text'], truncation=True, padding='max_length', max_length=512)
-    tokenized_inputs["labels"] = tokenized_inputs["input_ids"].copy()  # Set labels as input_ids for language modeling
-    return tokenized_inputs
-
-tokenized_dataset = dataset.map(tokenize_function, batched=True)
-
-# Define training arguments with frequent logging
+'''
+# Define training arguments
 training_args = TrainingArguments(
-    output_dir="C:/Users/bbartling/Desktop/my-own-llm/gpt2-fine-tuned",
+    output_dir="./gpt2-fine-tuned",
+    overwrite_output_dir=True,
+    num_train_epochs=3,
+    per_device_train_batch_size=1,
+    save_steps=50,
+    save_total_limit=2,
+    logging_steps=10,
+)
+
+'''
+# Define training arguments
+training_args = TrainingArguments(
+    output_dir="./gpt2-fine-tuned",
     overwrite_output_dir=True,
     num_train_epochs=3,
     per_device_train_batch_size=2,
+    gradient_accumulation_steps=4,  # Accumulate gradients for every 4 steps
+    learning_rate=5e-5,
     save_steps=50,
     save_total_limit=2,
-    logging_steps=1,  # Log every step for detailed tracking
+    logging_steps=10,
 )
+
 
 # Trainer setup with callback
 loss_values = []  # Initialize list for storing losses
-
 trainer = Trainer(
     model=model,
     args=training_args,
-    train_dataset=tokenized_dataset,
-    callbacks=[LossLoggerCallback()],  # Attach the custom callback
+    train_dataset=train_dataset,
+    callbacks=[LossLoggerCallback()]  # Attach the custom callback
 )
 
 # Fine-tune the model
