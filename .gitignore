@@ -5,7 +5,6 @@
 
 /__pycache__
 
-*.docx
 *.csv
 
 /gpt2-fine-tuned
