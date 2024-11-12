@@ -498,5 +498,340 @@
         "instruction": "How does pneumatic control compare to electronic control in terms of modulation?",
         "input": "",
         "output": "Pneumatic control is simpler and typically lower cost, providing basic modulating control, while electronic control offers more precise, reliable modulation with high repeatability."
+    },
+    {
+        "instruction": "Define the term 'Actuator' in the context of HVAC systems.",
+        "input": "",
+        "output": "An Actuator is a mechanical device that operates a final control element, such as a valve or damper, in an HVAC system."
+    },
+    {
+        "instruction": "What is the purpose of 'Branchline Pressure' in a pneumatic control system?",
+        "input": "",
+        "output": "Branchline Pressure (BLP) is a varying air pressure signal that is sent from a controller to an actuator, which carries the branchline to an actuator to control a device. It can range from atmospheric pressure to full main line pressure."
+    },
+    {
+        "instruction": "Explain the term 'Compensation Changeover' in HVAC control systems.",
+        "input": "",
+        "output": "Compensation Changeover refers to the point at which a compensation effect is reversed, such as from adding heat to removing it, or vice versa. It is the temperature point at which a controller changes the authority of compensation."
+    },
+    {
+        "instruction": "What is a 'Controlled Variable' in HVAC systems?",
+        "input": "",
+        "output": "A Controlled Variable is the quantity or condition that is measured and controlled, such as temperature, relative humidity, or pressure."
+    },
+    {
+        "instruction": "Describe the purpose of a 'Sensor' in an HVAC control system.",
+        "input": "",
+        "output": "A Sensor is a device placed in a medium to measure a condition that has a change in output signal related to a change in the sensed condition, such as temperature or humidity."
+    },
+    {
+        "instruction": "What role does an 'Air Compressor' play in a pneumatic control system?",
+        "input": "",
+        "output": "The air compressor provides the power needed to operate all control devices in a pneumatic control system. It supplies compressed air that is stored in a tank to maintain consistent pressure and flow for the control system."
+    },
+    {
+        "instruction": "What is the function of a 'Restrictor' in pneumatic control systems?",
+        "input": "",
+        "output": "A Restrictor is a device in an air line that limits the flow of air to control the pneumatic pressure applied to different elements in the system."
+    },
+    {
+        "instruction": "Define 'Modulating' in the context of HVAC control.",
+        "input": "",
+        "output": "Modulating refers to varying or adjusting the controlled variable by small increments to maintain the desired setpoint. It is also known as 'proportional' control."
+    },
+    {
+        "instruction": "What is the 'Feed and Bleed System' used for in pneumatic controls?",
+        "input": "",
+        "output": "The Feed and Bleed system is a method used to create a controlled branchline pressure in a pneumatic system by venting air through a nozzle-flapper mechanism, maintaining a balance between feed and bleed valves."
+    },
+    {
+        "instruction": "What does 'Offset' mean in HVAC control terminology?",
+        "input": "",
+        "output": "Offset is a sustained deviation between the actual system output and its controller setpoint under stable operating conditions. It usually applies to proportional control systems."
+    },
+    {
+        "instruction": "Describe the purpose of an 'Air Filter' in an HVAC pneumatic control system.",
+        "input": "",
+        "output": "An Air Filter in an HVAC pneumatic control system removes solid particulate matter and oil aerosols from the control air to ensure clean, dry air reaches the system components."
+    },
+    {
+        "instruction": "How does a 'Signal Amplifier' work in pneumatic controls?",
+        "input": "",
+        "output": "A Signal Amplifier increases the level of an input signal and provides increased flow to operate multiple devices in sequence. It amplifies signals to drive proportional branchline pressure changes for actuator control."
+    },
+    {
+        "instruction": "What is the purpose of a 'Differential' in HVAC systems?",
+        "input": "",
+        "output": "Differential refers to the range within which a two-position control device operates before switching positions, such as a thermostat activating at a certain difference in temperature from the setpoint."
+    },
+    {
+        "instruction": "What is the purpose of 'Air Drying Techniques' in pneumatic control systems?",
+        "input": "",
+        "output": "Air Drying Techniques are used to remove moisture from compressed air to prevent condensation, which can block valves and damage control components. Techniques include increasing pressure, decreasing temperature, or using desiccants to reduce moisture levels."
+    },
+    {
+        "instruction": "Explain the function of a 'Throttle Range Adjustment' in a pneumatic control system.",
+        "input": "",
+        "output": "Throttle Range Adjustment allows an HVAC controller to vary the amount of controlled variable needed to cause a full response in the controlled device, helping to fine-tune system performance."
+    },
+    {
+        "instruction": "What does 'Reverse Acting' mean in the context of pneumatic controllers?",
+        "input": "",
+        "output": "Reverse Acting (RA) refers to a mechanism in a pneumatic controller where an increase in the measured variable causes a decrease in the branchline pressure, often used for temperature control applications."
+    },
+    {
+        "instruction": "What is a 'Proportional Band' in HVAC controls?",
+        "input": "",
+        "output": "Proportional Band is the range of deviation from a setpoint in a modulating control system within which the controller output will adjust proportionally to correct the controlled variable back to the setpoint."
+    },
+    {
+        "instruction": "What is a 'Single-Pressure Reducing Valve' in HVAC systems?",
+        "input": "",
+        "output": "A Single-Pressure Reducing Valve is a device in an HVAC system that adjusts air pressure from a high range (typically 60 to 150 psi) to a controlled lower range for use in the system, usually set to around 20 psi."
+    },
+    {
+        "instruction": "Describe the purpose of a 'Two-Pressure Reducing Valve' in pneumatic systems.",
+        "input": "",
+        "output": "A Two-Pressure Reducing Valve is used to adjust pressure to two different settings, often with a switchover mechanism to switch between high and low pressures as needed for different operating conditions."
+    },
+    {
+        "instruction": "List the four basic types of thermostats in HVAC systems.",
+        "input": "",
+        "output": "The four basic types of thermostats in HVAC systems are: low-capacity single-temperature thermostats, direct-acting proportional thermostats, high-capacity single-temperature thermostats, and dual-acting heating/cooling thermostats."
+    },
+    {
+        "instruction": "What is the function of a 'Direct-Acting Thermostat' in an HVAC system?",
+        "input": "",
+        "output": "A Direct-Acting Thermostat in an HVAC system is designed to increase branchline pressure as the temperature rises, causing the controlled equipment to respond, such as a valve opening to increase cooling."
+    },
+    {
+        "instruction": "How does a 'One-Pipe Controller System' function in HVAC controls?",
+        "input": "",
+        "output": "In a One-Pipe Controller System, air flows from the main line through an internal restrictor in the controller and then through a branch line to the actuator, allowing it to control pressure for different devices."
+    },
+    {
+        "instruction": "Explain the concept of a 'Proportional-Integral (PI) Controller' in HVAC systems.",
+        "input": "",
+        "output": "A Proportional-Integral (PI) Controller combines proportional control with an integral action that adjusts the output continuously to eliminate any offset, helping the system reach the setpoint effectively."
+    },
+    {
+        "instruction": "What role does a 'Humidity Controller' play in an HVAC system?",
+        "input": "",
+        "output": "A Humidity Controller regulates the humidity levels in an HVAC system, usually by adjusting branchline pressure based on changes in relative humidity measured by the sensor."
+    },
+    {
+        "instruction": "Define a 'Pneumatic Controller' and its purpose in HVAC control.",
+        "input": "",
+        "output": "A Pneumatic Controller in HVAC systems is a device that uses diaphragm logic to provide accurate control for various system needs, adjusting air pressure based on sensed conditions to control other components."
+    },
+    {
+        "instruction": "What is a 'Velocity Sensor-Controller' in HVAC systems?",
+        "input": "",
+        "output": "A Velocity Sensor-Controller detects air velocity within ductwork to monitor airflow. It often includes a flow-limiting restrictor and a pneumatic controller to adjust system components based on airflow measurements."
+    },
+    {
+        "instruction": "Describe the function of an 'Actuator' in a pneumatic control system.",
+        "input": "",
+        "output": "An Actuator in a pneumatic control system controls damper blades or valve stems by adjusting positions in response to changes in branchline pressure, allowing control of airflow or fluid flow within the system."
+    },
+    {
+        "instruction": "What are 'Control Valves' and their purpose in an HVAC system?",
+        "input": "",
+        "output": "Control Valves regulate the flow of fluids in HVAC systems. They can be direct-acting or reverse-acting, with single-seated or double-seated configurations to control pressure and maintain system balance."
+    },
+    {
+        "instruction": "How do 'Damper Assemblies' function in air-handling systems?",
+        "input": "",
+        "output": "Damper Assemblies control the flow of air in air-handling systems, typically consisting of a multiblade louver that opens or closes based on the actuator's position to regulate airflow."
+    },
+    {
+        "instruction": "What is a 'Snap Acting Relay' in HVAC control systems?",
+        "input": "",
+        "output": "A Snap Acting Relay provides two-position switching action from a modulating signal. It snaps to a new position when the branchline pressure reaches a set point, allowing or restricting airflow in the control system."
+    },
+    {
+        "instruction": "Explain the purpose of a 'Lockout Relay' in an economizer cycle.",
+        "input": "",
+        "output": "A Lockout Relay in an economizer cycle closes off dampers when outside air temperature exceeds a set point, preventing excessive outdoor air from entering the system and affecting indoor temperature control."
+    },
+    {
+        "instruction": "What are 'Three-Way Valves' used for in HVAC systems?",
+        "input": "",
+        "output": "Three-Way Valves control fluid flow by directing the medium either straight through or diverting it between two outlets. They can mix or divert flows and are commonly used to balance temperature and pressure in HVAC systems."
+    },
+    {
+        "instruction": "Describe how 'Relays and Switches' operate in HVAC systems.",
+        "input": "",
+        "output": "Relays and Switches control the flow of air or electricity between different system components, typically using a pilot signal to alternate between normally open and closed ports, enabling system automation."
+    },
+    {
+        "instruction": "What is the function of a 'High-Pressure Selector Relay'?",
+        "input": "",
+        "output": "A High-Pressure Selector Relay is a three-port relay that transmits the higher of two input signals to the output. It is used to determine control settings based on the highest branchline pressure, commonly to control zone cooling demand."
+    },
+    {
+        "instruction": "Explain the purpose of a 'Low-Pressure Selector Relay'.",
+        "input": "",
+        "output": "A Low-Pressure Selector Relay transmits the lower of two input signals to the output and acts as a repeater for the lowest value. It can be used to control heating by selecting the highest heating demand in a multizone system."
+    },
+    {
+        "instruction": "What does a 'Load Analyzer Relay' do in a multizone air unit?",
+        "input": "",
+        "output": "A Load Analyzer Relay, using a bleed-type diaphragm logic, selects the lowest branch pressure from thermostats across multiple zones, allowing the system to respond to the zone with the lowest cooling demand."
+    },
+    {
+        "instruction": "Describe the function of a 'Capacity Relay' in HVAC systems.",
+        "input": "",
+        "output": "A Capacity Relay is a direct-acting relay that increases capacity output by isolating the thermostat’s input. It allows a single thermostat to operate multiple dampers quickly in response to temperature changes."
+    },
+    {
+        "instruction": "How does a 'Reversing Relay' work in HVAC control systems?",
+        "input": "",
+        "output": "A Reversing Relay modulates output so that it decreases as input signal increases. It is commonly used to switch between heating and cooling functions based on a thermostat’s output."
+    },
+    {
+        "instruction": "What is a 'Positive-Positioning Relay' and where is it used?",
+        "input": "",
+        "output": "A Positive-Positioning Relay maintains control over dampers or valves by holding the actuator in place, allowing precise position adjustments. It’s often used for sequencing in applications requiring consistent control."
+    },
+    {
+        "instruction": "Explain the purpose of an 'Averaging Relay'.",
+        "input": "",
+        "output": "An Averaging Relay is a three-port relay used to calculate the average of two input pressures, commonly used to combine signals from two thermostats to control a single actuator."
+    },
+    {
+        "instruction": "What role does a 'Ratio Relay' play in pneumatic systems?",
+        "input": "",
+        "output": "A Ratio Relay modulates output pressure to control multiple dampers or actuators in sequence, adjusting output based on a fixed pressure range ratio set by the input signal."
+    },
+    {
+        "instruction": "Describe the use of a 'Pneumatic Potentiometer' in HVAC systems.",
+        "input": "",
+        "output": "A Pneumatic Potentiometer adjusts the control signal based on weighted inputs to create a desired airflow restriction or balance, often used in applications requiring fine-tuning of control settings."
+    },
+    {
+        "instruction": "What is an 'Electric-Pneumatic Relay' and its application?",
+        "input": "",
+        "output": "An Electric-Pneumatic Relay (E/P Relay) controls air dampers or fans in response to electrical signals, commonly used in applications to interlock electric and pneumatic circuits."
+    },
+    {
+        "instruction": "How does a 'Pneumatic-Electric Relay' function in an HVAC system?",
+        "input": "",
+        "output": "A Pneumatic-Electric Relay (P/E Relay) acts as an interlock, allowing pneumatic control to initiate an electrical action. It can control fans or other equipment sequentially by converting pneumatic signals to electric control signals."
+    },
+    {
+        "instruction": "What is a 'Recycling System' and how is it used in HVAC control?",
+        "input": "",
+        "output": "A Recycling System in HVAC control resets or reinitializes equipment after a power failure, ensuring that multiple electrically operated devices restart sequentially to prevent overload."
+    },
+    {
+        "instruction": "Describe the purpose of a 'Manual Positioning Switch' in pneumatic control systems.",
+        "input": "",
+        "output": "A Manual Positioning Switch is used to manually adjust a valve or damper to a specific setpoint, overriding automatic controls when precise manual adjustment is required."
+    },
+    {
+        "instruction": "What is 'Sequence Control' in HVAC systems?",
+        "input": "",
+        "output": "Sequence Control is a method that allows one controller to operate several dampers or valves in sequence, coordinating multiple HVAC components for optimized performance across zones."
+    },
+    {
+        "instruction": "Explain the concept of 'Limit Control' in HVAC systems.",
+        "input": "",
+        "output": "Limit Control prevents system temperatures from dropping below a minimum threshold by activating heating when temperatures approach or fall below this limit, ensuring equipment and occupant safety."
+    },
+    {
+        "instruction": "What is the purpose of 'Changeover Control' in a two-pressure supply system?",
+        "input": "",
+        "output": "Changeover Control enables switching between high and low pressures in a two-pressure supply system, typically to accommodate different daytime and nighttime HVAC requirements."
+    },
+    {
+        "instruction": "How does a 'Compensated Control System' function in HVAC?",
+        "input": "",
+        "output": "A Compensated Control System adjusts control settings based on the outdoor temperature to maintain optimal indoor conditions, often using a dual-input controller to balance temperature and energy efficiency."
+    },
+    {
+        "instruction": "Describe the function of a 'Pneumatic Centralization' system in HVAC.",
+        "input": "",
+        "output": "Pneumatic Centralization in HVAC systems involves centralizing pneumatic controls for easier monitoring and control. It includes toggles that start and stop the system, as well as gauges for outside air dampers and supply fans, typically used to manage air flow and temperature centrally."
+    },
+    {
+        "instruction": "What is the purpose of the 'Start-Stop Control Sequence' in an air handling system?",
+        "input": "",
+        "output": "The Start-Stop Control Sequence in an air handling system automatically operates supply and return fans according to pre-set schedules or conditions, such as a time clock or occupancy sensors, to ensure efficient operation during both occupied and after-hour periods."
+    },
+    {
+        "instruction": "Explain the 'Supply Fan Control Sequence' in a typical HVAC system.",
+        "input": "",
+        "output": "The Supply Fan Control Sequence controls the supply fan speed based on the highest demand from zone pressure controllers. It utilizes static pressure sensors to adjust the fan speed and maintain desired airflow across multiple zones in the building."
+    },
+    {
+        "instruction": "What is the 'Return Fan Control Sequence' in an HVAC system?",
+        "input": "",
+        "output": "The Return Fan Control Sequence maintains a set static pressure in the return air path by adjusting the return fan speed, based on pressure readings taken within the return air space."
+    },
+    {
+        "instruction": "Describe the purpose of the 'Warm-Up/Heating Coil Control Sequence' in HVAC.",
+        "input": "",
+        "output": "The Warm-Up/Heating Coil Control Sequence is activated when the system's return air temperature drops below a setpoint. This sequence positions valves and dampers to preheat spaces, ensuring that the system maintains an appropriate discharge air temperature during cold start-up periods."
+    },
+    {
+        "instruction": "What is the 'Mixing Damper Control Sequence' and its purpose?",
+        "input": "",
+        "output": "The Mixing Damper Control Sequence modulates the position of outside and return air dampers to maintain the desired level of mixed air temperature in an air handling unit. This sequence helps optimize energy usage by blending outside air with return air based on setpoints."
+    },
+    {
+        "instruction": "Explain the 'Discharge Air Temperature Control Sequence' in an HVAC system.",
+        "input": "",
+        "output": "The Discharge Air Temperature Control Sequence modulates discharge air temperature by controlling valves on heating or cooling coils based on temperature setpoints. It is typically used to maintain stable air temperatures supplied to the building's occupied zones."
+    },
+    {
+        "instruction": "What is the 'Off/Failure Mode Control Sequence'?",
+        "input": "",
+        "output": "The Off/Failure Mode Control Sequence activates in the event of a system failure or shutdown. This sequence opens the outside air damper, closes the return air damper, and shuts down fans to prevent unconditioned air from circulating in the building."
+    },
+    {
+        "instruction": "Describe the purpose of the 'Pneumatic Discharge Air Temperature Indicator'.",
+        "input": "",
+        "output": "The Pneumatic Discharge Air Temperature Indicator displays the discharge air temperature using a pneumatic temperature sensor. It helps monitor air temperatures exiting the HVAC system to ensure they meet the setpoint requirements for occupied spaces."
+    },
+    {
+        "instruction": "What is the function of the 'Supply Fan Variable Speed Drive (VSD)' in the control sequence?",
+        "input": "",
+        "output": "The Supply Fan Variable Speed Drive (VSD) adjusts the supply fan's speed to meet airflow demands, helping to optimize energy use by matching fan output with the required static pressure for efficient zone distribution."
+    },
+    {
+        "instruction": "Explain the 'Off/Failure Mode Control Sequence' for safety in HVAC systems.",
+        "input": "",
+        "output": "The Off/Failure Mode Control Sequence in HVAC systems automatically closes control valves and opens specific dampers to stop airflow if there is a system failure. This safety measure ensures that unconditioned air does not circulate during outages."
+    },
+    {
+        "instruction": "What is the 'Static Pressure Controller' used for in the Supply Fan Control Sequence?",
+        "input": "",
+        "output": "The Static Pressure Controller in the Supply Fan Control Sequence monitors and maintains static pressure levels in ductwork, adjusting the supply fan speed to ensure adequate airflow across different zones."
+    },
+    {
+        "instruction": "Describe the role of the 'Electronic-Pneumatic Relay' in the Mixing Damper Control Sequence.",
+        "input": "",
+        "output": "The Electronic-Pneumatic Relay in the Mixing Damper Control Sequence controls the damper actuator by converting electronic signals into pneumatic action, enabling precise damper positioning for optimal airflow."
+    },
+    {
+        "instruction": "Explain the function of the 'Three-Way Mixing Valve' in a control sequence.",
+        "input": "",
+        "output": "The Three-Way Mixing Valve is used to regulate water temperature in a coil by mixing hot and cold water streams based on control signals, ensuring the correct temperature for air being supplied to occupied spaces."
+    },
+    {
+        "instruction": "What is the purpose of the 'Exhaust Fan Control' in an air handling unit?",
+        "input": "",
+        "output": "The Exhaust Fan Control regulates the operation of exhaust fans to maintain indoor air quality by expelling stale air, typically activated during occupied hours or as needed based on air quality sensors."
+    },
+    {
+        "instruction": "How does the 'Return Air Temperature Setpoint' affect the Warm-Up Control Sequence?",
+        "input": "",
+        "output": "The Return Air Temperature Setpoint in the Warm-Up Control Sequence triggers the heating coils and adjusts dampers to preheat the return air when temperatures fall below the setpoint, ensuring spaces are comfortable at start-up."
+    },
+    {
+        "instruction": "Explain the function of the 'Outside Airflow Controller' in the Mixing Damper Control Sequence.",
+        "input": "",
+        "output": "The Outside Airflow Controller modulates the amount of outside air introduced into the mixing chamber by adjusting the damper, balancing indoor air quality and energy efficiency."
     }
 ]

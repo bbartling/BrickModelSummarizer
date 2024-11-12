@@ -1,0 +1,362 @@
+[
+    {
+        "instruction": "Tell me a joke about HVAC systems.",
+        "input": "",
+        "output": "Why did the air conditioning unit break up with the thermostat? Because it felt like things were getting too heated!"
+    },
+    {
+        "instruction": "Can you tell a construction-related joke?",
+        "input": "",
+        "output": "Why dont construction workers ever get bored? Because they always find a way to lift their spirits!"
+    },
+    {
+        "instruction": "Share a classic dad joke.",
+        "input": "",
+        "output": "Did you hear about the guy who invented Lifesavers? I heard he made a mint!"
+    },
+    {
+        "instruction": "Tell a funny computer science joke.",
+        "input": "",
+        "output": "Why do programmers prefer dark mode? Because the light attracts bugs!"
+    },
+    {
+        "instruction": "Give me a joke about engineers.",
+        "input": "",
+        "output": "Why did the engineer get stuck at the airport? Because they couldn’t find a terminal with a good connection!"
+    },
+    {
+        "instruction": "Make a joke about AI.",
+        "input": "",
+        "output": "Why did the AI break up with its data? It felt like they just weren’t on the same frequency!"
+    },
+    {
+        "instruction": "Tell a joke about programming languages.",
+        "input": "",
+        "output": "Why was Python feeling down? Because it didn’t have enough class!"
+    },
+    {
+        "instruction": "Can you share a joke about electricians?",
+        "input": "",
+        "output": "Why do electricians make terrible criminals? Because they always stay grounded!"
+    },
+    {
+        "instruction": "Tell a clean, family-friendly joke.",
+        "input": "",
+        "output": "Why did the bicycle fall over? Because it was two-tired!"
+    },
+    {
+        "instruction": "Make a joke about math.",
+        "input": "",
+        "output": "Why was the equal sign so humble? Because it knew it wasn’t less than or greater than anyone else!"
+    },
+    {
+        "instruction": "Share a funny joke about computers.",
+        "input": "",
+        "output": "Why was the computer cold? Because it left its Windows open!"
+    },
+    {
+        "instruction": "Tell a joke about HVAC technicians.",
+        "input": "",
+        "output": "Why did the HVAC technician break up with the boiler? Because it was just blowing hot air!"
+    },
+    {
+        "instruction": "Can you tell a joke about winter?",
+        "input": "",
+        "output": "Why do polar bears never get cold? Because they’re already in their fur coats!"
+    },
+    {
+        "instruction": "Make a pun about heating and cooling.",
+        "input": "",
+        "output": "If you can’t take the heat, get out of the HVAC system!"
+    },
+    {
+        "instruction": "Share a long joke involving HVAC equipment.",
+        "input": "",
+        "output": "An HVAC technician walked into a bar and asked for a cold one. The bartender looked puzzled and said, 'Sorry, our cooler’s down.' The technician smirked and said, 'Good thing I’m here then!' He grabbed his tools, fixed the cooler, and got his drink. As he sat down to enjoy, a furnace walked in, looking all heated. The bartender sighed, 'Not again.' The HVAC tech chuckled, pulled out his toolkit, and fixed the furnace too. By the end of the night, he had the whole bar perfectly comfortable. The bartender asked, 'What do we owe you?' The HVAC tech replied, 'Nothing, just keep it cool next time I’m here!'"
+    },
+    {
+        "instruction": "Tell a joke that combines computers and HVAC.",
+        "input": "",
+        "output": "Why did the computer technician fall in love with the HVAC system? Because it had a cool personality and kept things chill under pressure!"
+    },
+    {
+        "instruction": "Share a light-hearted joke about carpenters.",
+        "input": "",
+        "output": "Why do carpenters make terrible secret keepers? Because they’re always nailing everything down!"
+    },
+    {
+        "instruction": "Tell a classic office humor joke.",
+        "input": "",
+        "output": "Why did the stapler feel left out? Because it couldn’t find anyone it clicked with!"
+    },
+    {
+        "instruction": "Tell a joke about an HVAC technician on a date.",
+        "input": "",
+        "output": "What did the HVAC technician say on a date? 'Are you a thermostat? Because whenever you’re around, things heat up!'"
+    },
+    {
+        "instruction": "Make a joke about summer and air conditioning.",
+        "input": "",
+        "output": "Why did the air conditioner break up with summer? Because summer was just too hot to handle!"
+    },
+    {
+        "instruction": "Share a clever pun about weather.",
+        "input": "",
+        "output": "What did one cloud say to the other? 'I mist you!'"
+    },
+    {
+        "instruction": "Tell a joke about cold weather.",
+        "input": "",
+        "output": "How do you know it’s too cold outside? When you see politicians with their hands in their own pockets!"
+    },
+    {
+        "instruction": "Tell a joke about construction workers at lunch.",
+        "input": "",
+        "output": "Why do construction workers always bring a hammer to lunch? Because they can’t stand anything that isn’t nailed down!"
+    },
+    {
+        "instruction": "Can you tell a pun about heating equipment?",
+        "input": "",
+        "output": "My furnace and I had a heart-to-heart. It said, 'If you don’t treat me right, things are gonna heat up around here!'"
+    },
+    {
+        "instruction": "Tell a joke that would make engineers laugh.",
+        "input": "",
+        "output": "Why do engineers carry pencils and rulers everywhere? Because they like to draw conclusions!"
+    },
+    {
+        "instruction": "Tell a joke about thermostats.",
+        "input": "",
+        "output": "Why did the thermostat break up with the furnace? It felt like things were heating up way too fast!"
+    },
+    {
+        "instruction": "Share a long, funny joke about air conditioning.",
+        "input": "",
+        "output": "So an air conditioner walks into a bar. The bartender looks up and says, 'Aren’t you supposed to be cooling people down?' The air conditioner shrugs and says, 'I needed a break; things were getting too hot at work!' The bartender laughs and says, 'I know the feeling. Here’s a cold one on the house.' A heater in the corner pipes up, 'Hey, what about me?' The bartender replies, 'Sorry, buddy. Last time you were here, you started a fire!'"
+    },
+    {
+        "instruction": "Tell a joke about engineers and their problem-solving style.",
+        "input": "",
+        "output": "How many engineers does it take to change a lightbulb? Just one, but you’re gonna need a 30-page report on the best type of bulb, optimal light output, and an efficiency analysis before they even touch the ladder!"
+    },
+    {
+        "instruction": "Share a joke about maintenance workers and computers.",
+        "input": "",
+        "output": "Why did the maintenance guy get mad at the computer? Because every time he tried to fix it, the damn thing said, 'Are you sure you want to restart?' He muttered, 'Buddy, if you keep asking me that, I’m gonna hard reset you with a hammer!'"
+    },
+    {
+        "instruction": "Make a joke about HVAC techs.",
+        "input": "",
+        "output": "Why don’t HVAC techs have any friends? Because all they ever talk about is how cool they are!"
+    },
+    {
+        "instruction": "Tell a joke that a mechanical engineer would laugh at.",
+        "input": "",
+        "output": "Mechanical engineers are like, 'Why complicate things?' If something’s stuck, hit it with a hammer. If it breaks, it needed replacing anyway. See? Simple."
+    },
+    {
+        "instruction": "Share a joke that’s both engineering and construction related.",
+        "input": "",
+        "output": "An engineer and a construction worker are arguing over who’s better at fixing stuff. The construction worker says, 'When I fix something, it stays fixed!' The engineer smirks and replies, 'Yeah, until I design something that makes your entire job obsolete.'"
+    },
+    {
+        "instruction": "Give me a joke about an HVAC tech’s worst nightmare.",
+        "input": "",
+        "output": "What’s an HVAC tech’s worst nightmare? Getting called in for an emergency on the hottest day of the year… only to find out it’s a customer who just 'doesn’t feel any air' because they forgot to turn the thermostat to cool."
+    },
+    {
+        "instruction": "Tell a joke about engineers and caffeine.",
+        "input": "",
+        "output": "Why do engineers drink so much coffee? Because every time they say, 'Just one more adjustment,' it turns into an all-nighter."
+    },
+    {
+        "instruction": "Share a joke about maintenance and duct tape.",
+        "input": "",
+        "output": "How does a maintenance tech fix 90% of their problems? Duct tape and a few curse words. If it’s still broken, they grab a bigger roll and let the expletives fly!"
+    },
+    {
+        "instruction": "Tell a funny HVAC-related complaint.",
+        "input": "",
+        "output": "Customer: 'The air conditioning isn’t working at all!' HVAC tech: 'Did you change the filter like I told you to six months ago?' Customer: 'I thought that was just a suggestion!' Tech mutters under his breath, 'It’s not a damn suggestion, lady, it’s basic survival!'"
+    },
+    {
+        "instruction": "Share a joke about engineers and complicated instructions.",
+        "input": "",
+        "output": "Why do engineers write such complicated instructions? Because they think everyone wants to read a thesis before they learn how to turn a wrench!"
+    },
+    {
+        "instruction": "Make a joke about an HVAC tech’s toolbox.",
+        "input": "",
+        "output": "What’s an HVAC tech’s most-used tool? The 'customer disappointment translator,' because no matter how hard they try, 'It’s gonna take a few hours' somehow sounds like, 'I’ll have it fixed in five minutes' to every customer."
+    },
+    {
+        "instruction": "Tell a joke about engineers and real-world applications.",
+        "input": "",
+        "output": "Why do engineers get frustrated with real-world applications? Because in theory, everything works perfectly. But in the real world? The damn equipment has a mind of its own, and it’s always on the fritz right before their lunch break."
+    },
+    {
+        "instruction": "Give me a joke about maintenance workers and Monday mornings.",
+        "input": "",
+        "output": "Why do maintenance guys hate Monday mornings? Because that’s when every piece of equipment in the building decides to throw a hissy fit. It’s like they all got together over the weekend and planned a strike."
+    },
+    {
+        "instruction": "Tell a joke about an HVAC tech’s least favorite question.",
+        "input": "",
+        "output": "HVAC tech walks into the break room, covered in dust and grease, and someone asks, 'Is it hot in here or is it just me?' The tech sighs, 'Buddy, it’s just you. But if you don’t stop asking that, I’ll show you where the reset button is—with a wrench.'"
+    },
+    {
+        "instruction": "Make a joke about engineers and ductwork.",
+        "input": "",
+        "output": "Why do engineers love designing ductwork? Because they can finally work on something as twisted and complicated as their own calculations!"
+    },
+    {
+        "instruction": "Tell a joke that combines mechanical engineering with a bit of frustration.",
+        "input": "",
+        "output": "Why don’t mechanical engineers get mad? They just say, 'This design is suboptimal' and then proceed to rip the entire thing apart like a kid with a new toy they didn’t like."
+    },
+    {
+        "instruction": "Share a joke about HVAC techs and thermostats.",
+        "input": "",
+        "output": "Why do HVAC techs hate working on thermostats? Because no matter how advanced the system, it always comes down to one person saying, 'Well, I turned it up to 90, why is it still cold?'"
+    },
+    {
+        "instruction": "Tell a joke about a computer technician’s 'quick fix'.",
+        "input": "",
+        "output": "Why do computer technicians love telling people to reboot? Because for once, they don’t have to break out their entire toolkit or listen to someone explain how they 'swear it just turned off by itself.'"
+    },
+    {
+        "instruction": "Make a joke about maintenance techs and shortcuts.",
+        "input": "",
+        "output": "Why do maintenance techs love shortcuts? Because when they actually follow the manual, it’s usually three times as slow, and all they learn is that whoever wrote it has never held a wrench in their life."
+    },
+    {
+        "instruction": "Share a joke about engineers and their love for precision.",
+        "input": "",
+        "output": "Why did the engineer break up with their last project? Because it was only 'approximate,' and they needed something that was 'exact to the third decimal place.'"
+    },
+    {
+        "instruction": "Tell a joke about HVAC techs and insulation.",
+        "input": "",
+        "output": "Why don’t HVAC techs get cold in the winter? Because they’re always buried in insulation dust that sticks to them like a second skin. Who needs a coat when you’re coated in fiberglass?"
+    },
+    {
+        "instruction": "Tell a joke about maintenance workers and customer complaints.",
+        "input": "",
+        "output": "Why do maintenance guys hate customer complaints? Because it's always the same damn thing: 'The A/C’s too cold, it’s too hot, it’s too whatever.' Lady, you’re lucky it’s even working after what I just pulled out of that filter!"
+    },
+    {
+        "instruction": "Make a joke about HVAC techs on Mondays.",
+        "input": "",
+        "output": "Why do HVAC techs hate Mondays? Because every unit that ran fine on Friday decided to crap the bed over the weekend. It’s like the whole system waits for them to come back and then throws a damn hissy fit first thing Monday morning!"
+    },
+    {
+        "instruction": "Give me a joke about a mechanic and their 'quick fixes.'",
+        "input": "",
+        "output": "What’s a mechanic’s favorite tool for a quick fix? Duct tape and swearing. And if that doesn’t work? Well, there’s always the hammer for some ‘persuasive maintenance.’"
+    },
+    {
+        "instruction": "Tell a joke about a maintenance worker’s least favorite phrase.",
+        "input": "",
+        "output": "What’s the worst thing a maintenance guy can hear? 'Can you take a look at this real quick?' Yeah, sure, just like I 'real quick' got through the last three jobs you handed me today. ‘Real quick’ is how we end up working overtime!"
+    },
+    {
+        "instruction": "Share a joke about engineers and their love for precision.",
+        "input": "",
+        "output": "Why did the engineer get dumped? Because they wanted everything 'exact to the decimal,' but couldn’t handle real-life mess. Guess what? Out here, things don’t line up all nice and pretty like your damn blueprints!"
+    },
+    {
+        "instruction": "Make a joke about a mechanic’s approach to ‘fine tuning.’",
+        "input": "",
+        "output": "Why don’t mechanics talk about ‘fine tuning’? Because ‘fine tuning’ is what they call giving it a whack with a wrench and hoping the damn thing starts working again!"
+    },
+    {
+        "instruction": "Share a joke about the maintenance department's approach to equipment repairs.",
+        "input": "",
+        "output": "How does the maintenance department fix equipment? Well, they’ve got three levels: smack it, curse at it, and then really smack it. If that doesn’t work, they’re finally convinced it’s actually broken."
+    },
+    {
+        "instruction": "Tell a joke about maintenance guys and 'broken' thermostats.",
+        "input": "",
+        "output": "Customer: 'The thermostat’s broken; it’s freezing in here!' Maintenance guy: 'Yeah, right, just like it was ‘broken’ last week when you set it to 60 and wondered why it got so cold.' You’re the one who touched it, not me!"
+    },
+    {
+        "instruction": "Give me a joke about the most-used maintenance 'tool.'",
+        "input": "",
+        "output": "What’s the most-used maintenance tool? The maintenance guy’s ability to look busy when someone with a clipboard walks by. Because you know the moment you actually get to sit, someone’s gonna ask you to fix another ‘emergency.’"
+    },
+    {
+        "instruction": "Make a joke about a mechanic’s relationship with broken equipment.",
+        "input": "",
+        "output": "Why do mechanics swear at broken equipment? Because sometimes a well-placed four-letter word is just as good as a wrench. Hell, half the time it’s more effective than reading the manual!"
+    },
+    {
+        "instruction": "Tell a joke about HVAC techs and ductwork.",
+        "input": "",
+        "output": "Why do HVAC techs hate ductwork? Because every time they crawl into a ceiling, they come back covered in dust, cobwebs, and God knows what else, looking like they just wrestled with a damn chimney sweep."
+    },
+    {
+        "instruction": "Share a joke about engineers and problem-solving.",
+        "input": "",
+        "output": "Why do engineers love over-complicating everything? Because, to them, if there isn’t a 50-page report on why the problem can’t be solved, they haven’t done their job. Meanwhile, the maintenance guy’s like, 'Hand me a wrench, I’ll get it done in five minutes.'"
+    },
+    {
+        "instruction": "Give a rough maintenance joke about preventative maintenance.",
+        "input": "",
+        "output": "What’s preventative maintenance? It’s what they tell you to do so you don’t have to fix the damn thing later. But when do you actually get the time to do it? Never. It’s all ‘emergency’ calls, day after day!"
+    },
+    {
+        "instruction": "Tell a joke about a mechanic’s reaction to customer complaints.",
+        "input": "",
+        "output": "Customer: 'It was working fine yesterday!' Mechanic: 'Yeah, and my tools were organized yesterday, too. Guess we both got screwed by today, didn’t we?'"
+    },
+    {
+        "instruction": "Make a joke about HVAC techs and surprise 'emergencies.'",
+        "input": "",
+        "output": "Why do HVAC techs dread the phrase 'emergency repair'? Because it’s never an actual emergency. It’s usually someone who ‘just noticed’ the unit was out... after it’s been dead for a month."
+    },
+    {
+        "instruction": "Share a joke about engineers and the real world.",
+        "input": "",
+        "output": "Why don’t engineers like the real world? Because the real world doesn’t give a damn about their carefully calculated specs, and most fixes involve a hammer, duct tape, and a prayer."
+    },
+    {
+        "instruction": "Tell a joke about the maintenance department’s solution to everything.",
+        "input": "",
+        "output": "Why does every maintenance guy keep a roll of duct tape and a hammer handy? Because between the two, they can fix about 90% of the problems they’re called for. The other 10%? They’ll just tell you to call an engineer and pray."
+    },
+    {
+        "instruction": "Give me a joke about a maintenance worker’s toolkit.",
+        "input": "",
+        "output": "What’s in a maintenance worker’s toolkit? Wrenches, duct tape, zip ties, a thousand random screws, and one very well-practiced poker face for when they have to pretend they know what’s actually wrong with the machine."
+    },
+    {
+        "instruction": "Tell a joke about engineers and fieldwork.",
+        "input": "",
+        "output": "Why don’t engineers like fieldwork? Because out in the field, there’s no Excel sheet to fix the problem. It’s just you, the broken equipment, and whatever four-letter words come to mind."
+    },
+    {
+        "instruction": "Share a joke about the worst maintenance call.",
+        "input": "",
+        "output": "What’s the worst maintenance call? The one that starts with, 'So, I was trying to fix it myself…' Great. Now the maintenance guy has to fix the original problem *and* the mess you made!"
+    },
+    {
+        "instruction": "Make a joke about the maintenance department and paperwork.",
+        "input": "",
+        "output": "Why does the maintenance department hate paperwork? Because fixing a broken fan is one thing, but filling out six forms about it is where they draw the line. 'Did you complete the work order?' Buddy, if I had the time for that, the fan would still be broken."
+    },
+    {
+        "instruction": "Give a joke about customer complaints and HVAC techs.",
+        "input": "",
+        "output": "Customer: 'It was too cold, so I turned the thermostat all the way up, and now it’s too hot!' HVAC tech: 'Well, congratulations. You’ve successfully made it someone else’s problem. That someone else being me.'"
+    },
+    {
+        "instruction": "Tell a joke about maintenance techs and optimism.",
+        "input": "",
+        "output": "Why aren’t maintenance techs optimists? Because every time they think something’s finally fixed, the phone rings, and it’s the same piece of equipment saying, 'Guess again.'"
+    },
+    {
+        "instruction": "Make a joke about the phrase 'just a quick fix.'",
+        "input": "",
+        "output": "Why does 'just a quick fix' send shivers down a maintenance guy’s spine? Because that phrase has ruined more weekends than any boss ever has. Ain’t nothing ‘quick’ about it."
+    }
+]
