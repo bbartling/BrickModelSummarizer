@@ -1,12 +1,10 @@
 # FastAPI starter
 .DS_Store
-/data
 /tmp
 
 /__pycache__
 
 *.csv
-
 /gpt2-fine-tuned
 
 # Byte-compiled / optimized / DLL files
