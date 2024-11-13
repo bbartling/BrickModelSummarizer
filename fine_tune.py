@@ -1,9 +1,27 @@
 import json
+import os
 import torch
 from torch.utils.data import Dataset, DataLoader
 from transformers import GPT2Tokenizer, GPT2LMHeadModel, Trainer, TrainingArguments, TrainerCallback
 import matplotlib.pyplot as plt
 from functools import partial
+
+# List of JSON file paths
+json_files = [
+    './data/instruction-examples.json',
+    './data/hvac-generic.json',
+    './data/maintenance-man-jokes.json',  # Add as many files as needed
+] 
+
+# Combine data from all JSON files
+train_data = []
+for file_path in json_files:
+    with open(file_path, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+        train_data.extend(data)  # Append each file's data to the train_data list
+
+# Check the number of entries loaded
+print(f"Loaded {len(train_data)} entries from {len(json_files)} files.")
 
 # Custom callback to log training losses
 class LossLoggerCallback(TrainerCallback):
@@ -55,10 +73,6 @@ def custom_collate_fn(batch, pad_token_id=50256):
     
     return {"input_ids": input_ids, "labels": labels}
 
-# Load JSON data
-with open('./data/instruction-examples.json', 'r', encoding='utf-8') as f:
-    train_data = json.load(f)
-
 # Initialize tokenizer and model
 model_name = 'gpt2'
 tokenizer = GPT2Tokenizer.from_pretrained(model_name)
@@ -87,7 +101,6 @@ training_args = TrainingArguments(
     logging_steps=10,
 )
 
-
 # Trainer setup with callback
 loss_values = []  # Initialize list for storing losses
 trainer = Trainer(
@@ -115,6 +128,5 @@ if loss_values:
     plt.show()
 else:
     print("No loss values were recorded during training.")
-
 
 print("ALL DONE.")
