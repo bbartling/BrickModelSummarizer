@@ -20,10 +20,10 @@ Tested on Windows with Python 3.12. You can download [Python here](https://www.p
 
 
 2. **Create a Virtual Environment**  
-   Set up a virtual environment to manage dependencies.
+   In Windows PowerShell set up a virtual environment to manage dependencies.
 
    ```sh
-   python -m venv env
+   py -m venv env
    ```
 
 3. **Activate the Environment**  
@@ -34,7 +34,7 @@ Tested on Windows with Python 3.12. You can download [Python here](https://www.p
    ```
 
 4. **Install Dependencies**  
-   Install the necessary Python packages. Since we’re not using a `requirements.txt` file, you’ll install each package directly:
+   Install the necessary Python packages with pip.
 
    ```sh
    pip install torch transformers matplotlib
@@ -45,7 +45,7 @@ Tested on Windows with Python 3.12. You can download [Python here](https://www.p
 Once your environment is set up and dependencies are installed, you can start the fine-tuning process by running the Python script provided in the repository:
 
 ```sh
-python fine_tune.py
+py fine_tune.py
 ```
 
 This script will load your dataset, tokenize the data, and begin fine-tuning GPT-2 on your custom instructions. Training losses will be logged and plotted after training.

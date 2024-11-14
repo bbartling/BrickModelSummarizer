@@ -7,11 +7,17 @@ import matplotlib.pyplot as plt
 from functools import partial
 
 # List of JSON file paths
+'''
 json_files = [
     './data/instruction-examples.json',
-    './data/hvac-generic.json',
-    './data/maintenance-man-jokes.json',  # Add as many files as needed
-] 
+    './data/maintenance-man-jokes.json',
+]
+'''
+
+alpca_dataset = r'C:\Users\bbartling\Desktop\alpaca_data.json'
+json_files = [
+    alpca_dataset
+]
 
 # Combine data from all JSON files
 train_data = []
@@ -90,9 +96,9 @@ train_loader = DataLoader(
 
 # Define training arguments
 training_args = TrainingArguments(
-    output_dir="./gpt2-fine-tuned",
+    output_dir="./gpt2-fine-tuned-no-hvac",
     overwrite_output_dir=True,
-    num_train_epochs=2,
+    num_train_epochs=1,
     per_device_train_batch_size=2,
     gradient_accumulation_steps=4,  # Accumulate gradients for every 4 steps
     learning_rate=5e-5,
@@ -100,6 +106,7 @@ training_args = TrainingArguments(
     save_total_limit=2,
     logging_steps=10,
 )
+
 
 # Trainer setup with callback
 loss_values = []  # Initialize list for storing losses
@@ -114,8 +121,8 @@ trainer = Trainer(
 trainer.train()
 
 # Save the fine-tuned model
-trainer.save_model('./gpt2-fine-tuned')
-tokenizer.save_pretrained('./gpt2-fine-tuned')
+trainer.save_model('./gpt2-fine-tuned-no-hvac')
+tokenizer.save_pretrained('./gpt2-fine-tuned-no-hvac')
 
 # Plotting training loss after training
 if loss_values:
