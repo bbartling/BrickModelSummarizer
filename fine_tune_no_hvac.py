@@ -14,7 +14,7 @@ json_files = [
 ]
 '''
 
-alpca_dataset = r'C:\Users\bbartling\Desktop\alpaca_data.json'
+alpca_dataset = r'C:\Users\bbartling\Desktop\data\alpaca_data.json'
 json_files = [
     alpca_dataset
 ]
@@ -94,7 +94,7 @@ train_loader = DataLoader(
     shuffle=True
 )
 
-# Define training arguments
+
 training_args = TrainingArguments(
     output_dir="./gpt2-fine-tuned-no-hvac",
     overwrite_output_dir=True,
@@ -106,7 +106,18 @@ training_args = TrainingArguments(
     save_total_limit=2,
     logging_steps=10,
 )
+'''
 
+training_args = TrainingArguments(
+    output_dir="C:/Users/bbartling/Desktop/my-own-llm/gpt2-fine-tuned",
+    overwrite_output_dir=True,
+    num_train_epochs=3,
+    per_device_train_batch_size=2,
+    save_steps=50,
+    save_total_limit=2,
+    logging_steps=1,  # Log every step for detailed tracking
+)
+'''
 
 # Trainer setup with callback
 loss_values = []  # Initialize list for storing losses
