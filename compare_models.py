@@ -22,8 +22,9 @@ original_model.eval()
 fine_tuned_model.eval()
 fine_tuned_model_no_hvac.eval()
 
-# Function to generate response from a model
-def generate_response(model, tokenizer, prompt, max_length=50, temperature=0.1, top_k=50):
+def generate_response(
+    model, tokenizer, prompt, max_length=50, temperature=0.7, top_k=50, top_p=0.9, repetition_penalty=1.2
+):
     input_ids = tokenizer.encode(prompt, return_tensors="pt")
     with torch.no_grad():
         output = model.generate(
@@ -32,9 +33,32 @@ def generate_response(model, tokenizer, prompt, max_length=50, temperature=0.1, 
             num_return_sequences=1,
             pad_token_id=tokenizer.eos_token_id,
             temperature=temperature,
-            top_k=top_k
+            top_k=top_k,
+            top_p=top_p,
+            repetition_penalty=repetition_penalty,
+            do_sample=True  # Enable sampling for diverse outputs
         )
-    return tokenizer.decode(output[0], skip_special_tokens=True)
+    response = tokenizer.decode(output[0], skip_special_tokens=True)
+    return clean_repeated_phrases(response)
+
+def clean_repeated_phrases(response):
+    """Remove long repeated phrases from the generated response."""
+    words = response.split()
+    cleaned_response = []
+    seen_phrases = set()
+
+    # Use sliding window to detect repeated phrases
+    for i in range(len(words)):
+        for j in range(1, 4):  # Check for repeated phrases of 1-3 words
+            phrase = " ".join(words[i:i+j])
+            if phrase in seen_phrases:
+                continue
+            seen_phrases.add(phrase)
+            cleaned_response.extend(words[i:i+j])
+            break
+
+    return " ".join(cleaned_response)
+
 
 # Main interaction loop
 def main():
