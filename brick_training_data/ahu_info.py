@@ -1,5 +1,6 @@
 # ahu_info.py
 from utils import write_to_csv, BRICK
+import csv
 
 
 def identify_ahu_equipment(graph):
@@ -114,53 +115,36 @@ def count_ahu_features(graph):
     return features
 
 
-def print_ahu_info(ahu_info, csv_file_path=None):
-    """Print AHU information and optionally save it to CSV in the same format as the console output."""
-    # Initialize list of rows for CSV
-    csv_rows = []
+def collect_ahu_data(ahu_info):
+    """
+    Collect AHU information and return it as structured data.
+    """
+    # Initialize dictionary for structured data
+    ahu_data = {}
 
     # Total AHUs
     ahu_count = ahu_info.get("ahu_count", 0)
-    ahu_count_message = f"\nTotal AHUs: {ahu_count}"
-    print(ahu_count_message)
-    if csv_file_path:
-        csv_rows.append([ahu_count_message])
+    ahu_data["Total AHUs"] = ahu_count
 
     # AHU Types
     ahu_types = ahu_info.get("ahu_types", {})
-    cv_message = f"Constant Volume AHUs: {ahu_types.get('cv_count', 0)}"
-    vav_message = f"Variable Air Volume AHUs: {ahu_types.get('vav_count', 0)}"
-    print(cv_message)
-    print(vav_message)
-    if csv_file_path:
-        csv_rows.append([cv_message])
-        csv_rows.append([vav_message])
+    ahu_data["Constant Volume AHUs"] = ahu_types.get("cv_count", 0)
+    ahu_data["Variable Air Volume AHUs"] = ahu_types.get("vav_count", 0)
 
     # AHU Features
-    print("\nAHU Features:")
-    if csv_file_path:
-        csv_rows.append(["AHU Features:"])
-
     ahu_features = ahu_info.get("ahu_features", {})
-    feature_messages = [
-        f"  AHUs with Cooling Coil: {ahu_features.get('cooling_coil_count', 0)}",
-        f"  AHUs with Heating Coil: {ahu_features.get('heating_coil_count', 0)}",
-        f"  AHUs with DX Staged Cooling: {ahu_features.get('dx_staged_cooling_count', 0)}",
-        f"  AHUs with Return Fans: {ahu_features.get('return_fan_count', 0)}",
-        f"  AHUs with Supply Fans: {ahu_features.get('supply_fan_count', 0)}",
-        f"  AHUs with Return Air Temp Sensors: {ahu_features.get('return_temp_count', 0)}",
-        f"  AHUs with Mixing Air Temp Sensors: {ahu_features.get('mixing_temp_count', 0)}",
-        f"  AHUs with Leaving Air Temp Sensors: {ahu_features.get('leaving_temp_count', 0)}",
-        f"  AHUs with Leaving Air Temp Setpoint: {ahu_features.get('leaving_air_temp_setpoint_count', 0)}",
-        f"  AHUs with Duct Pressure Setpoint: {ahu_features.get('duct_pressure_setpoint_count', 0)}",
-        f"  AHUs with Duct Pressure: {ahu_features.get('duct_pressure_count', 0)}",
-    ]
-    for feature_message in feature_messages:
-        print(feature_message)
-        if csv_file_path:
-            csv_rows.append([feature_message])
+    ahu_data.update({
+        "AHUs with Cooling Coil": ahu_features.get("cooling_coil_count", 0),
+        "AHUs with Heating Coil": ahu_features.get("heating_coil_count", 0),
+        "AHUs with DX Staged Cooling": ahu_features.get("dx_staged_cooling_count", 0),
+        "AHUs with Return Fans": ahu_features.get("return_fan_count", 0),
+        "AHUs with Supply Fans": ahu_features.get("supply_fan_count", 0),
+        "AHUs with Return Air Temp Sensors": ahu_features.get("return_temp_count", 0),
+        "AHUs with Mixing Air Temp Sensors": ahu_features.get("mixing_temp_count", 0),
+        "AHUs with Leaving Air Temp Sensors": ahu_features.get("leaving_temp_count", 0),
+        "AHUs with Leaving Air Temp Setpoint": ahu_features.get("leaving_air_temp_setpoint_count", 0),
+        "AHUs with Duct Pressure Setpoint": ahu_features.get("duct_pressure_setpoint_count", 0),
+        "AHUs with Duct Pressure": ahu_features.get("duct_pressure_count", 0),
+    })
 
-    # Save all rows to CSV if the path is provided
-    if csv_file_path:
-        for row in csv_rows:
-            write_to_csv(csv_file_path, row)
+    return ahu_data

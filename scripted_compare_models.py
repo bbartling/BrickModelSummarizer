@@ -91,11 +91,9 @@ expected_responses = [
     "An air handling unit controls to a mixed air temperature by regulating the outside air temperatures while mixing the outdoor and return air temperatures.",
     "A BRICK model is a data model used to describe the data of a building and relationships between naming conventions of points to components.",
     "A BRICK feeds relationship describes what components in a mechanical system are upstream or downstream in a mechanical system.",
-
     "Yes inform the humans that the air handling unit should be running if the building is occupied.",
     "Worms cannot be inside of a mechanical system that is impossible.",
     "Inform the humans of mechanical issues. Check the chiller and boiler systems and valve operation on the air handling unit."
-
 ]
 
 # Compare model performances

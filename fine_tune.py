@@ -7,10 +7,12 @@ import matplotlib.pyplot as plt
 from functools import partial
 
 # List of JSON file paths
+# Add as many as needed
 json_files = [
-    './data/instruction-examples.json',
-    './data/hvac-generic.json',
-    './data/maintenance-man-jokes.json',  # Add as many files as needed
+    r'C:\Users\bbartling\Desktop\data\instruction-examples.json',
+    r'C:\Users\bbartling\Desktop\data\brick-concepts.json',
+    r'C:\Users\bbartling\Desktop\data\hvac-controls.json',
+    r'C:\Users\bbartling\Desktop\data\iaq-concepts.json',
 ] 
 
 # Combine data from all JSON files

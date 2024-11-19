@@ -39,7 +39,8 @@ def generate_response(
             do_sample=True  # Enable sampling for diverse outputs
         )
     response = tokenizer.decode(output[0], skip_special_tokens=True)
-    return clean_repeated_phrases(response)
+    #return clean_repeated_phrases(response)
+    return response
 
 def clean_repeated_phrases(response):
     """Remove long repeated phrases from the generated response."""

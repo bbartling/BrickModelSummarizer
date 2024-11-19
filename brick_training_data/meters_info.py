@@ -49,29 +49,17 @@ def query_meters(graph):
     return meters
 
 
-def print_meter_info(meter_info, csv_file_path=None):
-    """Print meter information and optionally save to CSV."""
-    # Initialize list of rows for CSV
-    csv_rows = []
+def collect_meter_data(meter_info):
+    """
+    Collect meter information as structured data.
+    """
+    # Prepare meter information
+    meter_data = {
+        "BTU Meter Present": meter_info.get("btu_meter", "Unknown"),
+        "Electrical Meter Present": meter_info.get("electrical_meter", "Unknown"),
+        "Water Meter Present": meter_info.get("water_meter", "Unknown"),
+        "Gas Meter Present": meter_info.get("gas_meter", "Unknown"),
+        "PV Meter Present": meter_info.get("pv_meter", "Unknown"),
+    }
+    return meter_data
 
-    # Print and save meter information
-    print("\nMeter Information:")
-    if csv_file_path:
-        csv_rows.append(["\nMeter Information:"])
-
-    meter_messages = [
-        f"  BTU Meter Present: {meter_info['btu_meter']}",
-        f"  Electrical Meter Present: {meter_info['electrical_meter']}",
-        f"  Water Meter Present: {meter_info['water_meter']}",
-        f"  Gas Meter Present: {meter_info['gas_meter']}",
-        f"  PV Meter Present: {meter_info['pv_meter']}",
-    ]
-    for meter_message in meter_messages:
-        print(meter_message)
-        if csv_file_path:
-            csv_rows.append([meter_message])
-
-    # Write rows to CSV
-    if csv_file_path:
-        for row in csv_rows:
-            write_to_csv(csv_file_path, row)

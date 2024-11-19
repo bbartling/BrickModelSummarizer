@@ -1,4 +1,5 @@
 from utils import write_to_csv, BRICK, UNIT
+import csv
 
 
 def query_building_area(graph):
@@ -50,30 +51,23 @@ def query_building_floors(graph):
     return 0
 
 
-def print_building_info(graph, csv_file_path=None):
-    """Print building area and floor count, optionally saving to CSV."""
-    csv_rows = []
-
+def collect_building_data(graph):
+    """
+    Collect building area and floor count as structured data.
+    """
+    building_data = {}
     building_area, building_units = query_building_area(graph)
     building_floors = query_building_floors(graph)
 
-    area_message = (
-        f"Building Area: {building_area} {building_units}"
-        if building_area
-        else "Building Area information not available."
-    )
-    floor_message = (
-        f"Number of Floors: {building_floors}"
-        if building_floors
-        else "Floor information not available."
-    )
+    if building_area:
+        building_data["Building Area"] = f"{building_area} {building_units}"
+    else:
+        building_data["Building Area"] = "Not available"
 
-    print(area_message)
-    print(floor_message)
+    if building_floors:
+        building_data["Number of Floors"] = building_floors
+    else:
+        building_data["Number of Floors"] = "Not available"
 
-    if csv_file_path:
-        csv_rows.append([" "])
-        csv_rows.append([area_message])
-        csv_rows.append([floor_message])
-        for row in csv_rows:
-            write_to_csv(csv_file_path, row)
+    return building_data
+
