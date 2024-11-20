@@ -1,27 +1,62 @@
-import json
 import os
+import json
 import torch
 from torch.utils.data import Dataset, DataLoader
 from transformers import GPT2Tokenizer, GPT2LMHeadModel, Trainer, TrainingArguments, TrainerCallback
-import matplotlib.pyplot as plt
 from functools import partial
+import matplotlib.pyplot as plt
 
-# List of JSON file paths
 
-json_files = [
-    './data/instruction-examples.json',
+# Define the directories and additional JSON file paths
+brick_json_directory = r'C:\Users\bbartling\Desktop\my-own-llm\brick_training_data\processed_fine_tune_data'
 
+additional_json_data = [
+    r'C:\Users\bbartling\Desktop\data\instruction-examples.json',
+    r'C:\Users\bbartling\Desktop\data\brick-concepts.json',
+    r'C:\Users\bbartling\Desktop\data\hvac-controls.json',
+    r'C:\Users\bbartling\Desktop\data\iaq-concepts.json',
 ]
 
-# Combine data from all JSON files
+# Initialize a list to hold all training data
 train_data = []
-for file_path in json_files:
-    with open(file_path, 'r', encoding='utf-8') as f:
-        data = json.load(f)
-        train_data.extend(data)  # Append each file's data to the train_data list
 
-# Check the number of entries loaded
-print(f"Loaded {len(train_data)} entries from {len(json_files)} files.")
+# Process the JSON files in the directory
+for filename in os.listdir(brick_json_directory):
+    if filename.endswith('.json'):  # Only process JSON files
+        file_path = os.path.join(brick_json_directory, filename)
+        try:
+            with open(file_path, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+                if isinstance(data, list):  # If the file contains a list of entries
+                    train_data.extend(data)
+                else:  # If the file contains a single entry
+                    train_data.append(data)
+        except json.JSONDecodeError as e:
+            print(f"Error decoding JSON from file {filename}: {e}")
+
+# Process each additional JSON file in the list
+for additional_file in additional_json_data:
+    try:
+        with open(additional_file, 'r', encoding='utf-8') as f:
+            additional_data = json.load(f)
+            if isinstance(additional_data, list):  # If the file contains a list of entries
+                train_data.extend(additional_data)
+            else:  # If the file contains a single entry
+                train_data.append(additional_data)
+    except json.JSONDecodeError as e:
+        print(f"Error decoding JSON from file {additional_file}: {e}")
+    except FileNotFoundError as e:
+        print(f"File not found: {additional_file}")
+
+# Output the number of entries loaded
+print(f"Loaded {len(train_data)} entries from directory and additional JSON files.")
+
+# Save combined dataset to a new JSON file
+output_file = r'C:\Users\bbartling\Desktop\my-own-llm\combined_training_data.json'
+with open(output_file, 'w', encoding='utf-8') as f:
+    json.dump(train_data, f, indent=4, ensure_ascii=False)
+
+print(f"Combined dataset saved to {output_file}.")
 
 # Custom callback to log training losses
 class LossLoggerCallback(TrainerCallback):
@@ -92,7 +127,7 @@ train_loader = DataLoader(
 training_args = TrainingArguments(
     output_dir="./gpt2-fine-tuned-brick",
     overwrite_output_dir=True,
-    num_train_epochs=1,
+    num_train_epochs=3,
     per_device_train_batch_size=2,
     gradient_accumulation_steps=4,  # Accumulate gradients for every 4 steps
     learning_rate=5e-5,

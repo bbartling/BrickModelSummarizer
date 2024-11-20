@@ -12,15 +12,15 @@ fine_tuned_tokenizer = GPT2Tokenizer.from_pretrained(fine_tuned_dir)
 fine_tuned_model = GPT2LMHeadModel.from_pretrained(fine_tuned_dir)
 fine_tuned_tokenizer.pad_token = fine_tuned_tokenizer.eos_token
 
-fine_tuned_dir_no_hvac = "./gpt2-fine-tuned-no-hvac"
-fine_tuned_tokenizer_no_hvac = GPT2Tokenizer.from_pretrained(fine_tuned_dir_no_hvac)
-fine_tuned_model_no_hvac = GPT2LMHeadModel.from_pretrained(fine_tuned_dir_no_hvac)
-fine_tuned_tokenizer_no_hvac.pad_token = fine_tuned_tokenizer_no_hvac.eos_token
+fine_tuned_dir_brick = "./gpt2-fine-tuned-brick"
+fine_tuned_tokenizer_brick = GPT2Tokenizer.from_pretrained(fine_tuned_dir_brick)
+fine_tuned_model_brick = GPT2LMHeadModel.from_pretrained(fine_tuned_dir_brick)
+fine_tuned_tokenizer_brick.pad_token = fine_tuned_tokenizer_brick.eos_token
 
 # Set models to evaluation mode
 original_model.eval()
 fine_tuned_model.eval()
-fine_tuned_model_no_hvac.eval()
+fine_tuned_model_brick.eval()
 
 def generate_response(
     model, tokenizer, prompt, max_length=50, temperature=0.7, top_k=50, top_p=0.9, repetition_penalty=1.2
@@ -83,12 +83,12 @@ def main():
         except Exception as e:
             print(f"Error generating fine-tuned response: {e}")
 
-        print("\n--- Fine-Tuned GPT-2 No HVAC Response ---")
+        print("\n--- Fine-Tuned GPT-2 BRICK Response ---")
         try:
-            fine_tuned_response_no_hvac = generate_response(fine_tuned_model_no_hvac, fine_tuned_tokenizer_no_hvac, prompt)
-            print(fine_tuned_response_no_hvac)
+            fine_tuned_response_brick = generate_response(fine_tuned_model_brick, fine_tuned_tokenizer_brick, prompt)
+            print(fine_tuned_response_brick)
         except Exception as e:
-            print(f"Error generating fine-tuned no-HVAC response: {e}")
+            print(f"Error generating fine-tuned BRICK response: {e}")
 
         print("\n" + "="*50 + "\n")
 

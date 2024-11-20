@@ -7,6 +7,8 @@
 # *.csv
 /gpt2-fine-tuned
 /gpt2-fine-tuned-no-hvac
+/gpt2-fine-tuned-brick
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
