@@ -1,8 +1,8 @@
 Category,Subcategory,Details
 AHU Information
 ,Total AHUs,11
-,Constant Volume AHUs,0
-,Variable Air Volume AHUs,0
+,Constant Volume AHUs,2
+,Variable Air Volume AHUs,9
 ,AHUs with Cooling Coil,11
 ,AHUs with Heating Coil,10
 ,AHUs with DX Staged Cooling,0

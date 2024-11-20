@@ -17,7 +17,8 @@ def count_ahus(graph):
     query = """
     PREFIX brick: <https://brickschema.org/schema/Brick#>
     SELECT (COUNT(?ahu) AS ?ahu_count) WHERE {
-        ?ahu a brick:Air_Handler_Unit .
+        ?ahu a ?ahu_type .
+        FILTER(?ahu_type IN (brick:Air_Handler_Unit, brick:AHU))
     }
     """
     results = graph.query(query)
@@ -26,32 +27,11 @@ def count_ahus(graph):
     return 0
 
 
-def count_ahu_types(graph):
-    """Count AHUs by type (Constant Volume or VAV)."""
-    cv_count = 0
-    vav_count = 0
-    query = """
-    PREFIX brick: <https://brickschema.org/schema/Brick#>
-    SELECT ?type (COUNT(?ahu) AS ?count) WHERE {
-        ?ahu a brick:Air_Handler_Unit .
-        ?ahu a ?type .
-        FILTER(?type IN (brick:Constant_Volume_Air_Handler_Unit, brick:Variable_Air_Volume_Air_Handler_Unit))
-    } GROUP BY ?type
-    """
-    results = graph.query(query)
-    for row in results:
-        ahu_type = str(row.type)
-        count = int(row.count)
-        if ahu_type == str(BRICK.Constant_Volume_Air_Handler_Unit):
-            cv_count = count
-        elif ahu_type == str(BRICK.Variable_Air_Volume_Air_Handler_Unit):
-            vav_count = count
-    return {"cv_count": cv_count, "vav_count": vav_count}
-
-
 def count_ahu_features(graph):
-    """Count AHUs with specific features."""
+    """Count AHUs with specific features and classify them as VAV or CV."""
     features = {
+        "cv_count": 0,
+        "vav_count": 0,
         "cooling_coil_count": 0,
         "heating_coil_count": 0,
         "dx_staged_cooling_count": 0,
@@ -86,9 +66,17 @@ def count_ahu_features(graph):
         )
     }
     """
+    ahu_points = {}
     results = graph.query(query)
     for row in results:
+        ahu = str(row.ahu)
         point = str(row.point).lower()
+        if ahu not in ahu_points:
+            ahu_points[ahu] = []
+
+        ahu_points[ahu].append(point)
+
+        # Increment feature counters
         if "cooling_valve_output" in point:
             features["cooling_coil_count"] += 1
         if "heating_valve_output" in point:
@@ -112,7 +100,33 @@ def count_ahu_features(graph):
         if "supply_air_pressure" in point:
             features["duct_pressure_count"] += 1
 
+    # Classify AHUs as VAV or CV based on their points
+    for ahu, points in ahu_points.items():
+        if any("supply_air_pressure" in point for point in points):
+            features["vav_count"] += 1  # VAV AHU
+        else:
+            features["cv_count"] += 1  # CV AHU
+
+    for ahu, points in ahu_points.items():
+        #print(f"AHU: {ahu}, Points: {points}")
+        if any("supply_air_pressure" in point for point in points):
+            print(f"  static pressure sensor found so classifing as a VAV AHU")
+        else:
+            print(f"  no static pressure sensor found so classifing as a CV AHU")
     return features
+
+
+def identify_ahu_equipment(graph):
+    """Combine results into a single AHU equipment dictionary."""
+    ahu_equipment = {}
+    ahu_equipment["ahu_count"] = count_ahus(graph)
+    ahu_features = count_ahu_features(graph)
+    ahu_equipment["ahu_features"] = ahu_features
+    ahu_equipment["ahu_types"] = {
+        "cv_count": ahu_features["cv_count"],
+        "vav_count": ahu_features["vav_count"],
+    }
+    return ahu_equipment
 
 
 def collect_ahu_data(ahu_info):

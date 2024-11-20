@@ -7,19 +7,18 @@ from zone_info import identify_zone_equipment, collect_zone_data
 from meters_info import query_meters, collect_meter_data
 from central_plant_info import identify_hvac_system_equipment, collect_central_plant_data
 from building_info import collect_building_data
+from csv_analyzer import process_all_csvs
 
-r"""
-py .\main.py --file ./files/bldg1.ttl --save-csv
-"""
+DEFAULT_DIRECTORY = "./files/"  # Default directory for TTL and CSV files
 
-# Define the path to the directory containing TTL files
-directory_path = "./files/"
+def ensure_directory_exists(directory):
+    """Ensure the specified directory exists."""
+    os.makedirs(directory, exist_ok=True)
 
 def print_kvs(data):
-    # Loop through key-value pairs
+    """Print key-value pairs."""
     for key, value in data.items():
         print(f"{key}: {value}")
-
 
 def process_file(file_path, save_csv):
     """Process a single TTL file and optionally save outputs to CSV."""
@@ -27,13 +26,12 @@ def process_file(file_path, save_csv):
     print(f"Processing: {filename}")
 
     graph = load_graph(file_path)
-
     building_data = {}
 
     # Define the CSV path if --save-csv is enabled
-    csv_file_path = f"{directory_path}{filename}.csv" if save_csv else None
+    csv_file_path = os.path.join(DEFAULT_DIRECTORY, f"{filename}.csv") if save_csv else None
 
-    # Delete the CSV file if it exists (to avoid appending to old data)
+    # Delete the CSV file if it exists
     if csv_file_path and os.path.exists(csv_file_path):
         print(f"Deleting old CSV file... {csv_file_path}")
         os.remove(csv_file_path)
@@ -42,59 +40,82 @@ def process_file(file_path, save_csv):
     ahu_info = identify_ahu_equipment(graph)
     building_data["AHU Information"] = collect_ahu_data(ahu_info)
     print_kvs(building_data["AHU Information"])
-    print()
 
     # Collect Zone Information
     zone_info = identify_zone_equipment(graph)
     building_data["Zone Information"] = collect_zone_data(zone_info)
     print_kvs(building_data["Zone Information"])
-    print()
 
     # Collect Building Information
     building_data["Building Information"] = collect_building_data(graph)
     print_kvs(building_data["Building Information"])
-    print()
 
     # Collect Meter Information
     meter_info = query_meters(graph)
     building_data["Meter Information"] = collect_meter_data(meter_info)
     print_kvs(building_data["Meter Information"])
-    print()
 
     # Collect Central Plant Information
     central_plant_info = identify_hvac_system_equipment(graph)
     building_data["Central Plant Information"] = collect_central_plant_data(central_plant_info)
     print_kvs(building_data["Central Plant Information"])
-    print()
 
     # Save to CSV
     if save_csv:
         write_building_data_to_csv(building_data, csv_file_path)
 
-
 def main():
-    parser = argparse.ArgumentParser(
-        description="Run building analysis on TTL files."
-    )
-    parser.add_argument(
-        "--file", type=str, help="Path to a specific TTL file to process."
-    )
-    parser.add_argument(
-        "--save-csv", action="store_true", help="Save metrics to CSV files when set."
-    )
+    parser = argparse.ArgumentParser(description="Run building analysis on TTL files.")
+    parser.add_argument("--file", type=str, help="Path to a specific TTL file to process.")
+    parser.add_argument("--save-csv", action="store_true", help="Save metrics to CSV files when set.")
+    parser.add_argument("--analyze-csv", action="store_true", help="Analyze CSV files for building type and ECMs.")
+    parser.add_argument("--ttl-to-json", action="store_true", help="Convert TTL to JSON for LLM fine-tuning.")
+    parser.add_argument("--output-dir", type=str, default="./processed_fine_tune_data", help="Directory to save JSON output files.")
     args = parser.parse_args()
 
-    if args.file:
-        # Process the specified file
-        if not os.path.exists(args.file):
-            print(f"Error: File {args.file} does not exist.")
-            return
-        process_file(args.file, args.save_csv)
-    else:
-        # Process all TTL files in the directory
-        for file_path in glob.glob(f"{directory_path}/*.ttl"):
-            process_file(file_path, args.save_csv)
+    ensure_directory_exists(DEFAULT_DIRECTORY)
+    ensure_directory_exists(args.output_dir)
 
+    if args.file:
+        base_filename = os.path.splitext(os.path.basename(args.file))[0]
+        csv_file_path = os.path.join(DEFAULT_DIRECTORY, f"{base_filename}.csv")
+
+        if args.analyze_csv:
+            if not os.path.exists(csv_file_path):
+                print(f"Error: CSV file {csv_file_path} does not exist.")
+            else:
+                from csv_analyzer import analyze_csv, determine_building_type, suggest_ecms
+                summary = analyze_csv(csv_file_path)
+                if summary:
+                    building_type = determine_building_type(summary)
+                    ecms = suggest_ecms(summary)
+
+                    print(f"Detected Building Type: {building_type}")
+                    print("Suggested ECMs:")
+                    for ecm in ecms:
+                        print(f" - {ecm}")
+                else:
+                    print(f"Error processing CSV file {csv_file_path}.")
+        elif args.ttl_to_json:
+            from ttl_to_json import ttl_to_json
+            ttl_to_json(args.file, args.output_dir)
+        else:
+            if not os.path.exists(args.file):
+                print(f"Error: File {args.file} does not exist.")
+            else:
+                process_file(args.file, args.save_csv)
+    elif args.analyze_csv:
+        print(f"Analyzing all CSV files in directory: {DEFAULT_DIRECTORY}")
+        process_all_csvs(DEFAULT_DIRECTORY)
+    elif args.ttl_to_json:
+        print(f"Converting all TTL files in {DEFAULT_DIRECTORY} to JSON...")
+        from ttl_to_json import ttl_to_json
+        for ttl_file in glob.glob(f"{DEFAULT_DIRECTORY}/*.ttl"):
+            ttl_to_json(ttl_file, args.output_dir)
+    else:
+        print(f"Processing all TTL files in directory: {DEFAULT_DIRECTORY}")
+        for file_path in glob.glob(f"{DEFAULT_DIRECTORY}/*.ttl"):
+            process_file(file_path, args.save_csv)
 
 if __name__ == "__main__":
     main()
