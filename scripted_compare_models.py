@@ -121,15 +121,15 @@ for prompt, expected in zip(hvac_prompts, expected_responses):
         result["Fine-Tuned Response"] = f"Error: {e}"
         result["Fine-Tuned Score"] = 0.0
 
-    # Fine-tuned GPT-2 No HVAC response
+    # Fine-tuned GPT-2 BRICK response
     try:
         fine_tuned_brick_response = generate_response(fine_tuned_model_brick, fine_tuned_tokenizer_brick, prompt)
         fine_tuned_brick_score = compute_similarity_score(expected, fine_tuned_brick_response)
-        result["Fine-Tuned No HVAC Response"] = fine_tuned_brick_response
-        result["Fine-Tuned No HVAC Score"] = fine_tuned_brick_score
+        result["Fine-Tuned BRICK Response"] = fine_tuned_brick_response
+        result["Fine-Tuned BRICK Score"] = fine_tuned_brick_score
     except Exception as e:
-        result["Fine-Tuned No HVAC Response"] = f"Error: {e}"
-        result["Fine-Tuned No HVAC Score"] = 0.0
+        result["Fine-Tuned BRICK Response"] = f"Error: {e}"
+        result["Fine-Tuned BRICK Score"] = 0.0
 
     results.append(result)
 
@@ -139,5 +139,5 @@ for result in results:
     print(f"Expected Response: {result['Expected Response']}")
     print(f"\n --- Original Response: {result['Original Response']} (Score: {result['Original Score']}%)")
     print(f"\n --- Fine-Tuned Response: {result['Fine-Tuned Response']} (Score: {result['Fine-Tuned Score']}%)")
-    print(f"\n --- Fine-Tuned No HVAC Response: {result['Fine-Tuned No HVAC Response']} (Score: {result['Fine-Tuned No HVAC Score']}%)")
+    print(f"\n --- Fine-Tuned BRICK Response: {result['Fine-Tuned BRICK Response']} (Score: {result['Fine-Tuned BRICK Score']}%)")
     print("="*80)
