@@ -79,26 +79,34 @@ def save_code_to_file(code, filename="generated_script.py"):
 def ai_analyze_results(code, output):
     try:
         analysis_prompt = (
-            f"The following Python code was executed:\n\n"
+            f"The following Python code for HVAC fault detection was executed:\n\n"
             f"```\n{code}\n```\n\n"
             f"It produced the following output:\n\n"
             f"```\n{output}\n```\n\n"
-            f"Determine if the code worked as expected based on this context: "
-            f"The script should print 'Hello, it’s a weekday' if it’s Monday to Friday, "
-            f"and 'Hello, it’s the weekend' if it’s Saturday or Sunday. "
-            f"Explain your reasoning and suggest improvements if needed."
+            f"Analyze this output as an HVAC fault detection expert based on the following context: "
+            f"The script is designed to process HVAC data to detect faults where the duct static pressure deviates significantly "
+            f"from its setpoint while the fan speed is near maximum. "
+            f"The fault detection logic includes: "
+            f"1. A fault is flagged if 'AHU1_SaStatic_value (in/wc)' is less than 'AHU1_Eff_StaticSPt' minus 0.1 inches of water column. "
+            f"2. The fan speed ('AHU1_SaFanSpeedAO_value (%)') must be greater than or equal to 95% during the fault. "
+            f"3. A rolling window is applied to count faults that persist for 3 consecutive rows. "
+            f"\n\nTasks:\n"
+            f"1. Confirm whether the output aligns with the fault detection logic.\n"
+            f"2. Identify any inconsistencies or errors in the logic or output.\n"
+            f"3. Suggest improvements to the code or analysis methodology to enhance its accuracy or clarity."
         )
 
         response = client.chat.completions.create(
             model="gpt-4o-mini",  # Replace with your model
             messages=[{"role": "user", "content": analysis_prompt}],
-            max_tokens=300,
+            max_tokens=500,
             temperature=0.7
         )
         return response.choices[0].message.content
     except Exception as e:
         print(f"Error during AI-driven analysis: {e}")
         return None
+
 
 # Main function
 if __name__ == "__main__":

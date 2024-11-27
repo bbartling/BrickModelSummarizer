@@ -8,9 +8,9 @@ model_name = "Salesforce/codegen-350M-mono"
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 model = AutoModelForCausalLM.from_pretrained(
     model_name,
-    device_map="auto",
-    torch_dtype="auto",
-    low_cpu_mem_usage=True,
+    device_map="auto",  # Automatically map to available hardware (e.g., CPU/GPU)
+    torch_dtype="auto",  # Use optimal data type
+    low_cpu_mem_usage=True  # Optimize memory for CPU
 )
 
 # Initialize the pipeline for code generation
@@ -19,14 +19,18 @@ code_pipeline = pipeline(
     model=model,
     tokenizer=tokenizer,
     device_map="auto",
-    max_length=512
+    max_length=512  # Limit the output length
 )
 
 # Function to generate Python code
 def generate_code(prompt):
     response = code_pipeline(prompt, max_new_tokens=150, temperature=0.7, top_k=50, top_p=0.9)
     generated_code = response[0]["generated_text"]
-    return {"code": generated_code}
+    # Post-process to remove the prompt and invalid characters
+    code_lines = generated_code.splitlines()
+    clean_code = "\n".join(line for line in code_lines if not line.strip().startswith(prompt[:20]))
+    clean_code = clean_code.replace("’", "'")  # Replace invalid quotes
+    return {"code": clean_code}
 
 # Function to validate and execute the generated code
 def validate_and_execute(code_dict):
@@ -35,7 +39,7 @@ def validate_and_execute(code_dict):
     try:
         print("Executing Generated Code:")
         print(code_dict["code"])  # Show the code being executed
-        exec(code_dict["code"])  # Execute the code
+        exec(code_dict["code"], {})  # Execute the code in a new namespace
         sys.stdout = sys.__stdout__  # Reset stdout
         return {
             "status": "success",
@@ -50,14 +54,11 @@ def validate_and_execute(code_dict):
             "code": code_dict["code"]
         }
 
-# Function to analyze results
-def analyze_results(output):
-    today = datetime.now().strftime("%A")
-    is_weekday = today not in ["Saturday", "Sunday"]
-    expected_output = (
-        "Hello, it’s a weekday" if is_weekday else "Hello, it’s the weekend"
-    )
-    return expected_output.strip() in output.strip()
+# Function to save generated code to a file
+def save_code_to_file(code, filename="generated_script.py"):
+    with open(filename, "w") as file:
+        file.write(code)
+    print(f"Generated code has been saved to {filename}")
 
 # Main function
 if __name__ == "__main__":
@@ -71,6 +72,9 @@ if __name__ == "__main__":
     print("\nGenerated Python Code:")
     print(generated["code"])
 
+    # Save the generated code to a file
+    save_code_to_file(generated["code"])
+
     # Step 2: Validate and execute the generated code
     print("\nValidating and executing the code...")
     result = validate_and_execute(generated)
@@ -80,8 +84,12 @@ if __name__ == "__main__":
         print("\nCaptured Output from Execution:")
         print(result["output"])
         print("\nAnalyzing Results...")
-        is_correct = analyze_results(result["output"])
-        if is_correct:
+        today = datetime.now().strftime("%A")
+        is_weekday = today not in ["Saturday", "Sunday"]
+        expected_output = (
+            "Hello, it’s a weekday" if is_weekday else "Hello, it’s the weekend"
+        )
+        if expected_output.strip() in result["output"].strip():
             print("The generated script produced the correct output!")
         else:
             print("The generated script produced incorrect output.")
