@@ -1,0 +1,23 @@
+Building Type: Small Office
+Total Floor Area: 43382 sq ft
+Number of Floors: 2
+Total AHUs: 3
+ - Variable Air Volume AHUs: 2
+ - Constant Volume AHUs: 1
+Cooling Coils: 2
+Heating Coils: 0
+Supply Fans: 0
+Return Fans: 0
+
+Recommended Energy Conservation Measures (ECMs):
+ - Implement Demand Control Ventilation (DCV) for VAV systems.
+ - Convert CV systems to VAV systems for better efficiency.
+ - Implement load-based staging of RTUs to minimize energy demand during low-occupancy periods.
+ - Adjust thermostat setpoints to align cooling schedules with office hours.
+ - Operate economizers to leverage outdoor air for free cooling when conditions permit.
+
+Key Performance Indicators (KPIs):
+ - Run Time Reduction: Measure total runtime of HVAC equipment.
+ - Energy per Occupied Area: Track energy consumption (kWh) relative to building occupancy.
+
+No Timeseries References Found.

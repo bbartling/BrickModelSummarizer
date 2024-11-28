@@ -1,23 +1,10 @@
 # HvacGPT
 
-This is a hobby project aimed at experimenting with fine-tuning the GPT-2 language model using instruction-based data. The goal is to learn how to customize a pre-trained language model to generate responses tailored to specific types of questions or instructions by fine-tuning it on a set of curated examples. Ultimately, this project explores whether an LLM can be specifically tuned for the HVAC industry, enabling it to "think" like an HVAC engineer right out of the box, even without additional context. Ideally, such a model could assist with tasks like fault detection, Automated Supervisory Optimization (ASO) strategies for building efficiency, and interact with structured building data using the BRICK schema.
+**⚠️👷🚧🏗️ WARNING** - This project is new and highly experimental! Its in the process of getting mega overhauls but the idea is to make an LLM assistant for the building operator.
 
-## What is GPT-2?
-
-GPT-2 is a large language model developed by OpenAI, designed to generate human-like text based on input prompts. It's pre-trained on a massive amount of internet data, which makes it versatile but general in its knowledge and style. By fine-tuning GPT-2, you can specialize it to perform more specific tasks, such as answering technical questions, generating creative writing, or, in this case, responding accurately to instruction-based prompts in the HVAC industry.
-
-## How Fine-Tuning Works
-
-Fine-tuning involves training a pre-trained model (like GPT-2) on a smaller, custom dataset, allowing it to specialize in specific tasks. For this project, we are using a dataset of instruction-following examples, where each example includes an instruction, optional input, and a target response. Fine-tuning GPT-2 on this dataset allows the model to improve its responses to similar instructions, adapting it to follow directions more effectively within the given context.
-
-### Prerequisites
-Tested on Windows with Python 3.12. You can download [Python here](https://www.python.org/downloads/).
-
-### Setting Up the Environment
-
-1. **Clone the Repository**  
-   Clone this repository to your local machine (or download it as a ZIP file and extract it).
-
+1. **Tested on Windows Python 3.12**  
+   Download Python
+   * https://www.python.org/downloads/windows/
 
 2. **Create a Virtual Environment**  
    In Windows PowerShell set up a virtual environment to manage dependencies.
@@ -37,27 +24,8 @@ Tested on Windows with Python 3.12. You can download [Python here](https://www.p
    Install the necessary Python packages with pip.
 
    ```sh
-   pip install torch transformers matplotlib
+   pip install --upgrade pip sentence-transformers langchain faiss-cpu rdflib tf-keras tensorflow pandas matplotlib
    ```
-
-### Running the Fine-Tuning Script
-
-Once your environment is set up and dependencies are installed, you can start the fine-tuning process by running the Python script provided in the repository:
-
-```sh
-py fine_tune.py
-```
-
-This script will load your dataset, tokenize the data, and begin fine-tuning GPT-2 on your custom instructions. Training losses will be logged and plotted after training.
-
-### Files in the Repository
-
-- **`fine_tune.py`** - The main script for loading data, tokenizing, and training the model.
-- **`data/`** - Directory containing JSON files with instruction-based examples for fine-tuning.
-
-### Project Goals
-
-The primary goal of this project is to explore how fine-tuning can be used to make GPT-2 more effective at following specific instructions. By the end of the project, you’ll have a better understanding of how to prepare data, set up a training loop, and modify GPT-2 for customized applications.
 
 
 ## Licence

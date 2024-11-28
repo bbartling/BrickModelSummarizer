@@ -1,0 +1,48 @@
+Category,Subcategory,Details
+AHU Information
+,Total AHUs,1
+,Constant Volume AHUs,0
+,Variable Air Volume AHUs,0
+,AHUs with Cooling Coil,0
+,AHUs with Heating Coil,0
+,AHUs with DX Staged Cooling,0
+,AHUs with Return Fans,0
+,AHUs with Supply Fans,0
+,AHUs with Return Air Temp Sensors,0
+,AHUs with Mixing Air Temp Sensors,0
+,AHUs with Leaving Air Temp Sensors,0
+,AHUs with Leaving Air Temp Setpoint,0
+,AHUs with Duct Pressure Setpoint,0
+,AHUs with Duct Pressure,0
+
+Zone Information
+,Zone Air Temperature Setpoints,No zone air temperature setpoints found.
+,Total VAV Boxes,43
+Number of VAV Boxes per AHU,AHU,VAV Count
+,AHU: AHU01,43
+,VAV Boxes with Reheat Valve Command,0
+,VAV Boxes with Air Flow Sensors,0
+,VAV Boxes with Supply Air Temp Sensors,0
+,VAV Boxes with Air Flow Setpoints,0
+,Cooling Only VAV Boxes,43
+
+Building Information
+,Building Area,27165 sq ft
+,Number of Floors,2
+
+Meter Information
+,BTU Meter Present,False
+,Electrical Meter Present,False
+,Water Meter Present,False
+,Gas Meter Present,False
+,PV Meter Present,False
+
+Central Plant Information
+,Total Chillers,1
+,Total Boilers,0
+,Total Cooling Towers,0
+,Chillers with Water Flow,0
+,Boilers with Water Flow,0
+,Cooling Towers with Fan,0
+,Cooling Towers with Temp Sensors,0
+

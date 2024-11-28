@@ -1,0 +1,19 @@
+Building Type: Unknown Building Type
+Total Floor Area: 53229 sq ft
+Number of Floors: 0
+Total AHUs: 3
+ - Variable Air Volume AHUs: 2
+ - Constant Volume AHUs: 1
+Cooling Coils: 2
+Heating Coils: 0
+Supply Fans: 0
+Return Fans: 0
+
+Recommended Energy Conservation Measures (ECMs):
+ - Implement Demand Control Ventilation (DCV) for VAV systems.
+ - Convert CV systems to VAV systems for better efficiency.
+
+Key Performance Indicators (KPIs):
+None
+
+No Timeseries References Found.

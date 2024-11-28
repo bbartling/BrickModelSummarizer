@@ -1,0 +1,18 @@
+Building Type: Unknown Building Type
+Total Floor Area: 42946 sq ft
+Number of Floors: 0
+Total AHUs: 1
+ - Variable Air Volume AHUs: 0
+ - Constant Volume AHUs: 1
+Cooling Coils: 1
+Heating Coils: 0
+Supply Fans: 0
+Return Fans: 0
+
+Recommended Energy Conservation Measures (ECMs):
+ - Convert CV systems to VAV systems for better efficiency.
+
+Key Performance Indicators (KPIs):
+None
+
+No Timeseries References Found.

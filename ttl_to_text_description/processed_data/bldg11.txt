@@ -1,0 +1,26 @@
+Building Type: Medium Office
+Total Floor Area: 228431 sq ft
+Number of Floors: 7
+Total AHUs: 11
+ - Variable Air Volume AHUs: 9
+ - Constant Volume AHUs: 2
+Cooling Coils: 11
+Heating Coils: 0
+Supply Fans: 0
+Return Fans: 0
+
+Recommended Energy Conservation Measures (ECMs):
+ - Implement Demand Control Ventilation (DCV) for VAV systems.
+ - Convert CV systems to VAV systems for better efficiency.
+ - Optimize cooling coil operation during low-load periods.
+ - Implement load-based staging of RTUs to minimize energy demand during low-occupancy periods.
+ - Adjust thermostat setpoints to align cooling schedules with office hours.
+ - Operate economizers to leverage outdoor air for free cooling when conditions permit.
+ - Optimize HVAC scheduling to match occupancy levels.
+ - Upgrade BAS to improve zoning and control.
+
+Key Performance Indicators (KPIs):
+ - Run Time Reduction: Measure total runtime of HVAC equipment.
+ - Energy per Occupied Area: Track energy consumption (kWh) relative to building occupancy.
+
+No Timeseries References Found.

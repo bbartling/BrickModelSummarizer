@@ -1,0 +1,21 @@
+@prefix brick: <https://brickschema.org/schema/Brick#> .
+@prefix ex: <http://example.com/building#> .
+
+ex:AHU1_Eff_StaticSPt a <brick:Supply_Air_Static_Pressure_Setpoint> ;
+    brick:isPointOf ex:AHU1 .
+
+ex:AHU1_SaFanSpeedAO_value_ a <brick:Supply_Fan_Speed_Command> ;
+    brick:isPointOf ex:AHU1 .
+
+ex:AHU1_SaStatic_value_in_wc a <brick:Supply_Air_Static_Pressure_Sensor> ;
+    brick:isPointOf ex:AHU1 .
+
+ex:AHU1_Supply_Fan a brick:Supply_Fan ;
+    brick:isPartOf ex:AHU1 .
+
+ex:AHU1 a brick:Air_Handling_Unit ;
+    brick:hasPart ex:AHU1_Supply_Fan ;
+    brick:hasPoint ex:AHU1_Eff_StaticSPt,
+        ex:AHU1_SaFanSpeedAO_value_,
+        ex:AHU1_SaStatic_value_in_wc .
+
