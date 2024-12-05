@@ -1,0 +1,17 @@
+https://docs.brickschema.org/metadata/timeseries-storage.html
+
+:sensor2    a   brick:Temperature_Sensor ;
+    brick:hasUnit unit:DEG_F ;
+    ref:hasExternalReference [
+        a ref:TimeseriesReference ;
+        ref:hasTimeseriesId   "38b5fa0e-407e-4a23-8800-6ec4f6d60785" ;
+        ref:storedAt  :database ;
+    ] ;
+
+REPLACE ref:hasTimeseriesId WITH CSV COL NAME AND ref:storedAt  :CSV
+
+MAKE THIS QUERY FORMAT!
+https://platform.openai.com/docs/guides/structured-outputs?context=ex2
+
+Multi agent
+https://cookbook.openai.com/examples/structured_outputs_multi_agent
