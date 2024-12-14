@@ -1,8 +1,8 @@
 # BRICK Model to Text Description
 
-This project transforms BRICK schema TTL files into concise, human-readable text summaries of building information. The goal is not just to provide clarity for humans but also to enable Large Language Models (LLMs) like ChatGPT to better understand and interpret building data.
+This project transforms BRICK schema TTL files into concise, human-readable text summaries of building information. The goal is not only to provide clarity for humans but also to empower Large Language Models (LLMs) like ChatGPT to better understand and interpret complex building data.
 
-Currently, BRICK models are highly structured but often too complex for LLMs to comprehend directly, as evidenced by initial tests where LLMs struggled to summarize these models effectively. This project bridges the gap by converting BRICK models into a format that simplifies their complexity, enabling LLMs to approach building systems with the reasoning and insight of an engineer.
+From my initial testing, BRICK models—while highly structured—are often too intricate for LLMs to process effectively. These models present challenges due to their detailed and technical nature, making it difficult for LLMs to generate meaningful summaries or insights. This project addresses this issue by converting BRICK models into simplified summaries that retain essential information. The output aims to enable LLMs to reason about building systems with the perspective and analytical depth of a mechanical HVAC engineer, based on a clear summary of the mechanical systems embedded in the data. Can the LLM think like an engineer? I think so ...
 
 ## Writeups on Linkedin
 * [Wait, What?! You Can Chat with Your Data Model?](https://www.linkedin.com/posts/ben-bartling-510a0961_buildingautomation-hvac-bas-activity-7268678804066197505-eWtn?utm_source=share&utm_medium=member_desktop)
@@ -85,28 +85,71 @@ pip install rdflib pandas
 ```
 
 ## Example Output
-For a file named `my_building.ttl`, the generated text file (`my_building.txt`) will include:
+For a file named `bldg6.ttl`, the generated text file (`bldg6.txt`) which is a [reference BRICK model from BRICK schema.org](https://brickschema.org/resources/#reference-brick-models) the text file output will include:
+
 ```
 AHU Information:
-  - Total AHUs: 3
-  - Constant Volume AHUs: 2
-  - Variable Air Volume AHUs: 1
-...
-
+  - Total AHUs: 16
+  - Constant Volume AHUs: 11
+  - Variable Air Volume AHUs: 0
+  - AHUs with Cooling Coil: 10
+  - AHUs with Heating Coil: 7
+  - AHUs with DX Staged Cooling: 0
+  - AHUs with Return Fans: 0
+  - AHUs with Supply Fans: 0
+  - AHUs with Return Air Temp Sensors: 4
+  - AHUs with Mixing Air Temp Sensors: 1
+  - AHUs with Leaving Air Temp Sensors: 18
+  - AHUs with Leaving Air Temp Setpoint: 9
+  - AHUs with Duct Pressure Setpoint: 0
+  - AHUs with Duct Pressure: 0
 Zone Information:
-  - Total VAV Boxes: 12
-  - VAV Boxes with Air Flow Sensors: 10
-...
-
+  - Zone Air Temperature Setpoints: Zone Air Temperature Setpoints Found.
+  - Total VAV Boxes: 132
+  - Number of VAV Boxes per AHU: {'AHU: AH1S': 4, 'AHU: AH2N': 3, 'AHU: AH2S': 3, 'AHU: AH3S': 1, 'AHU: AHBS': 2, 'AHU: AHU01N': 24, 'AHU: AHU01S': 22, 'AHU: AHU02N': 10, 'AHU: AHU02S': 30, 'AHU: AHU03N': 14, 'AHU: AHU03S': 30}
+  - VAV Boxes with Reheat Valve Command: 0
+  - VAV Boxes with Air Flow Sensors: 0
+  - VAV Boxes with Supply Air Temp Sensors: 0
+  - VAV Boxes with Air Flow Setpoints: 0
+  - Cooling Only VAV Boxes: 132
 Building Information:
-  - Building Area: 10263 sq ft
-  - Number of Floors: 3
-...
-
-Timeseries References:
-  - Sensor: Zone_Temp_Sensor
-    Label: Zone Temperature
-    Timeseries ID: ts_001
-...
+  - Building Area: 130149 sq ft
+  - Number of Floors: 4
+Meter Information:
+  - BTU Meter Present: False
+  - Electrical Meter Present: False
+  - Water Meter Present: False
+  - Gas Meter Present: False
+  - PV Meter Present: False
+Central Plant Information:
+  - Total Chillers: 1
+  - Total Boilers: 0
+  - Total Cooling Towers: 0
+  - Chillers with Water Flow: 0
+  - Boilers with Water Flow: 0
+  - Cooling Towers with Fan: 0
+  - Cooling Towers with Temp Sensors: 0
 ```
+
+
+If time series data base references are available in the model it will include data like this in the text file output:
+```
+Timeseries References:
+ - Sensor: ACAD.AHU.AHU01.CCV
+   Label: ACAD.AHU.AHU01.CCV
+   Timeseries ID: 85bb0cab-3e62-33eb-963d-a418c4c8dcae
+ - Sensor: ACAD.AHU.AHU01.Cooling_Valve_Output
+   Label: ACAD.AHU.AHU01.Cooling Valve Output
+   Timeseries ID: 79f48ae1-c476-3d3a-9938-61a90ceb2bd9
+ - Sensor: ACAD.AHU.AHU01.Heating_Valve_Output
+   Label: ACAD.AHU.AHU01.Heating Valve Output
+   Timeseries ID: db852069-679f-360f-84df-c7119289709c
+ - Sensor: ACAD.AHU.AHU01.Mixed_Air_Temp
+   Label: ACAD.AHU.AHU01.Mixed Air Temp
+   Timeseries ID: 11ad879d-23fd-38e2-9d06-01d671af5fa0
+ - Sensor: ACAD.AHU.AHU01.Mode
+   Label: ACAD.AHU.AHU01.Mode
+   Timeseries ID: c784eada-7c2b-3a2d-85cd-9f504bd81153
+```
+
 
