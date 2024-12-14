@@ -153,3 +153,8 @@ Timeseries References:
 ```
 
 
+## TODO
+Work on generating a summary of suggested ECMs and KPIs based on the text file output.
+
+## License
+MIT

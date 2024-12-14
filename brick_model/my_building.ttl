@@ -1,95 +1,56 @@
 @prefix bldg: <urn:Building#> .
 @prefix brick: <https://brickschema.org/schema/Brick#> .
+@prefix prj: <http://example.com/Project#> .
 
-bldg:Bolzano_Building a brick:Building ;
-    brick:hasLocation [ brick:value "Bolzano" ] .
+prj:USA_Building a brick:Building ;
+    brick:buildingPrimaryFunction [ brick:value "Commercial" ] ;
+    brick:hasLocation [ brick:value "USA" ] .
 
-bldg:Floor_1 a brick:Floor ;
-    brick:isPartOf bldg:Bolzano_Building .
+# AHU Information
+bldg:AHU_AH1S a brick:Air_Handling_Unit ;
+    brick:hasPart bldg:VAV_AH1S_1, bldg:VAV_AH1S_2, bldg:VAV_AH1S_3, bldg:VAV_AH1S_4 .
 
-bldg:Office_1 a brick:Office ;
-    brick:isPartOf bldg:Floor_1 .
+bldg:AHU_AH2N a brick:Air_Handling_Unit ;
+    brick:hasPart bldg:VAV_AH2N_1, bldg:VAV_AH2N_2, bldg:VAV_AH2N_3 .
 
-bldg:Room_1 a brick:Room ;
-    brick:isPartOf bldg:Office_1 .
+bldg:AHU_AH2S a brick:Air_Handling_Unit ;
+    brick:hasPart bldg:VAV_AH2S_1, bldg:VAV_AH2S_2, bldg:VAV_AH2S_3 .
 
-bldg:Temperature_Sensor_1 a brick:Temperature_Sensor ;
-    brick:isPointOf bldg:Room_1 .
+bldg:AHU_AH3S a brick:Air_Handling_Unit ;
+    brick:hasPart bldg:VAV_AH3S_1 .
 
-bldg:Humidity_Sensor_1 a brick:Humidity_Sensor ;
-    brick:isPointOf bldg:Room_1 .
+bldg:AHU_AHBS a brick:Air_Handling_Unit ;
+    brick:hasPart bldg:VAV_AHBS_1, bldg:VAV_AHBS_2 .
 
-bldg:CO_Sensor_1 a brick:CO_Sensor ;
-    brick:isPointOf bldg:Room_1 .
+bldg:AHU_AHU01N a brick:Air_Handling_Unit ;
+    brick:hasPart bldg:VAV_AHU01N_1, bldg:VAV_AHU01N_2, bldg:VAV_AHU01N_3, bldg:VAV_AHU01N_4, bldg:VAV_AHU01N_5, bldg:VAV_AHU01N_6, bldg:VAV_AHU01N_7, bldg:VAV_AHU01N_8, bldg:VAV_AHU01N_9, bldg:VAV_AHU01N_10, bldg:VAV_AHU01N_11, bldg:VAV_AHU01N_12, bldg:VAV_AHU01N_13, bldg:VAV_AHU01N_14, bldg:VAV_AHU01N_15, bldg:VAV_AHU01N_16, bldg:VAV_AHU01N_17, bldg:VAV_AHU01N_18, bldg:VAV_AHU01N_19, bldg:VAV_AHU01N_20, bldg:VAV_AHU01N_21, bldg:VAV_AHU01N_22, bldg:VAV_AHU01N_23, bldg:VAV_AHU01N_24 .
 
-bldg:Room_2 a brick:Room ;
-    brick:isPartOf bldg:Office_1 .
+bldg:AHU_AHU01S a brick:Air_Handling_Unit ;
+    brick:hasPart bldg:VAV_AHU01S_1, bldg:VAV_AHU01S_2, bldg:VAV_AHU01S_3, bldg:VAV_AHU01S_4, bldg:VAV_AHU01S_5, bldg:VAV_AHU01S_6, bldg:VAV_AHU01S_7, bldg:VAV_AHU01S_8, bldg:VAV_AHU01S_9, bldg:VAV_AHU01S_10, bldg:VAV_AHU01S_11, bldg:VAV_AHU01S_12, bldg:VAV_AHU01S_13, bldg:VAV_AHU01S_14, bldg:VAV_AHU01S_15, bldg:VAV_AHU01S_16, bldg:VAV_AHU01S_17, bldg:VAV_AHU01S_18, bldg:VAV_AHU01S_19, bldg:VAV_AHU01S_20, bldg:VAV_AHU01S_21, bldg:VAV_AHU01S_22 .
 
-bldg:Temperature_Sensor_2 a brick:Temperature_Sensor ;
-    brick:isPointOf bldg:Room_2 .
+bldg:AHU_AHU02N a brick:Air_Handling_Unit ;
+    brick:hasPart bldg:VAV_AHU02N_1, bldg:VAV_AHU02N_2, bldg:VAV_AHU02N_3, bldg:VAV_AHU02N_4, bldg:VAV_AHU02N_5, bldg:VAV_AHU02N_6, bldg:VAV_AHU02N_7, bldg:VAV_AHU02N_8, bldg:VAV_AHU02N_9, bldg:VAV_AHU02N_10 .
 
-bldg:Humidity_Sensor_2 a brick:Humidity_Sensor ;
-    brick:isPointOf bldg:Room_2 .
+bldg:AHU_AHU02S a brick:Air_Handling_Unit ;
+    brick:hasPart bldg:VAV_AHU02S_1, bldg:VAV_AHU02S_2, bldg:VAV_AHU02S_3, bldg:VAV_AHU02S_4, bldg:VAV_AHU02S_5, bldg:VAV_AHU02S_6, bldg:VAV_AHU02S_7, bldg:VAV_AHU02S_8, bldg:VAV_AHU02S_9, bldg:VAV_AHU02S_10, bldg:VAV_AHU02S_11, bldg:VAV_AHU02S_12, bldg:VAV_AHU02S_13, bldg:VAV_AHU02S_14, bldg:VAV_AHU02S_15, bldg:VAV_AHU02S_16, bldg:VAV_AHU02S_17, bldg:VAV_AHU02S_18, bldg:VAV_AHU02S_19, bldg:VAV_AHU02S_20, bldg:VAV_AHU02S_21, bldg:VAV_AHU02S_22, bldg:VAV_AHU02S_23, bldg:VAV_AHU02S_24, bldg:VAV_AHU02S_25, bldg:VAV_AHU02S_26, bldg:VAV_AHU02S_27, bldg:VAV_AHU02S_28, bldg:VAV_AHU02S_29, bldg:VAV_AHU02S_30 .
 
-bldg:CO_Sensor_2 a brick:CO_Sensor ;
-    brick:isPointOf bldg:Room_2 .
+bldg:AHU_AHU03N a brick:Air_Handling_Unit ;
+    brick:hasPart bldg:VAV_AHU03N_1, bldg:VAV_AHU03N_2, bldg:VAV_AHU03N_3, bldg:VAV_AHU03N_4, bldg:VAV_AHU03N_5, bldg:VAV_AHU03N_6, bldg:VAV_AHU03N_7, bldg:VAV_AHU03N_8, bldg:VAV_AHU03N_9, bldg:VAV_AHU03N_10, bldg:VAV_AHU03N_11, bldg:VAV_AHU03N_12, bldg:VAV_AHU03N_13, bldg:VAV_AHU03N_14 .
 
-bldg:Floor_2 a brick:Floor ;
-    brick:isPartOf bldg:Bolzano_Building .
+bldg:AHU_AHU03S a brick:Air_Handling_Unit ;
+    brick:hasPart bldg:VAV_AHU03S_1, bldg:VAV_AHU03S_2, bldg:VAV_AHU03S_3, bldg:VAV_AHU03S_4, bldg:VAV_AHU03S_5, bldg:VAV_AHU03S_6, bldg:VAV_AHU03S_7, bldg:VAV_AHU03S_8, bldg:VAV_AHU03S_9, bldg:VAV_AHU03S_10, bldg:VAV_AHU03S_11, bldg:VAV_AHU03S_12, bldg:VAV_AHU03S_13, bldg:VAV_AHU03S_14, bldg:VAV_AHU03S_15, bldg:VAV_AHU03S_16, bldg:VAV_AHU03S_17, bldg:VAV_AHU03S_18, bldg:VAV_AHU03S_19, bldg:VAV_AHU03S_20, bldg:VAV_AHU03S_21, bldg:VAV_AHU03S_22, bldg:VAV_AHU03S_23, bldg:VAV_AHU03S_24, bldg:VAV_AHU03S_25, bldg:VAV_AHU03S_26, bldg:VAV_AHU03S_27, bldg:VAV_AHU03S_28, bldg:VAV_AHU03S_29, bldg:VAV_AHU03S_30 .
 
-bldg:Office_2 a brick:Office ;
-    brick:isPartOf bldg:Floor_2 .
+# Zone Information
+bldg:Zone_Air_Temperature_Setpoint a brick:Zone_Air_Temperature_Setpoint .
 
-bldg:Room_3 a brick:Room ;
-    brick:isPartOf bldg:Office_2 .
+# Central Plant Information
+bldg:Chiller_1 a brick:Chiller .
 
-bldg:Temperature_Sensor_3 a brick:Temperature_Sensor ;
-    brick:isPointOf bldg:Room_3 .
+# Building Information
+bldg:USA_Building a brick:Building ;
+    brick:hasPart bldg:Floor_1, bldg:Floor_2, bldg:Floor_3, bldg:Floor_4 .
 
-bldg:Humidity_Sensor_3 a brick:Humidity_Sensor ;
-    brick:isPointOf bldg:Room_3 .
-
-bldg:CO_Sensor_3 a brick:CO_Sensor ;
-    brick:isPointOf bldg:Room_3 .
-
-bldg:Room_4 a brick:Room ;
-    brick:isPartOf bldg:Office_2 .
-
-bldg:Temperature_Sensor_4 a brick:Temperature_Sensor ;
-    brick:isPointOf bldg:Room_4 .
-
-bldg:Humidity_Sensor_4 a brick:Humidity_Sensor ;
-    brick:isPointOf bldg:Room_4 .
-
-bldg:CO_Sensor_4 a brick:CO_Sensor ;
-    brick:isPointOf bldg:Room_4 .
-
-bldg:Floor_3 a brick:Floor ;
-    brick:isPartOf bldg:Bolzano_Building .
-
-bldg:Office_3 a brick:Office ;
-    brick:isPartOf bldg:Floor_3 .
-
-bldg:Room_5 a brick:Room ;
-    brick:isPartOf bldg:Office_3 .
-
-bldg:Temperature_Sensor_5 a brick:Temperature_Sensor ;
-    brick:isPointOf bldg:Room_5 .
-
-bldg:Humidity_Sensor_5 a brick:Humidity_Sensor ;
-    brick:isPointOf bldg:Room_5 .
-
-bldg:CO_Sensor_5 a brick:CO_Sensor ;
-    brick:isPointOf bldg:Room_5 .
-
-bldg:Room_6 a brick:Room ;
-    brick:isPartOf bldg:Office_3 .
-
-bldg:Temperature_Sensor_6 a brick:Temperature_Sensor ;
-    brick:isPointOf bldg:Room_6 .
-
-bldg:Humidity_Sensor_6 a brick:Humidity_Sensor ;
-    brick:isPointOf bldg:Room_6 .
-
-bldg:CO_Sensor_6 a brick:CO_Sensor ;
-    brick:isPointOf bldg:Room_6 .
+bldg:Floor_1 a brick:Floor .
+bldg:Floor_2 a brick:Floor .
+bldg:Floor_3 a brick:Floor .
+bldg:Floor_4 a brick:Floor .
