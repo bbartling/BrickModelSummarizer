@@ -1,5 +1,8 @@
 import os
-from brick_model_summarizer.main import process_brick_file  # Import the processing function
+from brick_model_summarizer.main import (
+    process_brick_file,
+)  # Import the processing function
+
 
 def save_to_text_file(data, filename):
     """Save the building data to a text file."""
@@ -15,8 +18,9 @@ def save_to_text_file(data, filename):
         lines.append("")  # Add a blank line between categories
 
     # Write the lines to the file
-    with open(filename, 'w', encoding='utf-8') as file:
+    with open(filename, "w", encoding="utf-8") as file:
         file.write("\n".join(lines))
+
 
 # Example BRICK model file
 brick_model_file = r"C:\Users\ben\Documents\HvacGPT\sample_brick_models\bldg6.ttl"

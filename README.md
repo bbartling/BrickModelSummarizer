@@ -17,8 +17,11 @@ The primary purpose of this repository is to provide a framework for summarizing
 - **Ready-to-Use Outputs**: Generates text summaries suitable for validation, reporting, or further analysis.
 
 ## Installation
+```bash
+pip install brick-model-summarizer
+```
 
-### Local Installation
+### Local Installation for development purposes
 
 1. **Clone the repository**:
    ```bash

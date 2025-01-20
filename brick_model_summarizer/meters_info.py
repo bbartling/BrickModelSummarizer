@@ -62,4 +62,3 @@ def collect_meter_data(meter_info):
         "PV Meter Present": meter_info.get("pv_meter", "Unknown"),
     }
     return meter_data
-

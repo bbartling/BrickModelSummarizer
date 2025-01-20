@@ -69,4 +69,3 @@ def collect_building_data(graph):
         building_data["Number of Floors"] = "Not available"
 
     return building_data
-

@@ -126,13 +126,19 @@ def collect_zone_data(zone_info):
     vav_feature_details = {
         "VAV Boxes with Reheat Valve Command": vav_features.get("reheat_count", 0),
         "VAV Boxes with Air Flow Sensors": vav_features.get("airflow_count", 0),
-        "VAV Boxes with Supply Air Temp Sensors": vav_features.get("supply_air_temp_count", 0),
-        "VAV Boxes with Air Flow Setpoints": vav_features.get("airflow_setpoint_count", 0),
+        "VAV Boxes with Supply Air Temp Sensors": vav_features.get(
+            "supply_air_temp_count", 0
+        ),
+        "VAV Boxes with Air Flow Setpoints": vav_features.get(
+            "airflow_setpoint_count", 0
+        ),
     }
     zone_data.update(vav_feature_details)
 
     # Cooling Only VAV Boxes
-    cooling_only_vav_count = zone_data["Total VAV Boxes"] - vav_features.get("reheat_count", 0)
+    cooling_only_vav_count = zone_data["Total VAV Boxes"] - vav_features.get(
+        "reheat_count", 0
+    )
     zone_data["Cooling Only VAV Boxes"] = cooling_only_vav_count
 
     return zone_data

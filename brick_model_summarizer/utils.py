@@ -13,5 +13,3 @@ def load_graph(file_path):
     graph = Graph()
     graph.parse(file_path, format="turtle")
     return graph
-
-

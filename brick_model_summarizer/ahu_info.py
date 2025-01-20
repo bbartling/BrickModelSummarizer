@@ -2,6 +2,7 @@ from brick_model_summarizer.utils import BRICK
 
 DEBUG = 1
 
+
 def identify_ahu_equipment(graph):
     """Combine results into a single AHU equipment dictionary."""
     ahu_equipment = {}
@@ -117,7 +118,6 @@ def count_ahu_features(graph):
         if "supply_air_pressure" in point:
             features["duct_pressure_count"] += 1
 
-
     for ahu, points in ahu_points.items():
         # Print a blank line to separate AHUs
         if DEBUG:
@@ -156,18 +156,32 @@ def collect_ahu_data(ahu_info):
 
     # Include feature counts
     ahu_features = ahu_info.get("ahu_features", {})
-    ahu_data.update({
-        "AHUs with Cooling Coil": ahu_features.get("cooling_coil_count", 0),
-        "AHUs with Heating Coil": ahu_features.get("heating_coil_count", 0),
-        "AHUs with DX Staged Cooling": ahu_features.get("dx_staged_cooling_count", 0),
-        "AHUs with Return Fans": ahu_features.get("return_fan_count", 0),
-        "AHUs with Supply Fans": ahu_features.get("supply_fan_count", 0),
-        "AHUs with Return Air Temp Sensors": ahu_features.get("return_temp_count", 0),
-        "AHUs with Mixing Air Temp Sensors": ahu_features.get("mixing_temp_count", 0),
-        "AHUs with Leaving Air Temp Sensors": ahu_features.get("leaving_temp_count", 0),
-        "AHUs with Leaving Air Temp Setpoint": ahu_features.get("leaving_air_temp_setpoint_count", 0),
-        "AHUs with Duct Pressure Setpoint": ahu_features.get("duct_pressure_setpoint_count", 0),
-        "AHUs with Duct Pressure": ahu_features.get("duct_pressure_count", 0),
-    })
+    ahu_data.update(
+        {
+            "AHUs with Cooling Coil": ahu_features.get("cooling_coil_count", 0),
+            "AHUs with Heating Coil": ahu_features.get("heating_coil_count", 0),
+            "AHUs with DX Staged Cooling": ahu_features.get(
+                "dx_staged_cooling_count", 0
+            ),
+            "AHUs with Return Fans": ahu_features.get("return_fan_count", 0),
+            "AHUs with Supply Fans": ahu_features.get("supply_fan_count", 0),
+            "AHUs with Return Air Temp Sensors": ahu_features.get(
+                "return_temp_count", 0
+            ),
+            "AHUs with Mixing Air Temp Sensors": ahu_features.get(
+                "mixing_temp_count", 0
+            ),
+            "AHUs with Leaving Air Temp Sensors": ahu_features.get(
+                "leaving_temp_count", 0
+            ),
+            "AHUs with Leaving Air Temp Setpoint": ahu_features.get(
+                "leaving_air_temp_setpoint_count", 0
+            ),
+            "AHUs with Duct Pressure Setpoint": ahu_features.get(
+                "duct_pressure_setpoint_count", 0
+            ),
+            "AHUs with Duct Pressure": ahu_features.get("duct_pressure_count", 0),
+        }
+    )
 
     return ahu_data

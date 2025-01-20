@@ -15,7 +15,9 @@ setup(
     long_description=read_long_description("README.md"),
     long_description_content_type="text/markdown",
     url="https://github.com/bbartling/BrickModelSummarizer",
-    packages=find_packages(include=["brick_model_summarizer", "brick_model_summarizer.*"]),
+    packages=find_packages(
+        include=["brick_model_summarizer", "brick_model_summarizer.*"]
+    ),
     install_requires=[
         "pandas",
         "rdflib",

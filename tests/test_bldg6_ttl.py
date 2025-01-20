@@ -8,9 +8,9 @@ def test_process_brick_file():
     # Construct the relative path and resolve it to an absolute path
     relative_path = os.path.join(
         os.path.dirname(__file__),  # Directory of the current script
-        "..",                       # Go up one level to the project root
-        "sample_brick_models",      # Subdirectory for Brick models
-        "bldg6.ttl"                 # The Brick model file
+        "..",  # Go up one level to the project root
+        "sample_brick_models",  # Subdirectory for Brick models
+        "bldg6.ttl",  # The Brick model file
     )
     brick_model_file = os.path.abspath(os.path.normpath(relative_path))
 
@@ -21,7 +21,7 @@ def test_process_brick_file():
     if not os.path.exists(brick_model_file):
         raise FileNotFoundError(f"BRICK model file not found: {brick_model_file}")
 
-    #brick_model_file = r"C:\Users\ben\Documents\HvacGPT\sample_brick_models\bldg6.ttl"
+    # brick_model_file = r"C:\Users\ben\Documents\HvacGPT\sample_brick_models\bldg6.ttl"
 
     # Process the BRICK model file
     building_data = process_brick_file(brick_model_file)

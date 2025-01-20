@@ -1,10 +1,10 @@
-
 from rdflib import Namespace
 from brick_model_summarizer.utils import load_graph
 
 # Define namespaces
 BRICK = Namespace("https://brickschema.org/schema/Brick#")
 RDFS = Namespace("http://www.w3.org/2000/01/rdf-schema#")
+
 
 def extract_timeseries_references(graph):
     """
@@ -22,9 +22,11 @@ def extract_timeseries_references(graph):
     """
     results = graph.query(query)
     for row in results:
-        references.append({
-            "sensor": str(row.sensor).split("#")[-1],
-            "label": str(row.label),
-            "timeseries_id": str(row.timeseries_id)
-        })
+        references.append(
+            {
+                "sensor": str(row.sensor).split("#")[-1],
+                "label": str(row.label),
+                "timeseries_id": str(row.timeseries_id),
+            }
+        )
     return references

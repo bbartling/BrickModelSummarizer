@@ -28,7 +28,7 @@ def process_brick_file(brick_model_file):
     }
 
     # Generate and print the text description
-    #description = generate_text_description(building_data, [])
+    # description = generate_text_description(building_data, [])
     print("\n=== Building Summary ===")
     print(building_data)
 
