@@ -1,4 +1,4 @@
-from utils import BRICK, UNIT
+from brick_model_summarizer.utils import BRICK, UNIT
 
 
 def query_building_area(graph):

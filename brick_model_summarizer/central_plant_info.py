@@ -1,5 +1,5 @@
 # central_plant_info.py
-from utils import BRICK
+from brick_model_summarizer.utils import BRICK
 
 
 def identify_hvac_system_equipment(graph):

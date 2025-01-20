@@ -13,6 +13,7 @@ AHU Information:
   - AHUs with Leaving Air Temp Setpoint: 9
   - AHUs with Duct Pressure Setpoint: 0
   - AHUs with Duct Pressure: 0
+
 Zone Information:
   - Zone Air Temperature Setpoints: Zone Air Temperature Setpoints Found.
   - Total VAV Boxes: 132
@@ -22,15 +23,18 @@ Zone Information:
   - VAV Boxes with Supply Air Temp Sensors: 0
   - VAV Boxes with Air Flow Setpoints: 0
   - Cooling Only VAV Boxes: 132
+
 Building Information:
   - Building Area: 130149 sq ft
   - Number of Floors: 4
+
 Meter Information:
   - BTU Meter Present: False
   - Electrical Meter Present: False
   - Water Meter Present: False
   - Gas Meter Present: False
   - PV Meter Present: False
+
 Central Plant Information:
   - Total Chillers: 1
   - Total Boilers: 0
@@ -39,6 +43,3 @@ Central Plant Information:
   - Boilers with Water Flow: 0
   - Cooling Towers with Fan: 0
   - Cooling Towers with Temp Sensors: 0
-
-Timeseries References:
-No Timeseries References Found.

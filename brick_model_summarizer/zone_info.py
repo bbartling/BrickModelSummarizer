@@ -1,5 +1,5 @@
 # zone_info.py
-from utils import BRICK
+from brick_model_summarizer.utils import BRICK
 
 
 def identify_zone_equipment(graph):
