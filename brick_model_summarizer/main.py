@@ -7,7 +7,6 @@ from brick_model_summarizer.central_plant_info import (
     collect_central_plant_data,
 )
 from brick_model_summarizer.building_info import collect_building_data
-from brick_model_summarizer.ttl_to_text import generate_text_description
 
 
 def process_brick_file(brick_model_file):
