@@ -20,6 +20,12 @@ The primary purpose of this repository is to provide a framework for summarizing
 View a web app interface on Bens Pythonanywhere account for free!
 
 * https://bensapi.pythonanywhere.com/
+* Upload and process `.ttl` files to generate detailed BRICK model summaries.
+* Compare your AI-generated models with [official BRICK Reference Models](https://brickschema.org/resources/#reference-brick-models).
+* Easy-to-use web interface with support for `.ttl` file validation.
+
+![BRICK Model Summarizer Interface](https://github.com/bbartling/BrickModelSummarizer/blob/develop/flask_app/app_interface.png?raw=true)
+
 
 ## Installation
 ```bash
