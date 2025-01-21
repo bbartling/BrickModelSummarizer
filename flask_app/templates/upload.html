@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BRICK Model Processor</title>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+    <style>
+        :root {
+            --primary-color: #0056b3; /* Define common colors */
+            --light-grey: #f8f9fa;
+            --dark-grey: #444;
+            --text-color: #333;
+            --hover-color: #004494;
+            --even-row-color: #f2f7fb;
+            --hover-row-color: #d6e4f2;
+        }
+
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--light-grey);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #spinner-container {
+            display: none; /* Ensure spinner container is hidden initially */
+        }
+
+        #spinner {
+            border: 4px solid #f3f3f3; /* Light grey */
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        #spinner-text {
+            margin-left: 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+
+        /* Heading Styles */
+        h1, h2 {
+            color: var(--primary-color);
+            margin: 20px 0;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+        }
+
+        /* Form and Button Styles */
+        label {
+            font-size: 1rem;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 8px;
+            color: var(--dark-grey);
+        }
+
+        button {
+            font-size: 1rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: var(--hover-color);
+        }
+
+        input[type="file"] {
+            font-size: 1rem;
+            padding: 5px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+
+        /* Table and Data Display */
+        #result-container {
+            background-color: var(--light-grey);
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 1rem;
+        }
+
+        tr:nth-child(even) {
+            background-color: var(--even-row-color);
+        }
+
+        tr:nth-child(odd) {
+            background-color: #ffffff;
+        }
+
+        tr:hover {
+            background-color: var(--hover-row-color);
+            transition: background-color 0.3s ease;
+        }
+
+        td {
+            font-size: 0.95rem;
+            vertical-align: top;
+        }
+
+        td:nth-child(3) {
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #555;
+            padding: 10px;
+            background-color: var(--light-grey);
+            border-top: 1px solid #ddd;
+        }
+
+        .footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+
+
+</head>
+<body>
+    <div class="container">
+        <h1>Upload a BRICK Model File</h1>
+
+        <form id="uploadForm" enctype="multipart/form-data">
+            <label for="fileInput">Choose a TTL File:</label>
+            <input type="file" id="fileInput" name="file" accept=".ttl" required>
+            <button type="submit">Upload and Process</button>
+            <div id="spinner-container" class="hidden">
+                <div id="spinner"></div>
+                <div id="spinner-text">Processing, please wait...</div>
+            </div>
+        </form>
+
+        <h2>Processed Data</h2>
+
+        <div id="result-container" class="hidden">
+            <table id="result-table">
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Key</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody id="result-body">
+                    <!-- Data will be injected here dynamically -->
+                </tbody>
+            </table>
+        </div>
+
+        <div class="footer">
+            <p><strong>BRICK Model Summarizer</strong> - a tool for AI assistance.</p>
+            <p>Now available on <a href="https://pypi.org/project/brick-model-summarizer/" target="_blank">PyPI</a>! Happy Data Modeling!</p>
+            <p>Report any bugs or issues on <a href="https://github.com/bbartling/BrickModelSummarizer" target="_blank">GitHub</a>.</p>
+        </div>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Ensure spinner is hidden on page load
+            const spinnerContainer = document.getElementById("spinner-container");
+            spinnerContainer.style.display = "none";
+        });
+
+        document.getElementById("uploadForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const fileInput = document.getElementById("fileInput");
+            const file = fileInput.files[0];
+
+            if (!file) {
+                alert("Please select a file to upload.");
+                return;
+            }
+
+            // Frontend validation for .ttl extension
+            if (!file.name.toLowerCase().endsWith(".ttl")) {
+                alert("Only .ttl files are allowed.");
+                return;
+            }
+
+            // Show the spinner while processing
+            const spinnerContainer = document.getElementById("spinner-container");
+            spinnerContainer.style.display = "flex"; // Show spinner
+
+            const formData = new FormData();
+            formData.append("file", file);
+
+            fetch("/api/process-ttl", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Hide the spinner once data is processed
+                spinnerContainer.style.display = "none";
+
+                const resultContainer = document.getElementById("result-container");
+                const resultBody = document.getElementById("result-body");
+
+                // Check if DataTable is already initialized and destroy it
+                if ($.fn.DataTable.isDataTable("#result-table")) {
+                    $('#result-table').DataTable().clear().destroy();
+                }
+
+                resultBody.innerHTML = ""; // Clear existing data
+
+                // Populate the table with data
+                for (const [category, details] of Object.entries(data)) {
+                    if (typeof details === "object" && details !== null) {
+                        for (const [key, value] of Object.entries(details)) {
+                            const row = document.createElement("tr");
+                            row.innerHTML = `
+                                <td>${category}</td>
+                                <td>${key}</td>
+                                <td>${value}</td>
+                            `;
+                            resultBody.appendChild(row);
+                        }
+                    } else {
+                        const row = document.createElement("tr");
+                        row.innerHTML = `
+                            <td>${category}</td>
+                            <td>General</td>
+                            <td>${details}</td>
+                        `;
+                        resultBody.appendChild(row);
+                    }
+                }
+
+                resultContainer.classList.remove("hidden");
+
+                // Reinitialize DataTables to apply styles and behavior
+                $('#result-table').DataTable({
+                    paging: false,
+                    searching: false,
+                    info: false
+                });
+            })
+            .catch(error => {
+                // Hide the spinner in case of an error
+                spinnerContainer.style.display = "none";
+                alert("An error occurred while processing the file.");
+                console.error("Error:", error);
+            });
+        });
+    </script>
+
+
+</body>
+</html>

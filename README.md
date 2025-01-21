@@ -16,6 +16,11 @@ The primary purpose of this repository is to provide a framework for summarizing
 - **Scalable Processing**: Processes individual or multiple BRICK schema TTL files.
 - **Ready-to-Use Outputs**: Generates text summaries suitable for validation, reporting, or further analysis.
 
+## Web App
+View a web app interface on Bens Pythonanywhere account for free!
+
+* https://bensapi.pythonanywhere.com/
+
 ## Installation
 ```bash
 pip install brick-model-summarizer
@@ -25,7 +30,7 @@ pip install brick-model-summarizer
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/yourusername/brick-model-summarizer.git
+   git clone https://github.com/bbartling/brick-model-summarizer.git
    cd brick-model-summarizer
    ```
 

@@ -1,0 +1,225 @@
+@prefix bldg: <urn:Building#> .
+@prefix brick: <https://brickschema.org/schema/Brick#> .
+@prefix unit: <https://qudt.org/vocab/unit/> .
+@prefix ref: <https://brickschema.org/schema/Brick/ref#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+bldg:Maryland_Elementary_School a brick:Building .
+
+bldg:RTU3 a brick:HVAC_Equipment ;
+    brick:feeds bldg:VAV_A110, bldg:VAV_A109, bldg:VAV_A107, bldg:VAV_A106, bldg:VAV_A105, bldg:VAV_A104, bldg:VAV_A113, bldg:VAV_A117, bldg:VAV_A118, bldg:VAV_A119, bldg:VAV_A121, bldg:VAV_A122, bldg:VAV_A123, bldg:VAV_A125, bldg:VAV_A130, bldg:VAV_A129 .
+
+bldg:RTU4 a brick:HVAC_Equipment ;
+    brick:feeds bldg:VAV_B105, bldg:VAV_B107, bldg:VAV_B108, bldg:VAV_B111, bldg:VAV_B114, bldg:VAV_B115, bldg:VAV_B116, bldg:VAV_B136 .
+
+bldg:RTU7 a brick:HVAC_Equipment ;
+    brick:feeds bldg:VAV_D100, bldg:VAV_D104, bldg:VAV_D107, bldg:VAV_D110, bldg:VAV_D113, bldg:VAV_D115, bldg:VAV_D117, bldg:VAV_D125, bldg:VAV_D127, bldg:VAV_D129, bldg:VAV_D131, bldg:VAV_D134, bldg:VAV_D137 .
+
+bldg:RTU8 a brick:HVAC_Equipment ;
+    brick:feeds bldg:VAV_E100, bldg:VAV_E104, bldg:VAV_E106, bldg:VAV_E108, bldg:VAV_E110, bldg:VAV_E116, bldg:VAV_E122, bldg:VAV_E124, bldg:VAV_E126, bldg:VAV_E128, bldg:VAV_E130 .
+
+bldg:RTU9 a brick:HVAC_Equipment ;
+    brick:feeds bldg:VAV_F100, bldg:VAV_F104, bldg:VAV_F106, bldg:VAV_F108, bldg:VAV_F110, bldg:VAV_F116, bldg:VAV_F122, bldg:VAV_F124, bldg:VAV_F126, bldg:VAV_F128, bldg:VAV_F130 .
+
+bldg:VAV_A110 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU3 .
+
+bldg:VAV_A109 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU3 .
+
+bldg:VAV_A107 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU3 .
+
+bldg:VAV_A106 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU3 .
+
+bldg:VAV_A105 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU3 .
+
+bldg:VAV_A104 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU3 .
+
+bldg:VAV_A113 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU3 .
+
+bldg:VAV_A117 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU3 .
+
+bldg:VAV_A118 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU3 .
+
+bldg:VAV_A119 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU3 .
+
+bldg:VAV_A121 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU3 .
+
+bldg:VAV_A122 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU3 .
+
+bldg:VAV_A123 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU3 .
+
+bldg:VAV_A125 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU3 .
+
+bldg:VAV_A130 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU3 .
+
+bldg:VAV_A129 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU3 .
+
+bldg:VAV_B105 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU4 .
+
+bldg:VAV_B107 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU4 .
+
+bldg:VAV_B108 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU4 .
+
+bldg:VAV_B111 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU4 .
+
+bldg:VAV_B114 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU4 .
+
+bldg:VAV_B115 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU4 .
+
+bldg:VAV_B116 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU4 .
+
+bldg:VAV_B136 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU4 .
+
+bldg:VAV_D100 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU7 .
+
+bldg:VAV_D104 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU7 .
+
+bldg:VAV_D107 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU7 .
+
+bldg:VAV_D110 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU7 .
+
+bldg:VAV_D113 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU7 .
+
+bldg:VAV_D115 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU7 .
+
+bldg:VAV_D117 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU7 .
+
+bldg:VAV_D125 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU7 .
+
+bldg:VAV_D127 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU7 .
+
+bldg:VAV_D129 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU7 .
+
+bldg:VAV_D131 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU7 .
+
+bldg:VAV_D134 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU7 .
+
+bldg:VAV_D137 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU7 .
+
+bldg:VAV_E100 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU8 .
+
+bldg:VAV_E104 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU8 .
+
+bldg:VAV_E106 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU8 .
+
+bldg:VAV_E108 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU8 .
+
+bldg:VAV_E110 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU8 .
+
+bldg:VAV_E116 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU8 .
+
+bldg:VAV_E122 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU8 .
+
+bldg:VAV_E124 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU8 .
+
+bldg:VAV_E126 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU8 .
+
+bldg:VAV_E128 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU8 .
+
+bldg:VAV_E130 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU8 .
+
+bldg:VAV_F100 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU9 .
+
+bldg:VAV_F104 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU9 .
+
+bldg:VAV_F106 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU9 .
+
+bldg:VAV_F108 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU9 .
+
+bldg:VAV_F110 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU9 .
+
+bldg:VAV_F116 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU9 .
+
+bldg:VAV_F122 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU9 .
+
+bldg:VAV_F124 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU9 .
+
+bldg:VAV_F126 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU9 .
+
+bldg:VAV_F128 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU9 .
+
+bldg:VAV_F130 a brick:Variable_Air_Volume_Box ;
+    brick:isPartOf bldg:RTU9 .
+
+bldg:CHWS a brick:Water_System ;
+    brick:hasPart bldg:Cooling_Tower, bldg:Centrifugal_Chiller, bldg:CHWP3, bldg:CHWP4 .
+
+bldg:Cooling_Tower a brick:HVAC_Equipment .
+
+bldg:Centrifugal_Chiller a brick:HVAC_Equipment .
+
+bldg:CHWP3 a brick:Water_Pump ;
+    brick:isPartOf bldg:CHWS .
+
+bldg:CHWP4 a brick:Water_Pump ;
+    brick:isPartOf bldg:CHWS .
+
+bldg:HWS a brick:Hot_Water_System ;
+    brick:hasPart bldg:Boiler1, bldg:Boiler2, bldg:HWP1, bldg:HWP2 .
+
+bldg:Boiler1 a brick:HVAC_Equipment .
+
+bldg:Boiler2 a brick:HVAC_Equipment .
+
+bldg:HWP1 a brick:Water_Pump ;
+    brick:isPartOf bldg:HWS .
+
+bldg:HWP2 a brick:Water_Pump ;
+    brick:isPartOf bldg:HWS .
