@@ -147,41 +147,34 @@ def count_ahu_features(graph):
 
 
 def collect_ahu_data(ahu_info):
-    """Collect AHU information and return it as structured data."""
+    """Collect AHU information and return it as structured JSON-compatible data."""
     ahu_data = {
-        "Total AHUs": ahu_info.get("ahu_count", 0),
-        "Constant Volume AHUs": ahu_info.get("ahu_types", {}).get("cv_count", 0),
-        "Variable Air Volume AHUs": ahu_info.get("ahu_types", {}).get("vav_count", 0),
+        "total_ahus": ahu_info.get("ahu_count", 0),
+        "constant_volume_ahus": ahu_info.get("ahu_types", {}).get("cv_count", 0),
+        "variable_air_volume_ahus": ahu_info.get("ahu_types", {}).get("vav_count", 0),
     }
 
     # Include feature counts
     ahu_features = ahu_info.get("ahu_features", {})
     ahu_data.update(
         {
-            "AHUs with Cooling Coil": ahu_features.get("cooling_coil_count", 0),
-            "AHUs with Heating Coil": ahu_features.get("heating_coil_count", 0),
-            "AHUs with DX Staged Cooling": ahu_features.get(
-                "dx_staged_cooling_count", 0
-            ),
-            "AHUs with Return Fans": ahu_features.get("return_fan_count", 0),
-            "AHUs with Supply Fans": ahu_features.get("supply_fan_count", 0),
-            "AHUs with Return Air Temp Sensors": ahu_features.get(
-                "return_temp_count", 0
-            ),
-            "AHUs with Mixing Air Temp Sensors": ahu_features.get(
-                "mixing_temp_count", 0
-            ),
-            "AHUs with Leaving Air Temp Sensors": ahu_features.get(
-                "leaving_temp_count", 0
-            ),
-            "AHUs with Leaving Air Temp Setpoint": ahu_features.get(
+            "ahus_with_cooling_coil": ahu_features.get("cooling_coil_count", 0),
+            "ahus_with_heating_coil": ahu_features.get("heating_coil_count", 0),
+            "ahus_with_dx_staged_cooling": ahu_features.get("dx_staged_cooling_count", 0),
+            "ahus_with_return_fans": ahu_features.get("return_fan_count", 0),
+            "ahus_with_supply_fans": ahu_features.get("supply_fan_count", 0),
+            "ahus_with_return_air_temp_sensors": ahu_features.get("return_temp_count", 0),
+            "ahus_with_mixing_air_temp_sensors": ahu_features.get("mixing_temp_count", 0),
+            "ahus_with_leaving_air_temp_sensors": ahu_features.get("leaving_temp_count", 0),
+            "ahus_with_leaving_air_temp_setpoint": ahu_features.get(
                 "leaving_air_temp_setpoint_count", 0
             ),
-            "AHUs with Duct Pressure Setpoint": ahu_features.get(
+            "ahus_with_duct_pressure_setpoint": ahu_features.get(
                 "duct_pressure_setpoint_count", 0
             ),
-            "AHUs with Duct Pressure": ahu_features.get("duct_pressure_count", 0),
+            "ahus_with_duct_pressure": ahu_features.get("duct_pressure_count", 0),
         }
     )
 
     return ahu_data
+

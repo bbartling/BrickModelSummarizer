@@ -99,46 +99,40 @@ def count_vav_features(graph):
 
 def collect_zone_data(zone_info):
     """
-    Collect zone information as structured data.
+    Collect zone information as structured JSON-compatible data.
     """
     zone_data = {}
 
     # Zone Air Temperature Setpoints
     zone_setpoints = zone_info.get("zone_setpoints", [])
-    setpoint_message = (
-        "Zone Air Temperature Setpoints Found."
-        if zone_setpoints
-        else "No zone air temperature setpoints found."
-    )
-    zone_data["Zone Air Temperature Setpoints"] = setpoint_message
+    zone_data["zone_air_temperature_setpoints_found"] = bool(zone_setpoints)
 
     # Total VAV Boxes
-    zone_data["Total VAV Boxes"] = zone_info.get("vav_count", 0)
+    zone_data["total_vav_boxes"] = zone_info.get("vav_count", 0)
 
     # Number of VAV Boxes per AHU
     vav_per_ahu = zone_info.get("vav_per_ahu", {})
-    zone_data["Number of VAV Boxes per AHU"] = {
-        f"AHU: {ahu_name}": count for ahu_name, count in vav_per_ahu.items()
+    zone_data["number_of_vav_boxes_per_ahu"] = {
+        ahu_name.lower(): count for ahu_name, count in vav_per_ahu.items()
     }
 
     # VAV Box Features
     vav_features = zone_info.get("vav_features", {})
     vav_feature_details = {
-        "VAV Boxes with Reheat Valve Command": vav_features.get("reheat_count", 0),
-        "VAV Boxes with Air Flow Sensors": vav_features.get("airflow_count", 0),
-        "VAV Boxes with Supply Air Temp Sensors": vav_features.get(
+        "vav_boxes_with_reheat_valve_command": vav_features.get("reheat_count", 0),
+        "vav_boxes_with_air_flow_sensors": vav_features.get("airflow_count", 0),
+        "vav_boxes_with_supply_air_temp_sensors": vav_features.get(
             "supply_air_temp_count", 0
         ),
-        "VAV Boxes with Air Flow Setpoints": vav_features.get(
-            "airflow_setpoint_count", 0
-        ),
+        "vav_boxes_with_air_flow_setpoints": vav_features.get("airflow_setpoint_count", 0),
     }
     zone_data.update(vav_feature_details)
 
     # Cooling Only VAV Boxes
-    cooling_only_vav_count = zone_data["Total VAV Boxes"] - vav_features.get(
+    cooling_only_vav_count = zone_data["total_vav_boxes"] - vav_features.get(
         "reheat_count", 0
     )
-    zone_data["Cooling Only VAV Boxes"] = cooling_only_vav_count
+    zone_data["cooling_only_vav_boxes"] = cooling_only_vav_count
 
     return zone_data
+

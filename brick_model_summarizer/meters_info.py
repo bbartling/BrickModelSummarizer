@@ -51,14 +51,14 @@ def query_meters(graph):
 
 def collect_meter_data(meter_info):
     """
-    Collect meter information as structured data.
+    Collect meter information as structured JSON-compatible data.
     """
-    # Prepare meter information
+    # Prepare meter information with snake_case keys
     meter_data = {
-        "BTU Meter Present": meter_info.get("btu_meter", "Unknown"),
-        "Electrical Meter Present": meter_info.get("electrical_meter", "Unknown"),
-        "Water Meter Present": meter_info.get("water_meter", "Unknown"),
-        "Gas Meter Present": meter_info.get("gas_meter", "Unknown"),
-        "PV Meter Present": meter_info.get("pv_meter", "Unknown"),
+        "btu_meter_present": meter_info.get("btu_meter", "Unknown"),
+        "electrical_meter_present": meter_info.get("electrical_meter", "Unknown"),
+        "water_meter_present": meter_info.get("water_meter", "Unknown"),
+        "gas_meter_present": meter_info.get("gas_meter", "Unknown"),
+        "pv_meter_present": meter_info.get("pv_meter", "Unknown"),
     }
     return meter_data

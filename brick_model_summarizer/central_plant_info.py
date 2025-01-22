@@ -49,25 +49,23 @@ def count_hvac_features(graph):
 
 def collect_central_plant_data(hvac_info):
     """
-    Collect central plant equipment information as structured data.
+    Collect central plant equipment information as structured JSON-compatible data.
     """
     central_plant_data = {}
 
     # Collect central plant counts
     hvac_counts = hvac_info.get("hvac_system_counts", {})
-    central_plant_data["Total Chillers"] = hvac_counts.get("chiller_count", 0)
-    central_plant_data["Total Boilers"] = hvac_counts.get("boiler_count", 0)
-    central_plant_data["Total Cooling Towers"] = hvac_counts.get(
-        "cooling_tower_count", 0
-    )
+    central_plant_data["total_chillers"] = hvac_counts.get("chiller_count", 0)
+    central_plant_data["total_boilers"] = hvac_counts.get("boiler_count", 0)
+    central_plant_data["total_cooling_towers"] = hvac_counts.get("cooling_tower_count", 0)
 
     # Collect central plant features
     hvac_features = hvac_info.get("hvac_features", {})
     feature_details = {
-        "Chillers with Water Flow": hvac_features.get("chiller_water_flow_count", 0),
-        "Boilers with Water Flow": hvac_features.get("boiler_water_flow_count", 0),
-        "Cooling Towers with Fan": hvac_features.get("cooling_tower_fan_count", 0),
-        "Cooling Towers with Temp Sensors": hvac_features.get(
+        "chillers_with_water_flow": hvac_features.get("chiller_water_flow_count", 0),
+        "boilers_with_water_flow": hvac_features.get("boiler_water_flow_count", 0),
+        "cooling_towers_with_fan": hvac_features.get("cooling_tower_fan_count", 0),
+        "cooling_towers_with_temp_sensors": hvac_features.get(
             "cooling_tower_temp_count", 0
         ),
     }

@@ -2,97 +2,110 @@ import os
 from brick_model_summarizer.main import process_brick_file
 
 
-def test_process_brick_file():
-    """Test the processing of a BRICK model file."""
-
-    # Construct the relative path and resolve it to an absolute path
+def get_brick_model_file():
+    """Construct and verify the path to the BRICK model file."""
     relative_path = os.path.join(
-        os.path.dirname(__file__),  # Directory of the current script
-        "..",  # Go up one level to the project root
-        "sample_brick_models",  # Subdirectory for Brick models
-        "bldg6.ttl",  # The Brick model file
+        os.path.dirname(__file__),
+        "..",
+        "sample_brick_models",
+        "bldg6.ttl",
     )
     brick_model_file = os.path.abspath(os.path.normpath(relative_path))
 
-    # Verify the constructed path
-    print(f"Using BRICK model file: {brick_model_file}")
-
-    # Check if the file exists
     if not os.path.exists(brick_model_file):
         raise FileNotFoundError(f"BRICK model file not found: {brick_model_file}")
 
-    # brick_model_file = r"C:\Users\ben\Documents\HvacGPT\sample_brick_models\bldg6.ttl"
+    return brick_model_file
 
-    # Process the BRICK model file
+
+def test_ahu_information():
+    brick_model_file = get_brick_model_file()
     building_data = process_brick_file(brick_model_file)
 
-    # Expected results
     expected_ahu_info = {
-        "Total AHUs": 16,
-        "Constant Volume AHUs": 11,
-        "Variable Air Volume AHUs": 0,
-        "AHUs with Cooling Coil": 10,
-        "AHUs with Heating Coil": 7,
-        "AHUs with DX Staged Cooling": 0,
-        "AHUs with Return Fans": 0,
-        "AHUs with Supply Fans": 0,
-        "AHUs with Return Air Temp Sensors": 4,
-        "AHUs with Mixing Air Temp Sensors": 1,
-        "AHUs with Leaving Air Temp Sensors": 18,
-        "AHUs with Leaving Air Temp Setpoint": 9,
-        "AHUs with Duct Pressure Setpoint": 0,
-        "AHUs with Duct Pressure": 0,
+        "total_ahus": 16,
+        "constant_volume_ahus": 11,
+        "variable_air_volume_ahus": 0,
+        "ahus_with_cooling_coil": 10,
+        "ahus_with_heating_coil": 7,
+        "ahus_with_dx_staged_cooling": 0,
+        "ahus_with_return_fans": 0,
+        "ahus_with_supply_fans": 0,
+        "ahus_with_return_air_temp_sensors": 4,
+        "ahus_with_mixing_air_temp_sensors": 1,
+        "ahus_with_leaving_air_temp_sensors": 18,
+        "ahus_with_leaving_air_temp_setpoint": 9,
+        "ahus_with_duct_pressure_setpoint": 0,
+        "ahus_with_duct_pressure": 0,
     }
+    assert building_data["ahu_information"] == expected_ahu_info
+
+
+def test_zone_information():
+    brick_model_file = get_brick_model_file()
+    building_data = process_brick_file(brick_model_file)
 
     expected_zone_info = {
-        "Zone Air Temperature Setpoints": "Zone Air Temperature Setpoints Found.",
-        "Total VAV Boxes": 132,
-        "Number of VAV Boxes per AHU": {
-            "AHU: AH1S": 4,
-            "AHU: AH2N": 3,
-            "AHU: AH2S": 3,
-            "AHU: AH3S": 1,
-            "AHU: AHBS": 2,
-            "AHU: AHU01N": 24,
-            "AHU: AHU01S": 22,
-            "AHU: AHU02N": 10,
-            "AHU: AHU02S": 30,
-            "AHU: AHU03N": 14,
-            "AHU: AHU03S": 30,
+        "zone_air_temperature_setpoints_found": True,
+        "total_vav_boxes": 132,
+        "number_of_vav_boxes_per_ahu": {
+            "ah1s": 4,
+            "ah2n": 3,
+            "ah2s": 3,
+            "ah3s": 1,
+            "ahbs": 2,
+            "ahu01n": 24,
+            "ahu01s": 22,
+            "ahu02n": 10,
+            "ahu02s": 30,
+            "ahu03n": 14,
+            "ahu03s": 30,
         },
-        "VAV Boxes with Reheat Valve Command": 0,
-        "VAV Boxes with Air Flow Sensors": 0,
-        "VAV Boxes with Supply Air Temp Sensors": 0,
-        "VAV Boxes with Air Flow Setpoints": 0,
-        "Cooling Only VAV Boxes": 132,
+        "vav_boxes_with_reheat_valve_command": 0,
+        "vav_boxes_with_air_flow_sensors": 0,
+        "vav_boxes_with_supply_air_temp_sensors": 0,
+        "vav_boxes_with_air_flow_setpoints": 0,
+        "cooling_only_vav_boxes": 132,
     }
+    assert building_data["zone_information"] == expected_zone_info
+
+
+def test_building_information():
+    brick_model_file = get_brick_model_file()
+    building_data = process_brick_file(brick_model_file)
 
     expected_building_info = {
-        "Building Area": "130149 sq ft",
-        "Number of Floors": 4,
+        "building_area": "130149 sq ft",
+        "number_of_floors": 4,
     }
+    assert building_data["building_information"] == expected_building_info
+
+
+def test_meter_information():
+    brick_model_file = get_brick_model_file()
+    building_data = process_brick_file(brick_model_file)
 
     expected_meter_info = {
-        "BTU Meter Present": False,
-        "Electrical Meter Present": False,
-        "Water Meter Present": False,
-        "Gas Meter Present": False,
-        "PV Meter Present": False,
+        "btu_meter_present": False,
+        "electrical_meter_present": False,
+        "water_meter_present": False,
+        "gas_meter_present": False,
+        "pv_meter_present": False,
     }
+    assert building_data["meter_information"] == expected_meter_info
+
+
+def test_central_plant_information():
+    brick_model_file = get_brick_model_file()
+    building_data = process_brick_file(brick_model_file)
 
     expected_central_plant_info = {
-        "Total Chillers": 1,
-        "Total Boilers": 0,
-        "Total Cooling Towers": 0,
-        "Chillers with Water Flow": 0,
-        "Boilers with Water Flow": 0,
-        "Cooling Towers with Fan": 0,
-        "Cooling Towers with Temp Sensors": 0,
+        "total_chillers": 1,
+        "total_boilers": 0,
+        "total_cooling_towers": 0,
+        "chillers_with_water_flow": 0,
+        "boilers_with_water_flow": 0,
+        "cooling_towers_with_fan": 0,
+        "cooling_towers_with_temp_sensors": 0,
     }
-
-    # Assertions for each section
-    assert building_data["AHU Information"] == expected_ahu_info
-    assert building_data["Zone Information"] == expected_zone_info
-    assert building_data["Building Information"] == expected_building_info
-    assert building_data["Meter Information"] == expected_meter_info
-    assert building_data["Central Plant Information"] == expected_central_plant_info
+    assert building_data["central_plant_information"] == expected_central_plant_info

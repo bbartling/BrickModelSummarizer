@@ -52,20 +52,20 @@ def query_building_floors(graph):
 
 def collect_building_data(graph):
     """
-    Collect building area and floor count as structured data.
+    Collect building area and floor count as structured JSON-compatible data.
     """
     building_data = {}
     building_area, building_units = query_building_area(graph)
     building_floors = query_building_floors(graph)
 
     if building_area:
-        building_data["Building Area"] = f"{building_area} {building_units}"
+        building_data["building_area"] = f"{building_area} {building_units}"
     else:
-        building_data["Building Area"] = "Not available"
+        building_data["building_area"] = "not_available"
 
     if building_floors:
-        building_data["Number of Floors"] = building_floors
+        building_data["number_of_floors"] = building_floors
     else:
-        building_data["Number of Floors"] = "Not available"
+        building_data["number_of_floors"] = "not_available"
 
     return building_data

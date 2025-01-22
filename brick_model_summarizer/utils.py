@@ -1,6 +1,7 @@
 # brick_utils.py
 from rdflib import Graph, Namespace
 
+
 # Define namespaces
 BRICK = Namespace("https://brickschema.org/schema/Brick#")
 UNIT = Namespace("https://qudt.org/vocab/unit#")
@@ -13,3 +14,4 @@ def load_graph(file_path):
     graph = Graph()
     graph.parse(file_path, format="turtle")
     return graph
+
