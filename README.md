@@ -1,5 +1,9 @@
 # BRICK Model Summarizer
 
+[![PyPI version](https://badge.fury.io/py/brick-model-summarizer.svg)](https://pypi.org/project/brick-model-summarizer/)
+[![Tests](https://github.com/bbartling/BrickModelSummarizer/actions/workflows/tests.yml/badge.svg)](https://github.com/bbartling/BrickModelSummarizer/actions)
+
+
 **BRICK Model Summarizer** is a Python tool designed to validate and benchmark AI-generated BRICK models against reference models. It transforms complex BRICK schema TTL files into concise, human-readable summaries of HVAC systems, zones, meters, and central plants. By leveraging [reference BRICK models](https://brickschema.org/resources/#reference-brick-models), this tool enables users to validate AI-created models for consistency, accuracy, and adherence to expected standards.
 
 ## Purpose

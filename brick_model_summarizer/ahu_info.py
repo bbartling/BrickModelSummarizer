@@ -160,12 +160,20 @@ def collect_ahu_data(ahu_info):
         {
             "ahus_with_cooling_coil": ahu_features.get("cooling_coil_count", 0),
             "ahus_with_heating_coil": ahu_features.get("heating_coil_count", 0),
-            "ahus_with_dx_staged_cooling": ahu_features.get("dx_staged_cooling_count", 0),
+            "ahus_with_dx_staged_cooling": ahu_features.get(
+                "dx_staged_cooling_count", 0
+            ),
             "ahus_with_return_fans": ahu_features.get("return_fan_count", 0),
             "ahus_with_supply_fans": ahu_features.get("supply_fan_count", 0),
-            "ahus_with_return_air_temp_sensors": ahu_features.get("return_temp_count", 0),
-            "ahus_with_mixing_air_temp_sensors": ahu_features.get("mixing_temp_count", 0),
-            "ahus_with_leaving_air_temp_sensors": ahu_features.get("leaving_temp_count", 0),
+            "ahus_with_return_air_temp_sensors": ahu_features.get(
+                "return_temp_count", 0
+            ),
+            "ahus_with_mixing_air_temp_sensors": ahu_features.get(
+                "mixing_temp_count", 0
+            ),
+            "ahus_with_leaving_air_temp_sensors": ahu_features.get(
+                "leaving_temp_count", 0
+            ),
             "ahus_with_leaving_air_temp_setpoint": ahu_features.get(
                 "leaving_air_temp_setpoint_count", 0
             ),
@@ -177,4 +185,3 @@ def collect_ahu_data(ahu_info):
     )
 
     return ahu_data
-

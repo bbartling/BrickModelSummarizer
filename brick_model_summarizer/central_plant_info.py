@@ -57,7 +57,9 @@ def collect_central_plant_data(hvac_info):
     hvac_counts = hvac_info.get("hvac_system_counts", {})
     central_plant_data["total_chillers"] = hvac_counts.get("chiller_count", 0)
     central_plant_data["total_boilers"] = hvac_counts.get("boiler_count", 0)
-    central_plant_data["total_cooling_towers"] = hvac_counts.get("cooling_tower_count", 0)
+    central_plant_data["total_cooling_towers"] = hvac_counts.get(
+        "cooling_tower_count", 0
+    )
 
     # Collect central plant features
     hvac_features = hvac_info.get("hvac_features", {})

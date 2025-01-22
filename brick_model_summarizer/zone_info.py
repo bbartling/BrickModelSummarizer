@@ -124,7 +124,9 @@ def collect_zone_data(zone_info):
         "vav_boxes_with_supply_air_temp_sensors": vav_features.get(
             "supply_air_temp_count", 0
         ),
-        "vav_boxes_with_air_flow_setpoints": vav_features.get("airflow_setpoint_count", 0),
+        "vav_boxes_with_air_flow_setpoints": vav_features.get(
+            "airflow_setpoint_count", 0
+        ),
     }
     zone_data.update(vav_feature_details)
 
@@ -135,4 +137,3 @@ def collect_zone_data(zone_info):
     zone_data["cooling_only_vav_boxes"] = cooling_only_vav_count
 
     return zone_data
-
