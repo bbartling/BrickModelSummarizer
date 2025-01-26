@@ -7,6 +7,7 @@ from brick_model_summarizer.central_plant_info import (
     collect_central_plant_data,
 )
 from brick_model_summarizer.building_info import collect_building_data
+from brick_model_summarizer.class_tag_checker import analyze_classes_and_tags
 
 
 def process_brick_file(brick_model_file):
@@ -15,6 +16,9 @@ def process_brick_file(brick_model_file):
 
     # Load the RDF graph
     graph = load_graph(brick_model_file)
+
+    # Custom class and tag analysis
+    class_tag_summary = analyze_classes_and_tags(graph)
 
     # Collect data from different modules
     ahu_data = collect_ahu_data(identify_ahu_equipment(graph))
@@ -25,7 +29,7 @@ def process_brick_file(brick_model_file):
     central_plant_data = collect_central_plant_data(
         identify_hvac_system_equipment(graph)
     )
-    vav_boxes_per_ahu = zone_info.get("vav_per_ahu", {})  # Updated key for consistency
+    vav_boxes_per_ahu = zone_info.get("vav_per_ahu", {})
 
     # Construct the complete data dictionary with lowercase keys
     complete_data = {
@@ -35,6 +39,7 @@ def process_brick_file(brick_model_file):
         "meter_information": meter_data,
         "central_plant_information": central_plant_data,
         "number_of_vav_boxes_per_ahu": vav_boxes_per_ahu,
+        "class_tag_summary": class_tag_summary,
     }
 
     print("\n=== Building Summary ===")

@@ -1,5 +1,4 @@
 from rdflib import Namespace
-from brick_model_summarizer.utils import load_graph
 
 # Define namespaces
 BRICK = Namespace("https://brickschema.org/schema/Brick#")
