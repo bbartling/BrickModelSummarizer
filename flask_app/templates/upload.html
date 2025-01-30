@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BRICK Model Processor</title>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
     <style>
         :root {
             --primary-color: #0056b3; /* Define common colors */
@@ -94,18 +96,48 @@
             color: var(--dark-grey);
         }
 
-        button {
+        /* Button Container */
+        .button-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        /* Styled Buttons */
+        .button-container button {
             font-size: 1rem;
+            font-weight: bold;
             background-color: var(--primary-color);
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
+            padding: 12px 18px;
+            border-radius: 6px;
             cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.15);
         }
 
-        button:hover {
+        /* Button Hover Effect */
+        .button-container button:hover {
             background-color: var(--hover-color);
+            transform: translateY(-2px);
+            box-shadow: 3px 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Button Active Effect */
+        .button-container button:active {
+            transform: translateY(0);
+            box-shadow: none;
+        }
+
+        /* Icons */
+        .button-container button i {
+            font-size: 1.2rem;
         }
 
         input[type="file"] {
@@ -195,11 +227,35 @@
         <h1>Upload a BRICK Model File</h1>
         <p>👷⚠️❗ 🚧 This app is getting radical updates daily. Stay tuned!️</p>
 
-
         <form id="uploadForm" enctype="multipart/form-data">
             <label for="fileInput">Choose a TTL File:</label>
             <input type="file" id="fileInput" name="file" accept=".ttl" required>
-            <button type="submit">Upload and Process</button>
+
+            <h2>Select Data to Process</h2>
+            <div class="button-container">
+                <button onclick="fetchComponent('class_tag_summary')">
+                    <i class="fas fa-tags"></i> Brick Class and Tag Checker
+                </button>
+                <button onclick="fetchComponent('ahu_information')">
+                    <i class="fas fa-wind"></i> AHU Information
+                </button>
+                <button onclick="fetchComponent('zone_information')">
+                    <i class="fas fa-th-large"></i> Zone Information
+                </button>
+                <button onclick="fetchComponent('building_information')">
+                    <i class="fas fa-building"></i> Building Information
+                </button>
+                <button onclick="fetchComponent('meter_information')">
+                    <i class="fas fa-tachometer-alt"></i> Meter Information
+                </button>
+                <button onclick="fetchComponent('central_plant_information')">
+                    <i class="fas fa-industry"></i> Central Plant Info
+                </button>
+                <button onclick="fetchComponent('number_of_vav_boxes_per_ahu')">
+                    <i class="fas fa-box"></i> VAV Boxes Per AHU
+                </button>
+            </div>
+
             <div id="spinner-container" class="hidden">
                 <div id="spinner"></div>
                 <div id="spinner-text">Processing, please wait...</div>
@@ -224,14 +280,11 @@
         </div>
 
         <div class="footer">
-            <p><strong>BRICK Model Summarizer</strong> - a tool for AI assistance.</p>
+            <p><strong>BRICK Model Summarizer</strong> - a tool for FDD research...</p>
             <p>Now available on <a href="https://pypi.org/project/brick-model-summarizer/" target="_blank">PyPI</a>! Happy Data Modeling!</p>
             <p>Report any bugs or issues on <a href="https://github.com/bbartling/BrickModelSummarizer" target="_blank">GitHub</a>.</p>
             <p>
-                Compare your AI-generated model against the
-                <a href="https://brickschema.org/resources/#reference-brick-models" target="_blank">
-                    official BRICK Reference Models
-                </a> which this tool is built and validated off of.
+                Stay tuned for future development efforts...
             </p>
         </div>
 
@@ -241,16 +294,19 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            // Ensure spinner is hidden on page load
-            const spinnerContainer = document.getElementById("spinner-container");
-            spinnerContainer.style.display = "none";
+            console.log("Page loaded.");
+            document.getElementById("spinner-container").style.display = "none";
         });
 
         document.getElementById("uploadForm").addEventListener("submit", function(event) {
             event.preventDefault();
+            uploadFile();
+        });
 
+        function uploadFile() {
             const fileInput = document.getElementById("fileInput");
             const file = fileInput.files[0];
 
@@ -259,94 +315,121 @@
                 return;
             }
 
-            // Frontend validation for .ttl extension
             if (!file.name.toLowerCase().endsWith(".ttl")) {
                 alert("Only .ttl files are allowed.");
                 return;
             }
 
-            // Show the spinner while processing
             const spinnerContainer = document.getElementById("spinner-container");
-            spinnerContainer.style.display = "flex"; // Show spinner
+            spinnerContainer.style.display = "flex";
 
             const formData = new FormData();
             formData.append("file", file);
 
-            fetch("/api/process-ttl", {
+            fetch("/api/upload-ttl", {
                 method: "POST",
                 body: formData
             })
             .then(response => response.json())
             .then(data => {
-                console.log("Data received from backend:", data);
-
-                // Hide the spinner once data is processed
                 spinnerContainer.style.display = "none";
 
-                const resultContainer = document.getElementById("result-container");
-                const resultBody = document.getElementById("result-body");
-
-                // Check if DataTable is already initialized and destroy it
-                if ($.fn.DataTable.isDataTable("#result-table")) {
-                    $('#result-table').DataTable().clear().destroy();
+                if (data.error) {
+                    alert("Upload failed: " + data.error);
+                    console.error("Upload error:", data.error);
+                    return;
                 }
 
-                resultBody.innerHTML = ""; // Clear existing data
+                alert(data.message || "File uploaded successfully.");
+                console.log("Upload successful.");
+            })
+            .catch(error => {
+                spinnerContainer.style.display = "none";
+                alert("An error occurred while uploading the file.");
+                console.error("Upload error:", error);
+            });
+        }
 
-                // Populate the table with data
-                for (const [category, details] of Object.entries(data)) {
-                    if (typeof details === "object" && details !== null) {
-                        for (const [key, value] of Object.entries(details)) {
-                            if (typeof value === "object" && value !== null) {
-                                // Handle nested objects
-                                for (const [nestedKey, nestedValue] of Object.entries(value)) {
-                                    const row = document.createElement("tr");
-                                    row.innerHTML = `
-                                        <td>${category}</td>
-                                        <td>${key}: ${nestedKey}</td>
-                                        <td>${nestedValue}</td>
-                                    `;
-                                    resultBody.appendChild(row);
-                                }
-                            } else {
-                                const row = document.createElement("tr");
-                                row.innerHTML = `
-                                    <td>${category}</td>
-                                    <td>${key}</td>
-                                    <td>${value}</td>
-                                `;
-                                resultBody.appendChild(row);
-                            }
-                        }
-                    } else {
+        function fetchComponent(component) {
+            console.log(`Fetching component: ${component}`);
+            const spinnerContainer = document.getElementById("spinner-container");
+            spinnerContainer.style.display = "flex";
+
+            fetch(`/api/get-component?component=${component}`)
+            .then(response => response.json())
+            .then(data => {
+                spinnerContainer.style.display = "none";
+
+                if (data.error) {
+                    alert(data.error);
+                    console.error("Component fetch error:", data.error);
+                    return;
+                }
+
+                console.log(`Component ${component} retrieved successfully.`);
+                displayData(data);
+            })
+            .catch(error => {
+                spinnerContainer.style.display = "none";
+                alert("An error occurred while retrieving data.");
+                console.error("Component fetch error:", error);
+            });
+        }
+
+        function displayData(data) {
+            const resultContainer = document.getElementById("result-container");
+            const resultBody = document.getElementById("result-body");
+
+            if ($.fn.DataTable.isDataTable("#result-table")) {
+                $('#result-table').DataTable().clear().destroy();
+            }
+
+            resultBody.innerHTML = "";
+
+            for (const [category, details] of Object.entries(data)) {
+                if (typeof details === "object" && details !== null) {
+                    for (const [key, value] of Object.entries(details)) {
                         const row = document.createElement("tr");
                         row.innerHTML = `
                             <td>${category}</td>
-                            <td>General</td>
-                            <td>${details}</td>
+                            <td>${key}</td>
+                            <td>${formatValue(value)}</td>
                         `;
                         resultBody.appendChild(row);
                     }
+                } else {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td>${category}</td>
+                        <td>General</td>
+                        <td>${formatValue(details)}</td>
+                    `;
+                    resultBody.appendChild(row);
                 }
+            }
 
-                resultContainer.classList.remove("hidden");
+            resultContainer.classList.remove("hidden");
 
-                // Reinitialize DataTables to apply styles and behavior
-                $('#result-table').DataTable({
-                    paging: false,
-                    searching: false,
-                    info: false
-                });
-            })
-
-            .catch(error => {
-                // Hide the spinner in case of an error
-                spinnerContainer.style.display = "none";
-                alert("An error occurred while processing the file.");
-                console.error("Error:", error);
+            $('#result-table').DataTable({
+                paging: false,
+                searching: false,
+                info: false
             });
-        });
+
+            console.log("Data displayed successfully.");
+        }
+
+        function formatValue(value) {
+            if (Array.isArray(value)) {
+                return `<pre>${JSON.stringify(value, null, 2)}</pre>`;
+            } else if (typeof value === "object" && value !== null) {
+                return `<pre>${JSON.stringify(value, null, 2)}</pre>`;
+            } else {
+                return value !== null ? value : "N/A";
+            }
+        }
     </script>
+
 
 
 </body>

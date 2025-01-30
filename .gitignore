@@ -17,6 +17,10 @@ __pycache__/
 # C extensions
 *.so
 
+*.txt
+brick_tags.txt
+brick_classes.txt
+
 *.pkl
 /my_data/.pkl
 
