@@ -10,39 +10,43 @@ from brick_model_summarizer.building_info import collect_building_data
 from brick_model_summarizer.class_tag_checker import analyze_classes_and_tags
 
 
-def process_brick_file(brick_model_file):
-    """Process a single TTL file and return building data."""
-    print(f"Processing BRICK model file: {brick_model_file}")
+def load_graph_once(brick_model_file):
+    """Load the RDF graph once to prevent redundant loading."""
+    return load_graph(brick_model_file)
 
-    # Load the RDF graph
-    graph = load_graph(brick_model_file)
 
-    # Custom class and tag analysis
-    class_tag_summary = analyze_classes_and_tags(graph)
+def get_class_tag_summary(graph):
+    """Return class tag summary."""
+    return analyze_classes_and_tags(graph)
 
-    # Collect data from different modules
-    ahu_data = collect_ahu_data(identify_ahu_equipment(graph))
+
+def get_ahu_information(graph):
+    """Return AHU information."""
+    return collect_ahu_data(identify_ahu_equipment(graph))
+
+
+def get_zone_information(graph):
+    """Return zone information."""
     zone_info = identify_zone_equipment(graph)
-    zone_data = collect_zone_data(zone_info)
-    building_data = collect_building_data(graph)
-    meter_data = collect_meter_data(query_meters(graph))
-    central_plant_data = collect_central_plant_data(
-        identify_hvac_system_equipment(graph)
-    )
-    vav_boxes_per_ahu = zone_info.get("vav_per_ahu", {})
+    return collect_zone_data(zone_info)
 
-    # Construct the complete data dictionary with lowercase keys
-    complete_data = {
-        "ahu_information": ahu_data,
-        "zone_information": zone_data,
-        "building_information": building_data,
-        "meter_information": meter_data,
-        "central_plant_information": central_plant_data,
-        "number_of_vav_boxes_per_ahu": vav_boxes_per_ahu,
-        "class_tag_summary": class_tag_summary,
-    }
 
-    print("\n=== Building Summary ===")
-    print(complete_data)
+def get_building_information(graph):
+    """Return building information."""
+    return collect_building_data(graph)
 
-    return complete_data
+
+def get_meter_information(graph):
+    """Return meter information."""
+    return collect_meter_data(query_meters(graph))
+
+
+def get_central_plant_information(graph):
+    """Return central plant information."""
+    return collect_central_plant_data(identify_hvac_system_equipment(graph))
+
+
+def get_vav_boxes_per_ahu(graph):
+    """Return VAV boxes per AHU information."""
+    zone_info = identify_zone_equipment(graph)
+    return zone_info.get("vav_per_ahu", {})

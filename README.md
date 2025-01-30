@@ -54,22 +54,53 @@ The package includes functions for summarizing BRICK models and generating detai
 ### Example: Processing a BRICK Model
 
 ```python
-from brick_model_summarizer.main import process_brick_file
+from brick_model_summarizer.utils import load_graph
+from brick_model_summarizer.ahu_info import identify_ahu_equipment, collect_ahu_data
+from brick_model_summarizer.zone_info import identify_zone_equipment, collect_zone_data
+from brick_model_summarizer.meters_info import query_meters, collect_meter_data
+from brick_model_summarizer.central_plant_info import (
+    identify_hvac_system_equipment,
+    collect_central_plant_data,
+)
+from brick_model_summarizer.building_info import collect_building_data
+from brick_model_summarizer.class_tag_checker import analyze_classes_and_tags
 import json
 
 # Path to the BRICK schema TTL file
 brick_model_file = "sample_brick_models/bldg6.ttl"
 
-# Generate a summary
-building_data = process_brick_file(brick_model_file)
+# Load the RDF graph once
+graph = load_graph(brick_model_file)
+
+# Extract structured data using modular functions
+ahu_data = collect_ahu_data(identify_ahu_equipment(graph))
+zone_info = identify_zone_equipment(graph)
+zone_data = collect_zone_data(zone_info)
+building_data = collect_building_data(graph)
+meter_data = collect_meter_data(query_meters(graph))
+central_plant_data = collect_central_plant_data(identify_hvac_system_equipment(graph))
+class_tag_summary = analyze_classes_and_tags(graph)
+vav_boxes_per_ahu = zone_info.get("vav_per_ahu", {})
+
+# Construct the final structured output
+building_data_summary = {
+    "ahu_information": ahu_data,
+    "zone_information": zone_data,
+    "building_information": building_data,
+    "meter_information": meter_data,
+    "central_plant_information": central_plant_data,
+    "number_of_vav_boxes_per_ahu": vav_boxes_per_ahu,
+    "class_tag_summary": class_tag_summary,
+}
 
 # Print the output in JSON format
-print(json.dumps(building_data, indent=2))
+print(json.dumps(building_data_summary, indent=2))
 
 # Optionally, save the output as a JSON file
 output_file = "bldg6_summary.json"
 with open(output_file, 'w') as file:
-    json.dump(building_data, file, indent=2)
+    json.dump(building_data_summary, file, indent=2)
+
 ```
 
 ### Example Output

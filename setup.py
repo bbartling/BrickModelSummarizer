@@ -8,7 +8,7 @@ def read_long_description(file_path):
 
 setup(
     name="brick_model_summarizer",
-    version="0.2.0",
+    version="0.4.0",
     author="Ben Bartling",
     author_email="ben.bartling@gmail.com",
     description="A package for summarizing BRICK models",

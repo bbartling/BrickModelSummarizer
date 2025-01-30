@@ -35,15 +35,26 @@
         }
 
         #spinner-container {
-            display: none; /* Ensure spinner container is hidden initially */
+            display: none; /* Initially hidden */
+            position: fixed; /* Fixes the spinner in the viewport */
+            top: 50%; /* Positions the spinner vertically */
+            left: 50%; /* Positions the spinner horizontally */
+            transform: translate(-50%, -50%); /* Centers the spinner */
+            z-index: 1000; /* Ensures it's above other content */
+            flex-direction: column; /* Align spinner and text vertically */
+            align-items: center; /* Center items horizontally */
+            background: rgba(255, 255, 255, 0.8); /* Optional: Add a semi-transparent background */
+            padding: 20px; /* Optional: Add padding for better spacing */
+            border-radius: 8px; /* Optional: Rounded edges for the container */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Optional: Shadow for emphasis */
         }
 
         #spinner {
             border: 4px solid #f3f3f3; /* Light grey */
             border-top: 4px solid var(--primary-color);
             border-radius: 50%;
-            width: 40px;
-            height: 40px;
+            width: 50px; /* Adjust size if needed */
+            height: 50px;
             animation: spin 1s linear infinite;
         }
 
@@ -53,8 +64,8 @@
         }
 
         #spinner-text {
-            margin-left: 10px;
-            font-size: 1rem;
+            margin-top: 15px; /* Adds space between spinner and text */
+            font-size: 1.2rem;
             font-weight: bold;
             color: var(--primary-color);
         }
@@ -182,6 +193,8 @@
 <body>
     <div class="container">
         <h1>Upload a BRICK Model File</h1>
+        <p>👷⚠️❗ 🚧 This app is getting radical updates daily. Stay tuned!️</p>
+
 
         <form id="uploadForm" enctype="multipart/form-data">
             <label for="fileInput">Choose a TTL File:</label>
@@ -265,6 +278,8 @@
             })
             .then(response => response.json())
             .then(data => {
+                console.log("Data received from backend:", data);
+
                 // Hide the spinner once data is processed
                 spinnerContainer.style.display = "none";
 
@@ -282,13 +297,26 @@
                 for (const [category, details] of Object.entries(data)) {
                     if (typeof details === "object" && details !== null) {
                         for (const [key, value] of Object.entries(details)) {
-                            const row = document.createElement("tr");
-                            row.innerHTML = `
-                                <td>${category}</td>
-                                <td>${key}</td>
-                                <td>${value}</td>
-                            `;
-                            resultBody.appendChild(row);
+                            if (typeof value === "object" && value !== null) {
+                                // Handle nested objects
+                                for (const [nestedKey, nestedValue] of Object.entries(value)) {
+                                    const row = document.createElement("tr");
+                                    row.innerHTML = `
+                                        <td>${category}</td>
+                                        <td>${key}: ${nestedKey}</td>
+                                        <td>${nestedValue}</td>
+                                    `;
+                                    resultBody.appendChild(row);
+                                }
+                            } else {
+                                const row = document.createElement("tr");
+                                row.innerHTML = `
+                                    <td>${category}</td>
+                                    <td>${key}</td>
+                                    <td>${value}</td>
+                                `;
+                                resultBody.appendChild(row);
+                            }
                         }
                     } else {
                         const row = document.createElement("tr");
@@ -310,6 +338,7 @@
                     info: false
                 });
             })
+
             .catch(error => {
                 // Hide the spinner in case of an error
                 spinnerContainer.style.display = "none";
