@@ -105,69 +105,37 @@ with open(output_file, 'w') as file:
 
 ### Example Output
 
-```json
-{
-  "ahu_information": {
-    "total_ahus": 16,
-    "constant_volume_ahus": 11,
-    "variable_air_volume_ahus": 0,
-    "ahus_with_cooling_coil": 10,
-    "ahus_with_heating_coil": 7,
-    "ahus_with_dx_staged_cooling": 0,
-    "ahus_with_return_fans": 0,
-    "ahus_with_supply_fans": 0,
-    "ahus_with_return_air_temp_sensors": 4,
-    "ahus_with_mixing_air_temp_sensors": 1,
-    "ahus_with_leaving_air_temp_sensors": 18,
-    "ahus_with_leaving_air_temp_setpoint": 9,
-    "ahus_with_duct_pressure_setpoint": 0,
-    "ahus_with_duct_pressure": 0
-  },
-  "zone_information": {
-    "zone_air_temperature_setpoints_found": true,
-    "total_vav_boxes": 132,
-    "number_of_vav_boxes_per_ahu": {
-      "ah1s": 4,
-      "ah2n": 3,
-      "ah2s": 3,
-      "ah3s": 1,
-      "ahbs": 2,
-      "ahu01n": 24,
-      "ahu01s": 22,
-      "ahu02n": 10,
-      "ahu02s": 30,
-      "ahu03n": 14,
-      "ahu03s": 30
-    },
-    "vav_boxes_with_reheat_valve_command": 0,
-    "vav_boxes_with_air_flow_sensors": 0,
-    "vav_boxes_with_supply_air_temp_sensors": 0,
-    "vav_boxes_with_air_flow_setpoints": 0,
-    "cooling_only_vav_boxes": 132
-  },
-  "building_information": {
-    "building_area": "130149 sq ft",
-    "number_of_floors": 4
-  },
-  "meter_information": {
-    "btu_meter_present": false,
-    "electrical_meter_present": false,
-    "water_meter_present": false,
-    "gas_meter_present": false,
-    "pv_meter_present": false
-  },
-  "central_plant_information": {
-    "total_chillers": 1,
-    "total_boilers": 0,
-    "total_cooling_towers": 0,
-    "chillers_with_water_flow": 0,
-    "boilers_with_water_flow": 0,
-    "cooling_towers_with_fan": 0,
-    "cooling_towers_with_temp_sensors": 0
-  }
-}
+```python
+=== AHU DEBUG Summary ===
+Processed AHU's: 0
+
+ahu_data
+ {'total_ahus': 0, 'constant_volume_ahus': 0, 'variable_air_volume_ahus': 0, 'ahus_with_cooling_coil': 0, 'ahus_with_heating_coil': 0, 'ahus_with_return_fans': 0, 'ahus_with_supply_fans': 0, 'ahus_with_return_air_temp_sensors': 0, 'ahus_with_mixing_air_temp_sensors': 0, 'ahus_with_supply_air_temp_sensors': 0, 'ahus_with_supply_air_temp_setpoints': 0, 'ahus_with_static_pressure_sensors': 0, 'ahus_with_static_pressure_setpoints': 0, 'ahus_with_air_flow_sensors': 0, 'ahus_with_air_flow_setpoints': 0, 'ahus_with_active_chilled_beams': 0, 'ahus_with_chilled_beams': 0, 'ahus_with_passive_chilled_beams': 0, 'ahus_with_heat_wheels': 0, 'ahus_with_heat_wheel_vfds': 0}
+zone_info 
+ {'zone_air_temperature_setpoints_found': False, 'total_variable_air_volume_boxes': 59, 'total_variable_air_volume_boxes_with_reheat': 0, 'number_of_vav_boxes_per_ahu': {}, 'vav_boxes_with_reheat_valve_command': 0, 'vav_boxes_with_air_flow_sensors': 0, 'vav_boxes_with_supply_air_temp_sensors': 0, 'vav_boxes_with_air_flow_setpoints': 0, 'co2_sensor_count': 0, 'co2_setpoint_count': 0, 'zone_air_conditioning_mode_status_count': 0, 'cooling_temp_setpoint_count': 0, 'dewpoint_sensor_count': 0, 'heating_temp_setpoint_count': 0, 'humidity_sensor_count': 0, 'humidity_setpoint_count': 0, 'temperature_sensor_count': 0, 'temperature_setpoint_count': 0, 'zone_count': 0, 'reheat_command_count': 0, 'reheat_hot_water_system_count': 0, 'reheat_valve_count': 0}
+
+Class Similarities:
+class_tag_sum
+ {'class_mismatches': [], 'tag_mismatches': []}
+building_data 
+ {'building_area': 'not_available', 'number_of_floors': 'not_available', 'hvac_equipment_count': 9, 'hvac_zone_count': 0}
+meter_data 
+ {'chilled_water_meter_present': False, 'hot_water_meter_present': False, 'building_electrical_meter_present': False, 'building_gas_meter_present': False, 'building_water_meter_present': False, 'electric_energy_sensor_count': 0, 'electric_power_sensor_count': 0, 'active_power_sensor_count': 0, 'ev_charging_hub_count': 0, 'ev_charging_port_count': 0, 'ev_charging_station_count': 0, 'electrical_energy_usage_sensor_count': 0, 'pv_generation_system_count': 0, 'pv_panel_count': 0, 'photovoltaic_array_count': 0, 'photovoltaic_current_output_sensor_count': 0, 'photovoltaic_inverter_count': 0, 'peak_demand_sensor_count': 0, 'people_count_sensor_count': 0}
+central_plant_data 
+ {'chiller_count': 0, 'water_cooled_chiller_count': 0, 'air_cooled_chiller_count': 0, 'centrifugal_chiller_count': 0, 'absorption_chiller_count': 0, 'boiler_count': 0, 'natural_gas_boiler_count': 0, 'noncondensing_natural_gas_boiler_count': 0, 'condensing_natural_gas_boiler_count': 0, 'electric_boiler_count': 0, 'cooling_tower_count': 0, 'cooling_tower_fan_count': 0, 'heat_exchanger_count': 0, 'heat_exchanger_discharge_temp_sensor_count': 0, 'heat_exchanger_leaving_temp_sensor_count': 0, 'heat_exchanger_supply_temp_sensor_count': 0, 'heat_exchanger_system_enable_status_count': 0, 'heat_pump_air_source_condensing_unit_count': 0, 'heat_pump_condensing_unit_count': 0, 'heat_pump_ground_source_condensing_unit_count': 0, 'heat_pump_water_source_condensing_unit_count': 0, 'heat_recovery_air_source_condensing_unit_count': 0, 'heat_recovery_condensing_unit_count': 0, 'heat_recovery_hot_water_system_count': 0, 'heat_recovery_water_source_condensing_unit_count': 0, 'hot_water_system_count': 0, 'water_pump_count': 0, 'chilled_water_system_count': 0, 'condenser_water_loop_count': 0, 'condenser_water_pump_count': 0, 'condenser_water_system_count': 0, 'domestic_hot_water_system_count': 0, 'preheat_hot_water_system_count': 0, 'radiation_hot_water_system_count': 0, 'reheat_hot_water_system_count': 0, 'water_system_count': 0, 'water_system': 1, 'water_pump': 4, 'hot_water_system': 1, 'chiller_water_flow_count': 0, 'boiler_water_flow_count': 0, 'cooling_tower_temp_count': 0}
+vav_boxes_per_ahu 
+ {}
 ```
 
+One note on the output of the  `Class Similarities` is it finds mismatched BRICK classes and tags by comparing them to the most current standard. If a mismatch is found, it returns a dictionary like:  
+
+```python
+{
+    'class_mismatches': [('Air_Handler_Unit', 'Air_Handling_Unit', 0.85)],
+    'tag_mismatches': [('custom_tag', 'standard_tag', 0.90)]
+}
+```
+Here, **0.85 and 0.90** are similarity scores from `SequenceMatcher`, which measure how close the custom class or tag is to the standard one. These values provide a **statistical similarity percentage** from the Python `difflib` package, helping you assess how much a custom class deviates from the standard. 
 ---
 
 

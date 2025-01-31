@@ -1,14 +1,15 @@
 import os
-from brick_model_summarizer.utils import load_graph
-from brick_model_summarizer.ahu_info import identify_ahu_equipment, collect_ahu_data
-from brick_model_summarizer.zone_info import identify_zone_equipment, collect_zone_data
-from brick_model_summarizer.meters_info import query_meters, collect_meter_data
-from brick_model_summarizer.central_plant_info import (
-    identify_hvac_system_equipment,
-    collect_central_plant_data,
+from brick_model_summarizer import (
+    load_graph_once,
+    get_class_tag_summary,
+    get_ahu_information,
+    get_zone_information,
+    get_building_information,
+    get_meter_information,
+    get_central_plant_information,
+    get_vav_boxes_per_ahu,
 )
-from brick_model_summarizer.building_info import collect_building_data
-from brick_model_summarizer.class_tag_checker import analyze_classes_and_tags
+
 
 # pytest -s tests/test_bldg6_ttl.py::test_hvac_system_counts
 # pytest -s
@@ -35,18 +36,29 @@ def test_hvac_system_counts():
     brick_model_file = get_brick_model_file()
 
     # Load the RDF graph once
-    graph = load_graph(brick_model_file)
+    graph = load_graph_once(brick_model_file)
 
     # Get the individual data components
-    ahu_data = collect_ahu_data(identify_ahu_equipment(graph))
-    zone_info = identify_zone_equipment(graph)
-    zone_data = collect_zone_data(zone_info)
-    building_data = collect_building_data(graph)
-    meter_data = collect_meter_data(query_meters(graph))
-    central_plant_data = collect_central_plant_data(
-        identify_hvac_system_equipment(graph)
-    )
-    vav_boxes_per_ahu = zone_info.get("vav_per_ahu", {})
+    ahu_data = get_ahu_information(graph)
+    print("ahu_data \n", ahu_data)
+
+    zone_info = get_zone_information(graph)
+    print("zone_info \n", zone_info)
+
+    class_tag_sum = get_class_tag_summary(graph)
+    print("class_tag_sum \n", class_tag_sum)
+
+    building_data = get_building_information(graph)
+    print("building_data \n", building_data)
+
+    meter_data = get_meter_information(graph)
+    print("meter_data \n", meter_data)
+
+    central_plant_data = get_central_plant_information(graph)
+    print("central_plant_data \n", central_plant_data)
+
+    vav_boxes_per_ahu = get_vav_boxes_per_ahu(graph)
+    print("vav_boxes_per_ahu \n", vav_boxes_per_ahu)
 
     expected_hvac_system_counts = {
         "total_variable_air_volume_boxes": 59,
@@ -57,7 +69,7 @@ def test_hvac_system_counts():
 
     # Extract relevant data from individual function outputs
     actual_hvac_system_counts = {
-        "total_variable_air_volume_boxes": zone_data.get(
+        "total_variable_air_volume_boxes": zone_info.get(
             "total_variable_air_volume_boxes", 0
         ),
         "water_pump": central_plant_data.get("water_pump", 0),
@@ -67,6 +79,8 @@ def test_hvac_system_counts():
 
     print(f"Expected: {expected_hvac_system_counts}")
     print(f"Actual: {actual_hvac_system_counts}")
+
+    print("=======================================")
 
     assert (
         actual_hvac_system_counts == expected_hvac_system_counts

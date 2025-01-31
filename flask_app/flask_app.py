@@ -16,7 +16,7 @@ import uuid
 app = Flask(__name__)
 app.secret_key = "super_secret_key"  # Used for Flask session security
 
-app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16 MB
+app.config["MAX_CONTENT_LENGTH"] = 16 * 1024 * 1024  # 16 MB
 
 # Store user-specific graphs in memory (not global)
 user_graphs = {}
@@ -31,29 +31,31 @@ AVAILABLE_COMPONENTS = {
     "number_of_vav_boxes_per_ahu": get_vav_boxes_per_ahu,
 }
 
-@app.route('/')
+
+@app.route("/")
 def upload_page():
     """Serve the HTML upload page."""
     # Assign a unique session ID if one doesn't exist
     if "user_id" not in session:
         session["user_id"] = str(uuid.uuid4())  # Generate a unique ID for the user
-    return render_template('upload.html')
+    return render_template("upload.html")
 
-@app.route('/api/upload-ttl', methods=['POST'])
+
+@app.route("/api/upload-ttl", methods=["POST"])
 def upload_ttl_file():
     """Upload and process the TTL file, storing it per user."""
     user_id = session.get("user_id")
     if not user_id:
         return jsonify({"error": "Session error. Please refresh the page."}), 400
 
-    if 'file' not in request.files:
+    if "file" not in request.files:
         return jsonify({"error": "No file part in the request"}), 400
 
-    file = request.files['file']
-    if file.filename == '':
+    file = request.files["file"]
+    if file.filename == "":
         return jsonify({"error": "No file selected"}), 400
 
-    if not file.filename.lower().endswith('.ttl'):
+    if not file.filename.lower().endswith(".ttl"):
         return jsonify({"error": "Only .ttl files are allowed"}), 400
 
     try:
@@ -70,19 +72,33 @@ def upload_ttl_file():
     except Exception as e:
         return jsonify({"error": f"Failed to process file: {str(e)}"}), 500
 
-@app.route('/api/get-component', methods=['GET'])
+
+@app.route("/api/get-component", methods=["GET"])
 def get_component():
     """Retrieve a specific component from the user's cached graph."""
     user_id = session.get("user_id")
 
     if not user_id or user_id not in user_graphs:
-        return jsonify({"error": "No TTL file uploaded. Please upload a file first."}), 400
+        return (
+            jsonify({"error": "No TTL file uploaded. Please upload a file first."}),
+            400,
+        )
 
-    requested_component = request.args.get('component')
+    requested_component = request.args.get("component")
 
     if requested_component in AVAILABLE_COMPONENTS:
-        return jsonify({requested_component: AVAILABLE_COMPONENTS[requested_component](user_graphs[user_id])}), 200
+        return (
+            jsonify(
+                {
+                    requested_component: AVAILABLE_COMPONENTS[requested_component](
+                        user_graphs[user_id]
+                    )
+                }
+            ),
+            200,
+        )
     return jsonify({"error": "Invalid component requested"}), 400
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     app.run()
