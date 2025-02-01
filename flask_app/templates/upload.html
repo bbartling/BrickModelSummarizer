@@ -229,7 +229,7 @@
 
         <form id="uploadForm" enctype="multipart/form-data">
             <label for="fileInput">Choose a TTL File:</label>
-            <input type="file" id="fileInput" name="file" accept=".ttl" required>
+            <input type="file" id="fileInput" name="file" accept=".ttl" required onchange="uploadFile()">
 
             <h2>Select Data to Process</h2>
             <div class="button-container">
@@ -326,6 +326,9 @@
             const formData = new FormData();
             formData.append("file", file);
 
+            // Disable component buttons during upload
+            disableComponentButtons(true);
+
             fetch("/api/upload-ttl", {
                 method: "POST",
                 body: formData
@@ -340,8 +343,10 @@
                     return;
                 }
 
-                alert(data.message || "File uploaded successfully.");
                 console.log("Upload successful.");
+
+                // Enable component buttons after upload
+                disableComponentButtons(false);
             })
             .catch(error => {
                 spinnerContainer.style.display = "none";
@@ -349,6 +354,17 @@
                 console.error("Upload error:", error);
             });
         }
+
+        // Helper function to disable or enable component buttons
+        function disableComponentButtons(disable) {
+            const buttons = document.querySelectorAll(".button-container button");
+            buttons.forEach(button => {
+                button.disabled = disable;
+                button.style.opacity = disable ? "0.5" : "1";
+                button.style.cursor = disable ? "not-allowed" : "pointer";
+            });
+        }
+
 
         function fetchComponent(component) {
             console.log(`Fetching component: ${component}`);
