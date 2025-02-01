@@ -1,10 +1,12 @@
 from setuptools import setup, find_packages
 
-
 def read_long_description(file_path):
     with open(file_path, encoding="utf-8") as f:
         return f.read()
 
+def read_requirements(file_path):
+    with open(file_path, encoding="utf-8") as f:
+        return [line.strip() for line in f if line.strip() and not line.startswith("#")]
 
 setup(
     name="brick_model_summarizer",
@@ -18,11 +20,7 @@ setup(
     packages=find_packages(
         include=["brick_model_summarizer", "brick_model_summarizer.*"]
     ),
-    install_requires=[
-        "black",
-        "rdflib",
-        "pytest",
-    ],
+    install_requires=read_requirements("requirements.txt"),
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",

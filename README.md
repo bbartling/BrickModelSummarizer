@@ -156,6 +156,7 @@ View a web app interface on Bens Pythonanywhere account for free!
 * Upload and process `.ttl` files to generate detailed BRICK model summaries.
 * Compare your AI-generated models with [official BRICK Reference Models](https://brickschema.org/resources/#reference-brick-models).
 * Easy-to-use web interface with support for `.ttl` file validation.
+> * Also, see an example of a [client web request POST script](https://github.com/bbartling/BrickModelSummarizer/blob/develop/flask_app/client_post.py) for the PythonAnywhere web app API. A **FUTURE TODO** is to experiment with LLMs using an API like this to verify that AI-generated data models are created properly. If errors are detected, the AI should initiate a fine-tuning process for the data, especially if using an autonomous agent framework. 🚀
 
 ![BRICK Model Summarizer Interface](https://github.com/bbartling/BrickModelSummarizer/blob/develop/flask_app/app_interface.png?raw=true)
 
