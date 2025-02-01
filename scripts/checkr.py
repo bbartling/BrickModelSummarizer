@@ -10,7 +10,6 @@ from brick_model_summarizer import (
     get_vav_boxes_per_ahu,
 )
 
-
 # Get the absolute path of the project root
 script_dir = os.path.dirname(os.path.abspath(__file__))
 project_root = os.path.dirname(script_dir)

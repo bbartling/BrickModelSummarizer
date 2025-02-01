@@ -21,6 +21,7 @@ The primary purpose of this repository is to provide a framework for summarizing
 
 
 ## Installation
+Tested in Linux and Windows Subsystem for Linux
 ```bash
 pip install brick-model-summarizer
 ```
@@ -36,7 +37,7 @@ pip install brick-model-summarizer
 2. **Set up a virtual environment** (optional but recommended):
    ```bash
    python -m venv env
-   source env/bin/activate  # On Windows: .\env\Scripts\activate
+   source env/bin/activate
    ```
 
 3. **Install the package locally**:
@@ -54,52 +55,51 @@ The package includes functions for summarizing BRICK models and generating detai
 ### Example: Processing a BRICK Model
 
 ```python
-from brick_model_summarizer.utils import load_graph
-from brick_model_summarizer.ahu_info import identify_ahu_equipment, collect_ahu_data
-from brick_model_summarizer.zone_info import identify_zone_equipment, collect_zone_data
-from brick_model_summarizer.meters_info import query_meters, collect_meter_data
-from brick_model_summarizer.central_plant_info import (
-    identify_hvac_system_equipment,
-    collect_central_plant_data,
+import os
+from brick_model_summarizer import (
+    load_graph_once,
+    get_class_tag_summary,
+    get_ahu_information,
+    get_zone_information,
+    get_building_information,
+    get_meter_information,
+    get_central_plant_information,
+    get_vav_boxes_per_ahu,
 )
-from brick_model_summarizer.building_info import collect_building_data
-from brick_model_summarizer.class_tag_checker import analyze_classes_and_tags
-import json
 
-# Path to the BRICK schema TTL file
-brick_model_file = "sample_brick_models/bldg6.ttl"
+# Get the absolute path of the project root
+script_dir = os.path.dirname(os.path.abspath(__file__))
+project_root = os.path.dirname(script_dir)
+
+# Construct the relative path to the BRICK model
+brick_model_path = os.path.join(project_root, "sample_brick_models", "diggs.ttl")
+
+print("Resolved Brick Model Path:", brick_model_path)
 
 # Load the RDF graph once
-graph = load_graph(brick_model_file)
+graph = load_graph_once(brick_model_path)
 
-# Extract structured data using modular functions
-ahu_data = collect_ahu_data(identify_ahu_equipment(graph))
-zone_info = identify_zone_equipment(graph)
-zone_data = collect_zone_data(zone_info)
-building_data = collect_building_data(graph)
-meter_data = collect_meter_data(query_meters(graph))
-central_plant_data = collect_central_plant_data(identify_hvac_system_equipment(graph))
-class_tag_summary = analyze_classes_and_tags(graph)
-vav_boxes_per_ahu = zone_info.get("vav_per_ahu", {})
+# Get the individual data components
+ahu_data = get_ahu_information(graph)
+print("ahu_data \n", ahu_data)
 
-# Construct the final structured output
-building_data_summary = {
-    "ahu_information": ahu_data,
-    "zone_information": zone_data,
-    "building_information": building_data,
-    "meter_information": meter_data,
-    "central_plant_information": central_plant_data,
-    "number_of_vav_boxes_per_ahu": vav_boxes_per_ahu,
-    "class_tag_summary": class_tag_summary,
-}
+zone_info = get_zone_information(graph)
+print("zone_info \n", zone_info)
 
-# Print the output in JSON format
-print(json.dumps(building_data_summary, indent=2))
+class_tag_sum = get_class_tag_summary(graph)
+print("class_tag_sum \n", class_tag_sum)
 
-# Optionally, save the output as a JSON file
-output_file = "bldg6_summary.json"
-with open(output_file, 'w') as file:
-    json.dump(building_data_summary, file, indent=2)
+building_data = get_building_information(graph)
+print("building_data \n", building_data)
+
+meter_data = get_meter_information(graph)
+print("meter_data \n", meter_data)
+
+central_plant_data = get_central_plant_information(graph)
+print("central_plant_data \n", central_plant_data)
+
+vav_boxes_per_ahu = get_vav_boxes_per_ahu(graph)
+print("vav_boxes_per_ahu \n", vav_boxes_per_ahu)
 
 ```
 
@@ -127,7 +127,7 @@ vav_boxes_per_ahu
  {}
 ```
 
-One note on the output of the  `Class Similarities` is it finds mismatched BRICK classes and tags by comparing them to the most current standard. If a mismatch is found, it returns a dictionary like:  
+One note on the output of the  `Class Similarities` is it finds mismatched BRICK classes and tags by comparing them to the most current standard. If a mismatch is found, it returns a dictionary like data in the format of `('custom_tag', 'standard_tag', 0.90)`:  
 
 ```python
 {
